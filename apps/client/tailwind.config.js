@@ -27,6 +27,9 @@ module.exports = {
       screens: {
         lg: '1024px',
         xl: '1280px',
+      },
+      fontFamily: {
+        qatar: ['Qatar2022', 'sans-serif'],
       }
     },
   },

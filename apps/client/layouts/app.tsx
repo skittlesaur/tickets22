@@ -11,7 +11,9 @@ const AppLayout = ({ activePage, children, forceLightText = false }: AppProps) =
   return (
     <div className="min-h-[300vh]">
       <Nav activePage={activePage} forceLightText={forceLightText} />
-      {children}
+      <div className="max-w-screen-xl mx-auto w-full">
+        {children}
+      </div>
     </div>
   )
 }

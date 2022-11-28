@@ -28,7 +28,7 @@ const Nav = ({ activePage, forceLightText = false }: NavProps) => {
   const transition = 'transition-all duration-200 ease-in-out'
 
   return (
-    <header className={`z-50 fixed top-0 w-full backdrop-blur ${forceLightText ? 'bg-gray-900/10 border-gray-400' : 'bg-gray-50/10 border-gray-200'} border-b`}>
+    <header className={`z-50 ${activePage === 'Home' ? 'fixed' : 'sticky mb-14'} top-0 w-full backdrop-blur ${forceLightText ? 'bg-gray-900/10 border-gray-400' : 'bg-gray-50/10 border-gray-200'} border-b`}>
       <div className={`flex items-center justify-between ${maxSize ? 'py-4' : 'py-3'} ${transition} max-w-screen-xl mx-auto`}>
         <div className="flex items-center gap-20">
           <Link
