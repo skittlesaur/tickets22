@@ -34,10 +34,17 @@ yarn start
 The monorepo uses the following ports:
 
 **Frontend**
+
 - Client: 9000
 
 **Backend**
-- Server: 3000
+
+- Shop: 3000
+- Shop Consumer: 3010
+- Reservations: 3020
+- Analytics: 3030
+- Payments: 3040
+- Security: 3050
 
 ## Contributing
 
