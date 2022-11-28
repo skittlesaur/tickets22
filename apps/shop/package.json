@@ -1,9 +1,11 @@
 {
   "name": "tickets22-shop",
   "version": "1.0.0",
+  "main": "src/index.ts",
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "build": "sucrase ./src -d ./dist --transforms typescript,imports"
+    "build": "sucrase ./src -d ./dist --transforms typescript,imports",
+    "start": "node dist/index.js"
   },
   "dependencies": {
     "@types/cookie-parser": "^1.4.3",
