@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+
+    * {
+        @apply focus-visible:outline-none focus-visible:animate-pulse focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:ring-primary focus-visible:rounded;
+    }
+
+    svg {
+        @apply w-full h-full;
+    }
+}
