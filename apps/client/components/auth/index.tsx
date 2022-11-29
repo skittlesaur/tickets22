@@ -48,7 +48,7 @@ const Auth = () => {
           href="/"
           onMouseEnter={() => setIsLogoHovered(true)}
           onMouseLeave={() => setIsLogoHovered(false)}
-          className="flex items-center justify-center z-[1]"
+          className="flex items-center justify-center z-[1] hover:animate-pulse"
         >
           <Logo className="w-32 aspect-square mb-6" />
           <h1 className="font-bold italic text-6xl text-primary mb-6">
