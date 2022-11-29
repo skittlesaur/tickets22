@@ -52,7 +52,7 @@ const AllMatches = () => {
       <TypeSelector matchType={matchType} setMatchType={setMatchType} />
       <div className="flex flex-col gap-10">
         {sortedArray.map((group) => (
-          <div key={group.date} className="flex flex-col gap-4">
+          <div key={group.date} className="flex flex-col gap-4 overflow-hidden">
             <h2 className="text-primary font-semibold text-xl">
               {group.date}
             </h2>
@@ -63,7 +63,7 @@ const AllMatches = () => {
                   className="grid matches-grid gap-12 items-center border border-secondary bg-white px-4 py-2 rounded-lg"
                 >
                   <div className="flex items-center justify-end gap-6">
-                    <div>
+                    <div className="hidden md:block">
                       {match.HomeTeam}
                     </div>
                     <div className="w-10 aspect-square">
@@ -88,7 +88,7 @@ const AllMatches = () => {
                     <div className="w-10 aspect-square">
                       {getTeamIcon(match.AwayTeam)}
                     </div>
-                    <div>
+                    <div className="hidden md:block">
                       {match.AwayTeam}
                     </div>
                   </div>
@@ -100,7 +100,14 @@ const AllMatches = () => {
       </div>
       <style jsx>{`
         .matches-grid {
-          grid-template-columns: 4fr 1fr 4fr;
+          gap: 2rem !important;
+          grid-template-columns: 1fr 2fr 1fr;
+        }
+
+        @media screen and (min-width: 768px) {
+          .matches-grid {
+            grid-template-columns: 4fr 1fr 4fr;
+          }
         }
       `}</style>
     </div>

@@ -7,7 +7,7 @@ interface TypeSelectorProps {
 
 const TypeSelector = ({ matchType, setMatchType }: TypeSelectorProps) => {
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-4 flex-wrap">
       {Object.values(MatchType).map((type) => (
         <button
           key={type}
