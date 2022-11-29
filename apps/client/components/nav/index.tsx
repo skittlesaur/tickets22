@@ -1,5 +1,8 @@
 import Link from 'next/link'
 import Logo from '@images/logo.svg'
+import MenuIcon from '@images/menu.svg'
+import { useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 
 const pages = [
   { name: 'Tickets', href: '/tickets' },
@@ -14,10 +17,11 @@ interface NavProps {
 
 const Nav = ({ activePage, forceLightText = false }: NavProps) => {
   const transition = 'transition-all duration-200 ease-in-out'
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
     <header className={`z-50 ${activePage === 'Home' ? 'fixed' : 'sticky'} top-0 w-full backdrop-blur ${forceLightText ? 'bg-gray-900/10 border-gray-400' : 'bg-gray-50/10 border-gray-200'} border-b`}>
-      <div className={`flex items-center justify-between py-4 max-w-screen-xl mx-auto`}>
+      <div className={`flex items-center justify-between px-4 md:px-0 py-4 max-w-screen-xl mx-auto`}>
         <div className="flex items-center gap-20">
           <Link
             href="/"
@@ -30,7 +34,7 @@ const Nav = ({ activePage, forceLightText = false }: NavProps) => {
               Tickets22
             </h1>
           </Link>
-          <nav>
+          <nav className="md:block hidden">
             <ul className="flex items-center gap-4">
               {pages.map((page) => (
                 <li
@@ -45,7 +49,7 @@ const Nav = ({ activePage, forceLightText = false }: NavProps) => {
             </ul>
           </nav>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 md:block hidden">
           <Link
             href="/login"
             className={`text-sm font-medium ${forceLightText ? 'text-secondary' : 'text-primary'} ${transition} hover:text-primary/70`}
@@ -59,6 +63,44 @@ const Nav = ({ activePage, forceLightText = false }: NavProps) => {
             Sign Up
           </Link>
         </div>
+        <div className="block md:hidden">
+          <div
+            onClick={() => setIsOpen(!isOpen)}
+            className="w-6 aspect-square text-primary"
+          >
+            <MenuIcon />
+          </div>
+        </div>
+        <AnimatePresence mode="wait">
+          {isOpen && (
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ type: 'tween', duration: 0.2 }}
+              className="border-l-4 border-primary fixed inset-0 px-4 min-h-screen max-h-screen bg-white flex flex-col items-start justify-center pb-40 font-medium text-2xl gap-2"
+            >
+              <button className="text-base mb-8 inline-block" onClick={() => setIsOpen(false)}>
+                Close
+              </button>
+              {pages.map((page) => (
+                <Link
+                  href={page.href}
+                  key={page.name}
+                  onClick={() => setIsOpen(false)}
+                >
+                  {page.name}
+                </Link>
+              ))}
+              <Link href="/login" onClick={() => setIsOpen(false)}>
+                Login
+              </Link>
+              <Link href="/signup" onClick={() => setIsOpen(false)}>
+                Sign Up
+              </Link>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </header>
   )
