@@ -1,0 +1,24 @@
+import { MatchType } from '@components/tickets/all-matches'
+
+interface TypeSelectorProps {
+  matchType: MatchType
+  setMatchType: (matchType: MatchType) => void
+}
+
+const TypeSelector = ({ matchType, setMatchType }: TypeSelectorProps) => {
+  return (
+    <div className="flex items-center gap-4">
+      {Object.values(MatchType).map((type) => (
+        <button
+          key={type}
+          className={`px-6 py-4 rounded font-semibold text-sm ${matchType === type ? 'bg-primary text-secondary' : 'text-black hover:border-primary hover:text-primary'} border border-transparent transition-all duration-200 ease-in-out`}
+          onClick={() => setMatchType(type)}
+        >
+          {type}
+        </button>
+      ))}
+    </div>
+  )
+}
+
+export default TypeSelector

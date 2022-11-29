@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: "Qatar2022";
+    src: url("../public/fonts/qatar2022.woff2") format("woff2");
+    font-weight: 700;
+}
+
+@layer components {
+    * {
+        @apply focus-visible:outline-none focus-visible:animate-pulse focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:ring-primary focus-visible:rounded;
+    }
+
+    svg {
+        @apply w-full h-full;
+    }
+}
