@@ -49,7 +49,7 @@ const Nav = ({ activePage, forceLightText = false }: NavProps) => {
             </ul>
           </nav>
         </div>
-        <div className="flex items-center gap-4 md:block hidden">
+        <div className="items-center gap-4 md:flex hidden">
           <Link
             href="/login"
             className={`text-sm font-medium ${forceLightText ? 'text-secondary' : 'text-primary'} ${transition} hover:text-primary/70`}
