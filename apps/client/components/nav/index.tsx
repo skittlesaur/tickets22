@@ -3,6 +3,8 @@ import Logo from '@images/logo.svg'
 import MenuIcon from '@images/menu.svg'
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import useUser from '@hooks/use-user'
+import User from '@components/nav/user'
 
 const pages = [
   { name: 'Tickets', href: '/tickets' },
@@ -18,6 +20,8 @@ interface NavProps {
 const Nav = ({ activePage, forceLightText = false }: NavProps) => {
   const transition = 'transition-all duration-200 ease-in-out'
   const [isOpen, setIsOpen] = useState(false)
+
+  const { data: user } = useUser()
 
   return (
     <header className={`z-50 ${activePage === 'Home' ? 'fixed' : 'sticky'} top-0 w-full backdrop-blur ${forceLightText ? 'bg-gray-900/10 border-gray-400' : 'bg-gray-50/10 border-gray-200'} border-b`}>
@@ -49,20 +53,24 @@ const Nav = ({ activePage, forceLightText = false }: NavProps) => {
             </ul>
           </nav>
         </div>
-        <div className="items-center gap-4 md:flex hidden">
-          <Link
-            href="/login"
-            className={`text-sm font-medium ${forceLightText ? 'text-secondary' : 'text-primary'} ${transition} hover:text-primary/70`}
-          >
-            Login
-          </Link>
-          <Link
-            href="/signup"
-            className={`px-4 py-2 rounded-md bg-primary text-secondary text-sm font-medium ${transition} border border-transparent hover:bg-opacity-0 ${forceLightText ? 'hover:text-secondary hover:border-secondary' : 'hover:text-primary hover:border-primary'}`}
-          >
-            Sign Up
-          </Link>
-        </div>
+        {user ? (
+          <User user={user} />
+        ) : (
+          <div className="items-center gap-4 md:flex hidden">
+            <Link
+              href="/login"
+              className={`text-sm font-medium ${forceLightText ? 'text-secondary' : 'text-primary'} ${transition} hover:text-primary/70`}
+            >
+              Login
+            </Link>
+            <Link
+              href="/signup"
+              className={`px-4 py-2 rounded-md bg-primary text-secondary text-sm font-medium ${transition} border border-transparent hover:bg-opacity-0 ${forceLightText ? 'hover:text-secondary hover:border-secondary' : 'hover:text-primary hover:border-primary'}`}
+            >
+              Sign Up
+            </Link>
+          </div>
+        )}
         <div className="block md:hidden">
           <div
             onClick={() => setIsOpen(!isOpen)}

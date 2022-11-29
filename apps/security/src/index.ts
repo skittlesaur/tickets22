@@ -11,7 +11,7 @@ declare global {
     interface Request {
       context: {
         prisma: PrismaClient,
-        user?: User
+        user?: User | any
       }
     }
   }

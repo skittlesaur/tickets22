@@ -9,7 +9,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#83113A',
+        primary: {
+          300: '#d73f73',
+          DEFAULT: '#83113A',
+          800: '#590925',
+        },
         secondary: '#EEEEE4',
         valid: '#00BFA6',
         invalid: '#ce3131',
