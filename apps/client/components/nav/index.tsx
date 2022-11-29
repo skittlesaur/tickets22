@@ -11,7 +11,7 @@ const pages = [
 ]
 
 interface NavProps {
-  activePage: 'Home' | 'Tickets' | 'Teams' | 'Help'
+  activePage?: 'Home' | 'Tickets' | 'Teams' | 'Help'
   forceLightText?: boolean
 }
 

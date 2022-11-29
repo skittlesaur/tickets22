@@ -37,7 +37,10 @@
       ],
       "@images/*": [
         "images/*"
-      ]
+      ],
+      "@services/*": [
+        "services/*"
+      ],
     }
   },
   "include": [

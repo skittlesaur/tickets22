@@ -26,7 +26,7 @@ const UpcomingCard = () => {
           </div>
         </div>
       </div>
-      <div className="z-[0] absolute inset-0 flex items-start justify-between -my-6 mx-10 select-none hidden md:block">
+      <div className="z-[0] absolute inset-0 items-start justify-between -my-6 mx-10 select-none hidden md:flex">
         <div className="bg-gradient-to-t from-white via-transparent to-white/50 z-[1] inset-0 absolute" />
         <img
           src="/players/argentina/10.png"
