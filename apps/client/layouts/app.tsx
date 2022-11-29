@@ -9,9 +9,9 @@ interface AppProps {
 
 const AppLayout = ({ activePage, children, forceLightText = false }: AppProps) => {
   return (
-    <div className="min-h-[300vh]">
+    <div>
       <Nav activePage={activePage} forceLightText={forceLightText} />
-      <div className="max-w-screen-xl mx-auto w-full">
+      <div className="max-w-screen-xl mx-auto w-full py-14">
         {children}
       </div>
     </div>
