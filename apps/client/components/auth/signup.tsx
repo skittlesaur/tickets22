@@ -68,7 +68,7 @@ const Signup = () => {
   }
 
   return (
-    <div className="grid grid-cols-2 h-screen">
+    <div className="grid grid-cols-1 md:grid-cols-2 h-screen overflow-x-hidden">
       <div className="flex flex-col items-start justify-center gap-8 w-80 mx-auto">
         <div className="flex flex-col items-start">
           <h1 className="font-bold text-xl">
@@ -152,7 +152,7 @@ const Signup = () => {
           </Link>
         </p>
       </div>
-      <div className="relative bg-gray-50 flex items-center justify-center">
+      <div className="relative bg-gray-50 flex items-center justify-center overflow-hidden">
         <img
           src="/images/login-bg.jpg"
           alt="Qatar2022 Official Ball"
@@ -164,8 +164,8 @@ const Signup = () => {
           onMouseLeave={() => setIsLogoHovered(false)}
           className="flex items-center justify-center z-[1] hover:animate-pulse"
         >
-          <Logo className="w-32 aspect-square mb-6" />
-          <h1 className="font-bold italic text-6xl text-primary mb-6">
+          <Logo className="w-24 md:w-32 aspect-square mb-6" />
+          <h1 className="font-bold italic text-5xl lg:text-6xl text-primary mb-6">
             Tickets22
           </h1>
         </Link>
