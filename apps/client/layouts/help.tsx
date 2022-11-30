@@ -2,8 +2,8 @@ import { MDXProvider } from '@mdx-js/react'
 import HelpTOC from '@components/help/toc'
 import Logo from '@images/logo.svg'
 import Link from 'next/link'
-import { NextSeo } from 'next-seo'
 import Arrow from '@images/arrow-forward.svg'
+import Seo from '@components/seo'
 
 interface HelpProps {
   children: any
@@ -36,9 +36,7 @@ const components = {
 const HelpLayout = ({ children, title }: HelpProps) => {
   return (
     <div className="relative flex flex-col min-h-screen gap-16 max-w-full overflow-clip bg-gray-100">
-      <NextSeo
-        title={title}
-      />
+      <Seo title={title} />
       <div className="overflow-hidden bg-primary h-[40vh] fixed top-0 left-0 right-0 z-[0]">
         <div className="flex items-center justify-center">
           <Link

@@ -1,8 +1,12 @@
 import Login from '@components/auth/login'
+import Seo from '@components/seo'
 
 const LoginPage = () => {
   return (
-    <Login />
+    <>
+      <Seo title="Login to Tickets22" />
+      <Login />
+    </>
   )
 }
 
