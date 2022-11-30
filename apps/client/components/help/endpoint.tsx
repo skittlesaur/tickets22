@@ -56,7 +56,7 @@ const Endpoint = ({ baseUrl, path, title, method, requiresToken = false, respons
         Endpoint
       </p>
       <div className="flex items-center w-full justify-between relative bg-[#111827] text-[#e5e7eb] rounded-lg p-4 max-w-full">
-        <pre>
+        <pre className="overflow-x-auto">
           <code>
             <span className="mr-5">{method}</span>
             <span className="text-sm text-[#e5e7eb]/60">{baseUrl}</span>
@@ -92,7 +92,7 @@ const Endpoint = ({ baseUrl, path, title, method, requiresToken = false, respons
                 </button>
               </div>
               {activeAuthorization === AuthorizationMethod.COOKIES && (
-                <div className="flex items-center justify-between bg-[#111827] text-[#e5e7eb] rounded-lg p-4 w-full">
+                <div className="relative pl-9 md:pl-0 flex items-center justify-between bg-[#111827] text-[#e5e7eb] rounded-lg p-4 w-full">
                   <SyntaxHighlighter
                     language="JavaScript"
                     showInlineLineNumbers
@@ -112,7 +112,7 @@ const Endpoint = ({ baseUrl, path, title, method, requiresToken = false, respons
                 </div>
               )}
               {activeAuthorization === AuthorizationMethod.BEARER && (
-                <div className="flex items-center justify-between bg-[#111827] text-[#e5e7eb] rounded-lg p-4 w-full">
+                <div className="relative pl-9 md:pl-0 flex items-center justify-between bg-[#111827] text-[#e5e7eb] rounded-lg p-4 w-full">
                   <SyntaxHighlighter
                     language="JavaScript"
                     showInlineLineNumbers
@@ -154,7 +154,7 @@ const Endpoint = ({ baseUrl, path, title, method, requiresToken = false, respons
           {responses[activeResponse]?.map(({ description, res }) => (
             <>
               <p className="text-sm text-gray-600">{description}</p>
-              <div className="flex items-center justify-between bg-[#111827] text-[#e5e7eb] rounded-lg p-4 w-full">
+              <div className="relative pl-9 md:pl-0 flex items-center justify-between bg-[#111827] text-[#e5e7eb] rounded-lg p-4 w-full">
                 <SyntaxHighlighter
                   language="JavaScript"
                   showInlineLineNumbers

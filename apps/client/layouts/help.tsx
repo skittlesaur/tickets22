@@ -54,8 +54,8 @@ const HelpLayout = ({ children, title }: HelpProps) => {
           className="z-[0] select-none pointer-events-none opacity-10 absolute top-0 w-full object-cover"
         />
       </div>
-      <div className="relative z-[1] mt-36 mb-24 bg-white max-w-screen-xl mx-auto w-full grow px-20 py-16 shadow-xl rounded-3xl flex gap-9">
-        <div className="sticky top-0 border-r border-gray-200 min-w-[12em]">
+      <div className="relative z-[1] mt-36 mb-24 bg-white max-w-screen-xl mx-auto w-full grow px-4 md:px-20 py-16 shadow-xl rounded-3xl flex flex-col md:flex-row gap-9">
+        <div className="mx-4 md:mx-0 md:sticky top-0 md:border-r border-gray-200 md:min-w-[12em]">
           <HelpTOC />
         </div>
         <div className="py-8 flex flex-col gap-4">

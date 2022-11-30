@@ -22,6 +22,9 @@
     }
 }
 
+.hljs {
+    overflow-x: auto;
+}
 
 .comment {
     color: rgb(229 231 235 / 0.6);
@@ -33,4 +36,12 @@
 
 .hljs-attr {
     color: rgb(128, 203, 196);
+}
+
+@media screen and (max-width: 768px) {
+    .linenumber {
+        position: absolute;
+        background: #111827;
+        left: 0;
+    }
 }
