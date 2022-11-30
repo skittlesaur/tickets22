@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   important: true,
+  darkMode: 'class',
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
@@ -29,6 +30,7 @@ module.exports = {
           700: '#404040',
           800: '#262626',
           900: '#171717',
+          980: '#111111'
         }
       },
       screens: {
