@@ -15,7 +15,7 @@ const helpPages = [
       },
       {
         title: 'Shop Consumer',
-        page: '/microservices/shop-consumer.mdx',
+        page: '/microservices/shop-consumer',
       },
       {
         title: 'Reservations',
