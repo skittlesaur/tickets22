@@ -20,7 +20,7 @@ const Footer = () => {
           <div className="flex items-center gap-1 justify-end">
             <button
               onClick={() => setTheme(prev => prev === 'light' ? 'dark' : 'light')}
-              className="w-9 aspect-square overflow-hidden text-gray-600 rounded-md p-1.5 border border-gray-200 hover:border-gray-400 transition-all duration-200 ease-in-out dark:text-gray-200 dark:border-gray-800 dark:hover:border-gray-600"
+              className="w-9 aspect-square overflow-hidden text-gray-600 rounded-md p-1.5 border border-gray-200 hover:border-gray-400 hover:bg-white transition-all duration-200 ease-in-out dark:text-gray-200 dark:border-gray-800 dark:hover:border-gray-600 dark:hover:bg-gray-900"
             >
               <AnimatePresence mode="wait" initial={false}>
                 {theme === 'dark' ? (
