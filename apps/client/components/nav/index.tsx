@@ -58,27 +58,23 @@ const Nav = ({ activePage, forceLightText = false }: NavProps) => {
             </ul>
           </nav>
         </div>
-        {!userLoading && (
-          <>
-            {user ? (
-              <User user={user} />
-            ) : (
-              <div className="items-center gap-4 md:flex hidden">
-                <Link
-                  href="/login"
-                  className={`text-sm font-medium ${forceLightText ? 'text-secondary' : 'text-primary'} ${transition} hover:text-primary/70`}
-                >
-                  Login
-                </Link>
-                <Link
-                  href="/signup"
-                  className={`px-4 py-2 rounded-md bg-primary text-secondary text-sm font-medium ${transition} border border-transparent hover:bg-opacity-0 ${forceLightText ? 'hover:text-secondary hover:border-secondary' : 'hover:text-primary hover:border-primary'}`}
-                >
-                  Sign Up
-                </Link>
-              </div>
-            )}
-          </>
+        {user ? (
+          <User user={user} />
+        ) : (
+          <div className="items-center gap-4 md:flex hidden">
+            <Link
+              href="/login"
+              className={`text-sm font-medium ${forceLightText ? 'text-secondary' : 'text-primary'} ${transition} hover:text-primary/70`}
+            >
+              Login
+            </Link>
+            <Link
+              href="/signup"
+              className={`px-4 py-2 rounded-md bg-primary text-secondary text-sm font-medium ${transition} border border-transparent hover:bg-opacity-0 ${forceLightText ? 'hover:text-secondary hover:border-secondary' : 'hover:text-primary hover:border-primary'}`}
+            >
+              Sign Up
+            </Link>
+          </div>
         )}
         <div className="block md:hidden">
           <div

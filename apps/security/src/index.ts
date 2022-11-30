@@ -5,6 +5,7 @@ import * as bodyParser from 'body-parser'
 import { CLIENT_URL, PORT } from './constants'
 import { PrismaClient, User } from '@prisma/client'
 import auth from './routes/auth'
+import me from './routes/me'
 
 declare global {
   namespace Express {
@@ -41,6 +42,7 @@ server.use((req, res, next) => {
 })
 
 server.use('/auth', auth)
+server.use('/me', me)
 
 server.get('/', (req, res) => {
   res.redirect(`${CLIENT_URL}/help/microservices/security`)

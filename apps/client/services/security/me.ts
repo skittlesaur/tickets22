@@ -4,7 +4,7 @@ import SECURITY_SERVICE from '@services/security/index'
 const Me = () => {
   const query = useQuery({
     queryKey: 'me',
-    queryFn: () => SECURITY_SERVICE.get('/auth/me'),
+    queryFn: () => SECURITY_SERVICE.get('/me'),
   })
 
   return query
