@@ -1,8 +1,14 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const withMDX = require('@next/mdx')({
+  extension: /\.(md|mdx)$/,
+  options: {
+    providerImportSource: '@mdx-js/react'
+  }
+})
+
+module.exports = withMDX({
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   reactStrictMode: true,
   swcMinify: true,
-
   webpack: (config) => {
     config.module.rules.push({
       test: /\.svg$/,
@@ -11,6 +17,4 @@ const nextConfig = {
 
     return config
   }
-}
-
-module.exports = nextConfig
+})

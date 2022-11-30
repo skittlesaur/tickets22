@@ -9,6 +9,10 @@
 }
 
 @layer components {
+    html {
+        @apply scroll-smooth;
+    }
+
     * {
         @apply focus-visible:outline-none focus-visible:animate-pulse focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:ring-primary focus-visible:rounded;
     }
@@ -16,4 +20,17 @@
     svg {
         @apply w-full h-full;
     }
+}
+
+
+.comment {
+    color: rgb(229 231 235 / 0.6);
+}
+
+.hljs-string {
+    color: rgb(173, 219, 103);
+}
+
+.hljs-attr {
+    color: rgb(128, 203, 196);
 }

@@ -14,7 +14,7 @@ const User = ({ user }: any) => {
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
       onClick={() => setIsOpen(!isOpen)}
-      className="relative w-10 aspect-square rounded-full bg-gradient-to-tl from-primary-800 via-primary to-primary-300 flex items-center justify-center"
+      className="relative w-8 aspect-square rounded-full bg-gradient-to-tl from-primary-800 via-primary to-primary-300 flex items-center justify-center"
     >
       <span className="text-white font-medium select-none">
         {(user.name ?? user.email).charAt(0).toUpperCase()}

@@ -37,6 +37,11 @@ const Nav = ({ activePage, forceLightText = false }: NavProps) => {
             <h1 className="italic text-lg font-bold">
               Tickets22
             </h1>
+            {activePage === 'Help' && (
+              <p className="font-mono italic font-medium text-gray-500">
+                /help
+              </p>
+            )}
           </Link>
           <nav className="md:block hidden">
             <ul className="flex items-center gap-4">

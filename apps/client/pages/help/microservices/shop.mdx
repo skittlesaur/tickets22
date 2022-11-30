@@ -1,0 +1,15 @@
+import HelpLayout from '@layouts/help'
+
+# Shop Microservice
+
+The shop microservice is the core microservice of the application which is responsible for providing match information,
+tickets availability for each game (with the help of [reservations microservice](/help/microservices/reservations)),
+recommendations (with the help of [analytics microservice](/help/microservices/analytics), and prices.
+
+export default ({ children }) => (
+  <HelpLayout
+    title="Shop Microservice"
+  >
+    {children}
+  </HelpLayout>
+)

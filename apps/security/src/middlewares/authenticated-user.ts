@@ -7,10 +7,10 @@ const authenticatedUser = async (req: Request, res: Response, next: NextFunction
   try {
     const token = req.headers.authorization?.split(' ')?.[1] ?? req.cookies?.['access']
     if (!token)
-      return res.status(401).send({
-        status: 401,
-        code: StatusCode[401],
-        message: 'Unauthorized',
+      return res.status(400).send({
+        status: 400,
+        code: StatusCode[400],
+        message: 'Token was not supplied',
       })
 
     const decoded: any = jwt.verify(token, JWT_SECRET)
@@ -19,7 +19,7 @@ const authenticatedUser = async (req: Request, res: Response, next: NextFunction
       return res.status(401).send({
         status: 401,
         code: StatusCode[401],
-        message: 'Unauthorized',
+        message: 'Token verification failure, the token may have expired',
       })
 
     const user = await req.context.prisma.user.findFirst({
@@ -37,7 +37,7 @@ const authenticatedUser = async (req: Request, res: Response, next: NextFunction
       return res.status(401).send({
         status: 401,
         code: StatusCode[401],
-        message: 'Unauthorized',
+        message: 'Invalid user id in the token',
       })
 
     req.context.user = user

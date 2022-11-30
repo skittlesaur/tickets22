@@ -1,0 +1,40 @@
+import HelpLayout from '@layouts/help'
+
+# About Tickets22
+
+Tickets22 is a place for users to purchase tickets and track games for the FIFA World Cup Qatar 2022.
+
+## Architecture
+
+Tickets22 uses microservices architecture to run this app. Microservices include [Shop](/help/microservices/shop),
+[Shop Consumer](/help/microservices/shop-consumer), [Reservations](/help/microservices/reservations), [Analytics](/help/microservices/analytics),
+[Payments](/help/microservices/payments), and [Security](/help/microservices/security). Each microservice's help page contains additional
+information.
+
+## Technology Stack
+
+Frontend:
+
+- React
+- Next
+- TailwindCSS
+- mdxjs
+
+Backend:
+
+- Express
+- Prisma
+- Stripe
+- Mailgun
+- Apache Kafka Broker
+
+## Team
+This project was built by [Baraa](https://baraa.app) and [Youssef Saad](https://github.com/YoussefSaadGIU).
+
+export default ({ children }) => (
+  <HelpLayout
+    title="About Tickets22"
+  >
+    {children}
+  </HelpLayout>
+)
