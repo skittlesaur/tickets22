@@ -51,10 +51,10 @@ const Endpoint = ({ baseUrl, path, title, method, requiresToken = false, respons
 
   return (
     <>
-      <h3 id={path} className="font-semibold text-xl mt-6">{title}</h3>
-      <li className="before:content-[''] before:w-5 before:h-[0.1em] before:bg-gray-300 before:inline-block before:rounded before:mr-4 flex items-center ">
+      <h3 id={path} className="font-semibold text-xl pt-6">{title}</h3>
+      <p>
         Endpoint
-      </li>
+      </p>
       <div className="flex items-center w-full justify-between relative bg-[#111827] text-[#e5e7eb] rounded-lg p-4 max-w-full">
         <pre>
           <code>
@@ -72,9 +72,9 @@ const Endpoint = ({ baseUrl, path, title, method, requiresToken = false, respons
       </div>
       {requiresToken && (
         <>
-          <li className="before:content-[''] before:w-5 before:h-[0.1em] before:bg-gray-300 before:inline-block before:rounded before:mr-4 flex items-center ">
+          <p>
             Authentication
-          </li>
+          </p>
           <div className="w-full">
             <div className="rounded-lg border border-gray-400 p-4 flex flex-col gap-4">
               <div className="flex items-center gap-4 border-b border-gray-300 pb-2">
@@ -135,13 +135,13 @@ const Endpoint = ({ baseUrl, path, title, method, requiresToken = false, respons
           </div>
         </>
       )}
-      <li className="before:content-[''] before:w-5 before:h-[0.1em] before:bg-gray-300 before:inline-block before:rounded before:mr-4 flex items-center ">
+      <p>
         Example Responses
-      </li>
+      </p>
       <div className="w-full">
         <div className="rounded-lg border border-gray-400 p-4 flex flex-col gap-4">
           <div className="flex items-center gap-4 border-b border-gray-300 pb-2">
-            {Object.keys(responses).sort().map((res: string) => (
+            {Object.keys(responses).sort()?.map((res: string) => (
               <button
                 key={res}
                 onClick={() => setActiveResponse(Number(res))}
@@ -151,7 +151,7 @@ const Endpoint = ({ baseUrl, path, title, method, requiresToken = false, respons
               </button>
             ))}
           </div>
-          {responses[activeResponse].map(({ description, res }) => (
+          {responses[activeResponse]?.map(({ description, res }) => (
             <>
               <p className="text-sm text-gray-600">{description}</p>
               <div className="flex items-center justify-between bg-[#111827] text-[#e5e7eb] rounded-lg p-4 w-full">

@@ -1,5 +1,6 @@
 import HelpLayout from '@layouts/help'
 import Endpoint from '@components/help/endpoint'
+import ApiTOC from '@components/help/api-toc'
 import { SECURITY_SERVICE_URL } from '@services/constants'
 
 # Security Microservice
@@ -9,12 +10,24 @@ authentication and authorization, and user specific endpoints.
 
 ## Public API
 
+<ApiTOC
+  toc={[
+    {
+      title: 'User',
+      endpoints: [
+        { title: 'Get user profile', path: '/me' },
+        { title: 'Get user tickets', path: '/me/tickets' },
+      ]
+    },
+  ]}
+/>
+
 <Endpoint
   baseUrl={SECURITY_SERVICE_URL}
   title="Get your user profile"
   path="/me"
-  method="POST"
-  requiresToken={true}
+  method="GET"
+  requiresToken
   responses={{
   200: [
     {
@@ -66,6 +79,16 @@ authentication and authorization, and user specific endpoints.
       }
     ]
   }}
+/>
+
+<Endpoint
+  baseUrl={SECURITY_SERVICE_URL}
+  title="Get user purchased tickets"
+  path="/me/tickets"
+  method="GET"
+  requiresToken
+  responses={{
+}}
 />
 
 export default ({ children }) => (
