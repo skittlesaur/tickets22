@@ -12,7 +12,7 @@ interface PageProps {
 
 const Page = ({ page, title, children, nestCount = 0 }: PageProps) => {
   const router = useRouter()
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(router.pathname.includes(page))
 
   return (
     <>
@@ -21,10 +21,12 @@ const Page = ({ page, title, children, nestCount = 0 }: PageProps) => {
         className={`relative ${router.pathname === `/help${page}` ? 'text-black' : 'text-gray-600 hover:text-black'}`}
       >
         {children && (
-          <ChevronForward
+          <button
             onClick={() => setIsOpen(!isOpen)}
-            className={`w-4 aspect-square absolute right-full mr-1 fill-current ${isOpen ? 'rotate-90' : 'rotate-0'} transition-all duration-200 ease-in-out cursor-pointer`}
-          />
+            className={`block w-4 top-1/2 -translate-y-1/2 aspect-square absolute right-full mr-1 fill-current ${isOpen ? 'rotate-90' : 'rotate-0'} transition-all duration-200 ease-in-out cursor-pointer`}
+          >
+            <ChevronForward />
+          </button>
         )}
         <Link
           key={page}
