@@ -29,6 +29,7 @@ const Signup = () => {
 
   const signupMutation = signup({
     onSuccess: () => {
+      localStorage.setItem('auth', 'true')
       router.push('/')
     },
     onError: (e) => {
