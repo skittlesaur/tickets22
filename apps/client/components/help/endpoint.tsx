@@ -10,12 +10,14 @@ interface EndpointProps {
   title: string
   method: 'GET' | 'POST'
   requiresToken?: boolean
-  responses: [
-    {
-      status: number
-      res: any
-    }
-  ]
+  responses: {
+    [status: number]: [
+      {
+        description: string,
+        res: string
+      }
+    ]
+  }
 }
 
 enum AuthorizationMethod {
@@ -26,24 +28,24 @@ enum AuthorizationMethod {
 const Endpoint = ({ baseUrl, path, title, method, requiresToken = false, responses }: EndpointProps) => {
 
   const [activeAuthorization, setActiveAuthorization] = useState(AuthorizationMethod.COOKIES)
-  const [activeResponse, setActiveResponse] = useState(0)
+  const [activeResponse, setActiveResponse] = useState<number>(200)
 
   const copyToClipboard = (str: string) => {
     navigator.clipboard.writeText(str)
       .then(() => toast.success('Copied successfully'))
   }
 
-  const cookiesString =
-    `const options = {
+  const cookiesString = `const options = {
   "headers": {
-    "cookie": "access=XXX"
+    "cookie": "access=XXX",
+    "Content-Type": "application/json"
   }
 }`
 
-  const bearerString =
-    `const options = {
+  const bearerString = `const options = {
   "headers": {
-    "Authorization": "Bearer XXX"
+    "Authorization": "Bearer XXX",
+    "Content-Type": "application/json"
   }
 }`
 
@@ -53,7 +55,7 @@ const Endpoint = ({ baseUrl, path, title, method, requiresToken = false, respons
       <li className="before:content-[''] before:w-5 before:h-[0.1em] before:bg-gray-300 before:inline-block before:rounded before:mr-4 flex items-center ">
         Endpoint
       </li>
-      <div className="ml-9 flex items-center w-full justify-between relative bg-[#111827] text-[#e5e7eb] rounded-lg p-4 max-w-full">
+      <div className="flex items-center w-full justify-between relative bg-[#111827] text-[#e5e7eb] rounded-lg p-4 max-w-full">
         <pre>
           <code>
             <span className="mr-5">{method}</span>
@@ -73,7 +75,7 @@ const Endpoint = ({ baseUrl, path, title, method, requiresToken = false, respons
           <li className="before:content-[''] before:w-5 before:h-[0.1em] before:bg-gray-300 before:inline-block before:rounded before:mr-4 flex items-center ">
             Authentication
           </li>
-          <div className="ml-9 w-full">
+          <div className="w-full">
             <div className="rounded-lg border border-gray-400 p-4 flex flex-col gap-4">
               <div className="flex items-center gap-4 border-b border-gray-300 pb-2">
                 <button
@@ -136,37 +138,42 @@ const Endpoint = ({ baseUrl, path, title, method, requiresToken = false, respons
       <li className="before:content-[''] before:w-5 before:h-[0.1em] before:bg-gray-300 before:inline-block before:rounded before:mr-4 flex items-center ">
         Example Responses
       </li>
-      <div className="ml-9 w-full">
+      <div className="w-full">
         <div className="rounded-lg border border-gray-400 p-4 flex flex-col gap-4">
           <div className="flex items-center gap-4 border-b border-gray-300 pb-2">
-            {responses.map((res, index) => (
+            {Object.keys(responses).sort().map((res: string) => (
               <button
-                key={index}
-                onClick={() => setActiveResponse(index)}
-                className={`${index === activeResponse ? 'text-black' : 'text-gray-500'} hover:text-black flex items-center gap-1`}
+                key={res}
+                onClick={() => setActiveResponse(Number(res))}
+                className={`${Number(res) === activeResponse ? 'text-black' : 'text-gray-500'} hover:text-black`}
               >
-                {res.status}
+                {res}
               </button>
             ))}
           </div>
-          <div className="flex items-center justify-between bg-[#111827] text-[#e5e7eb] rounded-lg p-4 w-full">
-            <SyntaxHighlighter
-              language="JavaScript"
-              showInlineLineNumbers
-              useInlineStyles={false}
-              showLineNumbers={true}
-              wrapLines={true}
-              className={'syntax-highlighter'}
-            >
-              {responses[activeResponse].res}
-            </SyntaxHighlighter>
-            <button
-              onClick={() => copyToClipboard(`${bearerString}`)}
-              className="bg-[#111827] px-2 self-start sticky top-0"
-            >
-              <Clipboard className="w-5 aspect-square fill-current text-[#e5e7eb]/60 hover:text-[#e5e7eb] transition-all duration-200 ease-in-out" />
-            </button>
-          </div>
+          {responses[activeResponse].map(({ description, res }) => (
+            <>
+              <p className="text-sm text-gray-600">{description}</p>
+              <div className="flex items-center justify-between bg-[#111827] text-[#e5e7eb] rounded-lg p-4 w-full">
+                <SyntaxHighlighter
+                  language="JavaScript"
+                  showInlineLineNumbers
+                  useInlineStyles={false}
+                  showLineNumbers={true}
+                  wrapLines={true}
+                  className={'syntax-highlighter'}
+                >
+                  {res}
+                </SyntaxHighlighter>
+                <button
+                  onClick={() => copyToClipboard(`${bearerString}`)}
+                  className="bg-[#111827] px-2 self-start sticky top-0"
+                >
+                  <Clipboard className="w-5 aspect-square fill-current text-[#e5e7eb]/60 hover:text-[#e5e7eb] transition-all duration-200 ease-in-out" />
+                </button>
+              </div>
+            </>
+          ))}
         </div>
       </div>
     </>

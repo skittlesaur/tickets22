@@ -43,10 +43,10 @@ const authenticatedUser = async (req: Request, res: Response, next: NextFunction
     req.context.user = user
     next()
   } catch (e) {
-    res.status(401).json({
-      status: 401,
-      code: StatusCode[401],
-      message: 'Unauthorized',
+    res.status(500).json({
+      status: 500,
+      code: StatusCode[500],
+      message: 'Something went wrong',
     })
   }
 }
