@@ -17,5 +17,5 @@ model User {
   verified          Boolean          @default(false)
   verificationToken String
   createdAt         DateTime         @default(now())
-  ReservedTicket    ReservedTicket[]
+  //ReservedTicket    ReservedTicket[]
 }
