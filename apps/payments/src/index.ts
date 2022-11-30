@@ -3,6 +3,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import * as bodyParser from 'body-parser'
 import { PORT } from './constants'
+import { CLIENT_URL } from 'tickets22-shop/src/constants'
 
 const server = express()
 
@@ -12,7 +13,7 @@ server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({ extended: true }))
 
 server.get('/', (req, res) => {
-  res.send('Hello Tickets22!')
+  res.redirect(`${CLIENT_URL}/help/microservices/payments`)
 })
 
 server.listen(PORT, () => {

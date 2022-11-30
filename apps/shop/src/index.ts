@@ -35,7 +35,7 @@ server.use((req, res, next) => {
 server.use('/games', games)
 
 server.get('/', (req, res) => {
-  res.redirect(`${CLIENT_URL}/help/api/shop`)
+  res.redirect(`${CLIENT_URL}/help/microservices/shop`)
 })
 
 server.use(errorHandler)

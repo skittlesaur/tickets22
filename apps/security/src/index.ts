@@ -37,7 +37,7 @@ server.use((req, res, next) => {
 server.use('/auth', auth)
 
 server.get('/', (req, res) => {
-  res.redirect(`${CLIENT_URL}/help/api/security`)
+  res.redirect(`${CLIENT_URL}/help/microservices/security`)
 })
 
 server.listen(PORT, () => {
