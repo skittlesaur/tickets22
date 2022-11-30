@@ -28,10 +28,16 @@ server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({ extended: true }))
 
 server.use((req, res, next) => {
-  req.context = {
-    prisma: new PrismaClient(),
+  try {
+    req.context = {
+      prisma: new PrismaClient(),
+    }
+    next()
+  } catch (e) {
+    return res.status(400).json({
+      message: 'Prisma initialization failure',
+    })
   }
-  next()
 })
 
 server.use('/auth', auth)
