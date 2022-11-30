@@ -35,7 +35,7 @@ const components = {
 
 const HelpLayout = ({ children, title }: HelpProps) => {
   return (
-    <div className="relative flex flex-col min-h-screen gap-16 max-w-full overflow-clip bg-gray-100">
+    <div className="relative flex flex-col min-h-screen gap-16 max-w-full overflow-clip bg-gray-50">
       <Seo title={title} />
       <div className="overflow-hidden bg-primary h-[40vh] fixed top-0 left-0 right-0 z-[0]">
         <div className="flex items-center justify-center">
