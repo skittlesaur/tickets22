@@ -42,12 +42,12 @@ const Endpoint = ({ baseUrl, path, title, method, requiresToken = false, respons
   const curl = `--header 'Authorization: Bearer $TOKEN$`
   const axios = `import axios from "axios"
   
-const url = \`${baseUrl}${path}\`
+const url = '${baseUrl}${path}'
 const config = {
   headers: {
     Authorization: 'Bearer $TOKEN$'
-    } 
-  }
+  } 
+}
   
 axios.${method.toLowerCase()}(url,${method !== 'GET' ? `{ /* data */ },` : ''} config)
 `
@@ -108,7 +108,7 @@ axios.${method.toLowerCase()}(url,${method !== 'GET' ? `{ /* data */ },` : ''} c
                 )}
                 {activeAuthorization === AuthorizationMethod.AXIOS && (
                   <SyntaxHighlighter
-                    language="bash"
+                    language="javascript"
                     showInlineLineNumbers
                     useInlineStyles={false}
                     wrapLines={true}
@@ -169,7 +169,7 @@ axios.${method.toLowerCase()}(url,${method !== 'GET' ? `{ /* data */ },` : ''} c
               <p className="text-sm text-gray-600">{description}</p>
               <div className="relative pl-9 md:pl-4 flex items-center justify-between bg-[#111827] text-[#e5e7eb] rounded-lg p-4 w-full">
                 <SyntaxHighlighter
-                  language="JavaScript"
+                  language="json"
                   showInlineLineNumbers
                   useInlineStyles={false}
                   showLineNumbers={true}
