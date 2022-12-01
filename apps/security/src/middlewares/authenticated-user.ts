@@ -30,6 +30,7 @@ const authenticatedUser = async (req: Request, res: Response, next: NextFunction
         id: true,
         email: true,
         phone: true,
+        apiKey: true,
       },
     })
 
