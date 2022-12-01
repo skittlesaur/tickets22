@@ -55,6 +55,7 @@ const signup = async (req: Request, res: Response) => {
         email: email.toLowerCase(),
         password: hashedPassword,
         verificationToken: hat(),
+        apiKey: hat(),
       },
       select: {
         id: true,

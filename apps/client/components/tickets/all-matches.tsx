@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import TypeSelector from '@components/tickets/type-selector'
 import list from '@components/tickets/test-list'
 import getTeamIcon from '@lib/get-team-icon'
@@ -14,45 +14,63 @@ export enum MatchType {
 
 const AllMatches = () => {
   const [matchType, setMatchType] = useState(MatchType.GROUP_STAGE)
+  const [showCompleted, setShowCompleted] = useState(false)
   const matches: any = list
 
-  const groupedMatches: any = {}
+  const [displayedMatches, setDisplayedMatches] = useState<any>([])
 
-  matches.forEach((match: any) => {
-    const date = new Date(match.DateUtc).toLocaleDateString('en-GB', {
-      month: 'long',
-      day: 'numeric',
+  useEffect(() => {
+    const groupedMatches: any = {}
+
+    const date = new Date(new Date().getTime() - 2 * 60 * 60 * 1000)
+    const toDisplay = showCompleted ? matches : matches.filter((match: any) => match.DateUtc > date.toISOString())
+
+    toDisplay.forEach((match: any) => {
+      const date = new Date(match.DateUtc).toLocaleDateString('en-GB', {
+        month: 'long',
+        day: 'numeric',
+      })
+
+      if (!groupedMatches[date])
+        groupedMatches[date] = []
+
+      groupedMatches[date].push(match)
     })
 
-    if (!groupedMatches[date])
-      groupedMatches[date] = []
+    // sort array by date
+    const sortedMatches = Object.keys(groupedMatches).sort((a, b) => {
+      const dateA = new Date(a)
+      const dateB = new Date(b)
 
-    groupedMatches[date].push(match)
-  })
+      return dateA.getTime() - dateB.getTime()
+    })
 
-  // sort array by date
-  const sortedMatches = Object.keys(groupedMatches).sort((a, b) => {
-    const dateA = new Date(a)
-    const dateB = new Date(b)
+    const sortedArray = sortedMatches.map((date) => {
+      return {
+        date,
+        matches: groupedMatches[date],
+      }
+    })
 
-    return dateA.getTime() - dateB.getTime()
-  })
-
-  const sortedArray = sortedMatches.map((date) => {
-    return {
-      date,
-      matches: groupedMatches[date],
-    }
-  })
+    setDisplayedMatches(sortedArray)
+  }, [matches, showCompleted])
 
   return (
     <div className="flex flex-col gap-8">
-      <h1 className="font-black text-4xl">
-        All Matches
-      </h1>
+      <div className="flex items-center justify-between">
+        <h1 className="font-black text-4xl">
+          All Matches
+        </h1>
+        <button
+          onClick={() => setShowCompleted(!showCompleted)}
+          className="text-primary text-center w-36 border border-primary rounded-md px-4 py-2 text-sm hover:bg-primary hover:text-white transition-colors duration-200 ease-in-out"
+        >
+          {showCompleted ? 'Hide Completed' : 'Show All'}
+        </button>
+      </div>
       <TypeSelector matchType={matchType} setMatchType={setMatchType} />
       <div className="flex flex-col gap-10">
-        {sortedArray.map((group) => (
+        {displayedMatches.map((group: any) => (
           <div key={group.date} className="flex flex-col gap-4 overflow-hidden">
             <h2 className="text-primary font-semibold text-xl">
               {group.date}

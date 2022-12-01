@@ -10,7 +10,7 @@ interface AppProps {
 
 const AppLayout = ({ activePage, children, forceLightText = false }: AppProps) => {
   return (
-    <div className="relative flex flex-col min-h-screen gap-16 max-w-full overflow-clip">
+    <div className="bg-gray-50 relative flex flex-col min-h-screen gap-16 max-w-full overflow-clip">
       <Nav activePage={activePage} forceLightText={forceLightText} />
       <div className="max-w-screen-xl mx-auto w-full grow px-4 md:px-0">
         {children}

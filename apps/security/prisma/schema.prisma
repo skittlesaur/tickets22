@@ -17,5 +17,6 @@ model User {
   verified          Boolean          @default(false)
   verificationToken String
   createdAt         DateTime         @default(now())
+  apiKey String
   //ReservedTicket    ReservedTicket[]
 }
