@@ -23,7 +23,7 @@ model User {
 // all stadiums
 model Stadium {
   id       String  @id @default(cuid()) @map("_id")
-  name     String
+  name     String  @unique
   capacity Int
   Match    Match[]
 }
@@ -31,10 +31,9 @@ model Stadium {
 // all games
 model Match {
   id             String           @id @default(cuid()) @map("_id")
-  matchInt       Int              @unique
-  roundInt       Int
+  matchNumber    Int              @unique
+  roundNumber    Int
   date           DateTime
-  location       String
   stadium        Stadium          @relation(fields: [stadiumId], references: [id])
   homeTeamId     String
   homeTeam       Team             @relation(name: "homeTeam", fields: [homeTeamId], references: [id])
@@ -50,8 +49,7 @@ model Match {
 // all teams
 model Team {
   id          String  @id @default(cuid()) @map("_id")
-  name        String
-  logoUrl     String
+  name        String  @unique
   homeMatches Match[] @relation(name: "homeTeam")
   awayMatches Match[] @relation(name: "awayTeam")
 }
