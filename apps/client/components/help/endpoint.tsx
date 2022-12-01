@@ -117,7 +117,7 @@ axios.${method.toLowerCase()}(url,${method !== 'GET' ? `{ /* data */ },` : ''} c
                     {axios.replace('$TOKEN$', token)}
                   </SyntaxHighlighter>
                 )}
-                <div className="flex flex-col items-center gap-2 bg-[#111827] sticky top-0 self-start pt-4">
+                <div className="flex flex-col items-center gap-2 bg-[#111827] sticky top-0 self-start">
                   <button
                     onClick={() => {
                       if (activeAuthorization === AuthorizationMethod.CURL)
