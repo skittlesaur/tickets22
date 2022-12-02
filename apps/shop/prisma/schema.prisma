@@ -44,18 +44,44 @@ model Match {
   awayScore       Int?
   group           String
   stadiumId       String
-  reservedTickets  ReservedTicket[]
+  ended           Boolean          @default(false)
+  reservedTickets ReservedTicket[]
+  matchEvents      MatchEvent[]
+}
+
+model MatchEvent {
+  id        String         @id @default(cuid()) @map("_id")
+  match     Match          @relation(fields: [matchId], references: [id])
+  matchId   String
+  eventType MatchEventType
+  minute    Int
+  team      Team           @relation(fields: [teamId], references: [id])
+  teamId    String
+  player    Player         @relation(fields: [playerId], references: [id])
+  playerId  String
 }
 
 // all teams
 model Team {
-  id          String  @id @default(cuid()) @map("_id")
-  name        String  @unique
-  homeMatches Match[] @relation(name: "homeTeam")
-  awayMatches Match[] @relation(name: "awayTeam")
+  id          String       @id @default(cuid()) @map("_id")
+  name        String       @unique
+  homeMatches Match[]      @relation(name: "homeTeam")
+  awayMatches Match[]      @relation(name: "awayTeam")
+  matchEvents  MatchEvent[]
+  players      Player[]
 }
 
-// contains list of all sold tickets
+// all players
+model Player {
+  id        String       @id @default(cuid()) @map("_id")
+  name      String
+  team      Team         @relation(fields: [teamId], references: [id])
+  teamId    String
+  kitNumber Int
+  events    MatchEvent[]
+}
+
+// contains list of all sold matches
 model ReservedTicket {
   id             String   @id @default(cuid()) @map("_id")
   userId         String
@@ -68,4 +94,11 @@ model ReservedTicket {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   matchId        String
+}
+
+enum MatchEventType {
+  GOAL
+  YELLOW_CARD
+  RED_CARD
+  SUBSTITUTION
 }

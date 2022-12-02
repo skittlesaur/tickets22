@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import TypeSelector from '@components/tickets/type-selector'
+import TypeSelector from '@components/matches/main/type-selector'
 import getTeamIcon from '@lib/get-team-icon'
 import Link from 'next/link'
 import MatchesQuery from '@services/shop/matches-query'
@@ -85,7 +85,7 @@ const AllMatches = () => {
               <div className="px-6 py-4 bg-gray-50 rounded-lg flex flex-col gap-4">
                 {group.matches.map((match: any) => (
                   <Link
-                    href={`/tickets/${match.id}`}
+                    href={`/matches/${match.id}`}
                     key={match.id}
                     className="group"
                   >

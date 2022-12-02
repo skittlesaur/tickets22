@@ -1,4 +1,4 @@
-import { MatchType } from '@components/tickets/all-matches'
+import { MatchType } from '@components/matches/main/all-matches'
 
 interface TypeSelectorProps {
   matchType: MatchType

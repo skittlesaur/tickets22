@@ -1,5 +1,5 @@
-import Upcoming from '@components/tickets/upcoming'
-import AllMatches from '@components/tickets/all-matches'
+import Upcoming from '@components/matches/main/upcoming'
+import AllMatches from '@components/matches/main/all-matches'
 
 const Tickets = () => {
   return (
