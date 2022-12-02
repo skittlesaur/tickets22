@@ -1,4 +1,4 @@
-import UpcomingCard from '@components/tickets/upcoming-card'
+import UpcomingCard from '@components/matches/main/upcoming-card'
 import { useState } from 'react'
 import BallIcon from '@images/ball.svg'
 import LinedSparkles from '@images/lined-sparkles.svg'

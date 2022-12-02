@@ -55,7 +55,7 @@ model Team {
   awayMatches Match[] @relation(name: "awayTeam")
 }
 
-// contains list of all sold tickets
+// contains list of all sold matches
 model ReservedTicket {
   id             String   @id @default(cuid()) @map("_id")
   userId         String
