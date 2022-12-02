@@ -29,12 +29,12 @@ const UpcomingCard = () => {
       <div className="z-[0] absolute inset-0 items-start justify-between -my-6 mx-10 select-none hidden md:flex">
         <div className="bg-gradient-to-t from-white via-transparent to-white/50 z-[1] inset-0 absolute" />
         <img
-          src="/players/argentina/10.png"
+          src="/images/players/argentina/10.png"
           alt="Lionel Messi"
           className="object-cover w-[30%] mix-blend-luminosity grayscale opacity-70"
         />
         <img
-          src="/players/australia/15.png"
+          src="/images/players/australia/15.png"
           alt="Lionel Messi"
           className="object-cover w-[30%] mix-blend-luminosity grayscale opacity-70"
         />

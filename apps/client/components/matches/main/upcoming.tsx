@@ -17,7 +17,7 @@ const Upcoming = () => {
       <div className="relative overflow-hidden rounded-lg shadow-lg border border-primary md:h-[18em]">
         <div className="relative w-full flex flex-col gap-3 p-4 md:p-6">
           <div className="flex items-center gap-2 z-[2]">
-            <BallIcon className="w-5 aspect-square" />
+            <BallIcon className="w-5 aspect-square fill-primary" />
             <LinedSparkles className="w-24" />
           </div>
           {Array.from({ length: MAX_TICKETS }).map((_, i) => (

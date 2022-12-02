@@ -1,36 +1,36 @@
 import { MatchEventType, PrismaClient } from '@prisma/client'
 import axios from 'axios'
 
-const url = 'https://api.fifa.com/api/v3/timelines/17/255711/285063/400128082'
+const url = 'https://api.fifa.com/api/v3/timelines/17/255711/285063/400235458'
 const prisma = new PrismaClient()
 
-const getEventType = (type: string): MatchEventType | undefined => {
+const getEventType = (type: number): MatchEventType | undefined => {
   switch (type) {
-    case 'Start Time':
+    case 7:
       return MatchEventType.KICK_OFF
-    case 'End Time':
+    case 8:
       return MatchEventType.MATCH_END
-    case 'Foul':
+    case 18:
       return MatchEventType.FOUL
-    case 'VAR':
+    case 71:
       return MatchEventType.VAR
-    case 'Corner':
+    case 16:
       return MatchEventType.CORNER
-    case 'Offside':
+    case 15:
       return MatchEventType.OFFSIDE
-    case 'Yellow card':
+    case 2:
       return MatchEventType.YELLOW_CARD
-    case 'Red card':
+    case 3:
       return MatchEventType.RED_CARD
-    case 'Penalty Awarded':
+    case 6:
       return MatchEventType.PENALTY_AWARDED
-    case 'Penalty Goal':
+    case 41:
       return MatchEventType.GOAL_PENALTY
-    case 'Goal':
+    case 0:
       return MatchEventType.GOAL
-    case 'Attempt at Goal':
+    case 12:
       return MatchEventType.ATTEMPT_AT_GOAL
-    case 'Substitution':
+    case 5:
       return MatchEventType.SUBSTITUTION
   }
 }
@@ -41,13 +41,13 @@ const scrapeEvents = async () => {
     const events = data.Event
     console.log(Array.isArray(events) ? 'yes' : 'no')
 
-    const matchId = 'clb4zmk8t0006v0ygcjpd77fa'
-    const homeId = 'clb4za9lz0002v0p8l1fl6rng'
-    const awayId = 'clb4zaa6u0004v0p8s3smkqfk'
-    const fifaHomeId = 43834
+    const matchId = 'clb4zmne6000ev0ygfdqscl4o'
+    const homeId = 'clb4zacmf0009v0p8lr1demmt'
+    const awayId = 'clb4zadbb000bv0p8ersygsa1'
+    const fifaHomeId = '43942'
 
     for (const event of events) {
-      const eventType = getEventType(event.TypeLocalized?.[0]?.Description)
+      const eventType = getEventType(event.Type)
       if (!eventType) continue
 
       const additional: any = {}

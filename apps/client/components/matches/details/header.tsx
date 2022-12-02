@@ -1,10 +1,10 @@
-import WorldCupLogo from '@images/world-cup-logo.svg'
 import getTeamIcon from '@lib/get-team-icon'
 import Link from 'next/link'
 import Countdown from '@components/matches/details/countdown'
 import getType from '@lib/get-type'
 
 interface HeaderProps {
+  matchId: string
   homeTeam: {
     id: string
     name: string
@@ -17,10 +17,6 @@ interface HeaderProps {
   awayScore: number
   date: string
   group?: string
-  stadium: {
-    id: string
-    name: string
-  }
   matchNumber: number
   roundNumber: number
   ended: boolean
@@ -35,7 +31,6 @@ const Header = (
     awayScore,
     group,
     date,
-    stadium,
     matchNumber,
     roundNumber,
     isLoading,
@@ -55,15 +50,9 @@ const Header = (
     minute: '2-digit',
   })
 
-  if (isLoading)
-    return <p>Loading</p>
-
   return (
     <div className="flex flex-col gap-10">
       <div>
-        <div className="w-full h-16 flex items-center justify-center">
-          <WorldCupLogo />
-        </div>
         <div className="flex items-center justify-between font-medium text-gray-400">
           <p>{getType(roundNumber, matchNumber, group)}</p>
           <div className="flex items-center gap-3 uppercase">
@@ -76,11 +65,11 @@ const Header = (
       <div>
         <div className="grid grid-cols-3 items-center gap-0">
           <Link
-            href={`/teams/${homeTeam.id}`}
+            href={`/teams/${homeTeam.name.replace(' ', '-').toLowerCase()}`}
             className="hover:opacity-60 transition-all duration-200 ease-in-out justify-self-end"
           >
             <div className="flex items-center gap-8">
-              <h1 className="text-xl uppercase font-medium">
+              <h1 className="text-xl uppercase font-medium tracking-wide">
                 {homeTeam.name}
               </h1>
               <div className="w-24 aspect-square">
@@ -102,14 +91,14 @@ const Header = (
             )}
           </div>
           <Link
-            href={`/teams/${homeTeam.id}`}
+            href={`/teams/${awayTeam.name.replace(' ', '-').toLowerCase()}`}
             className="hover:opacity-60 transition-all duration-200 ease-in-out justify-self-start"
           >
             <div className="flex items-center gap-8">
               <div className="w-24 aspect-square">
                 {getTeamIcon(awayTeam.name)}
               </div>
-              <h1 className="text-xl uppercase font-medium">
+              <h1 className="text-xl uppercase font-medium tracking-wide">
                 {awayTeam.name}
               </h1>
             </div>
