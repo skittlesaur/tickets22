@@ -25,6 +25,7 @@ const getEventType = (type: string): MatchEventType | undefined => {
     case 'Penalty Awarded':
       return MatchEventType.PENALTY_AWARDED
     case 'Penalty Goal':
+      return MatchEventType.GOAL_PENALTY
     case 'Goal':
       return MatchEventType.GOAL
     case 'Attempt at Goal':

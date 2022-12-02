@@ -107,6 +107,7 @@ model ReservedTicket {
 
 enum MatchEventType {
   GOAL
+  GOAL_PENALTY
   YELLOW_CARD
   RED_CARD
   SUBSTITUTION
