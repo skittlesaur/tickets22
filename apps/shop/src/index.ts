@@ -4,8 +4,7 @@ import cookieParser from 'cookie-parser'
 import * as bodyParser from 'body-parser'
 import { CLIENT_URL, PORT } from './constants'
 import { PrismaClient, User } from '@prisma/client'
-import games from './routes/games'
-import errorHandler from './middlewares/error-handler'
+import matches from './routes/matches'
 
 declare global {
   namespace Express {
@@ -32,13 +31,11 @@ server.use((req, res, next) => {
   next()
 })
 
-server.use('/games', games)
+server.use('/matches', matches)
 
 server.get('/', (req, res) => {
   res.redirect(`${CLIENT_URL}/help/microservices/shop`)
 })
-
-server.use(errorHandler)
 
 server.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`)
