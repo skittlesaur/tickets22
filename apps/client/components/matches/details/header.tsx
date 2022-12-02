@@ -2,6 +2,7 @@ import WorldCupLogo from '@images/world-cup-logo.svg'
 import getTeamIcon from '@lib/get-team-icon'
 import Link from 'next/link'
 import Countdown from '@components/matches/details/countdown'
+import getType from '@lib/get-type'
 
 interface HeaderProps {
   homeTeam: {
@@ -54,26 +55,6 @@ const Header = (
     minute: '2-digit',
   })
 
-  const getType = () => {
-    if ([1, 2, 3].includes(roundNumber))
-      return `Group ${group}`
-
-    if (roundNumber === 4)
-      return 'Round of 16'
-
-    if (roundNumber === 5)
-      return 'Quarter-Final'
-
-    if (roundNumber === 6)
-      return 'Semi-Final'
-
-    if (roundNumber === 7 && matchNumber === 63)
-      return '3rd Place'
-
-    if (roundNumber === 7 && matchNumber == 64)
-      return 'Final'
-  }
-
   if (isLoading)
     return <p>Loading</p>
 
@@ -84,7 +65,7 @@ const Header = (
           <WorldCupLogo />
         </div>
         <div className="flex items-center justify-between font-medium text-gray-400">
-          <p>{getType()}</p>
+          <p>{getType(roundNumber, matchNumber, group)}</p>
           <div className="flex items-center gap-3 uppercase">
             <p>{formattedTime}</p>
             <div className="w-1.5 aspect-square bg-current rounded-full" />

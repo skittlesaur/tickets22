@@ -6,8 +6,8 @@ const TicketsPage = () => {
   return (
     <AppLayout activePage="Matches">
       <Seo
-        title="Tickets"
-        description="See available tickets for all the upcoming FIFA World Cup Qatar 2022 matches."
+        title="Matches"
+        description="See all the upcoming FIFA World Cup Qatar 2022 matches and purchase tickets."
       />
       <Tickets />
     </AppLayout>
