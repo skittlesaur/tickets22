@@ -56,7 +56,6 @@ const getMatch = async (req: Request, res: Response) => {
 
     return res.status(200).json(match)
   } catch (e) {
-    res.status(400).json(e)
   }
 }
 
