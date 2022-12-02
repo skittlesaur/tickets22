@@ -17,6 +17,55 @@ model User {
   verified          Boolean          @default(false)
   verificationToken String
   createdAt         DateTime         @default(now())
-  apiKey String
-  //ReservedTicket    ReservedTicket[]
+  apiKey            String
+  reservedTickets   ReservedTicket[]
+}
+
+// all stadiums
+model Stadium {
+  id       String  @id @default(cuid()) @map("_id")
+  name     String  @unique
+  capacity Int
+  Match    Match[] //@todo: rename to matches
+}
+
+// all games
+model Match {
+  id              String           @id @default(cuid()) @map("_id")
+  matchNumber     Int              @unique
+  roundNumber     Int
+  date            DateTime
+  stadium         Stadium          @relation(fields: [stadiumId], references: [id])
+  homeTeamId      String
+  homeTeam        Team             @relation(name: "homeTeam", fields: [homeTeamId], references: [id])
+  homeScore       Int?
+  awayTeamId      String
+  awayTeam        Team             @relation(name: "awayTeam", fields: [awayTeamId], references: [id])
+  awayScore       Int?
+  group           String
+  stadiumId       String
+  reservedTickets  ReservedTicket[]
+}
+
+// all teams
+model Team {
+  id          String  @id @default(cuid()) @map("_id")
+  name        String  @unique
+  homeMatches Match[] @relation(name: "homeTeam")
+  awayMatches Match[] @relation(name: "awayTeam")
+}
+
+// contains list of all sold tickets
+model ReservedTicket {
+  id             String   @id @default(cuid()) @map("_id")
+  userId         String
+  user           User?    @relation(fields: [userId], references: [id]) // if user authenticated, then user is not null
+  email          String? // if guest purchase, track their email
+  match          Match    @relation(fields: [matchId], references: [id])
+  seat           String
+  price          Int
+  externalSeller String? // if the ticket was purchased from some other team, store the team name
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  matchId        String
 }

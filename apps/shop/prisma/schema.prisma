@@ -17,7 +17,8 @@ model User {
   verified          Boolean          @default(false)
   verificationToken String
   createdAt         DateTime         @default(now())
-  ReservedTicket    ReservedTicket[]
+  apiKey            String
+  reservedTickets   ReservedTicket[]
 }
 
 // all stadiums
@@ -25,25 +26,25 @@ model Stadium {
   id       String  @id @default(cuid()) @map("_id")
   name     String  @unique
   capacity Int
-  Match    Match[]
+  Match    Match[] //@todo: rename to matches
 }
 
 // all games
 model Match {
-  id             String           @id @default(cuid()) @map("_id")
-  matchNumber    Int              @unique
-  roundNumber    Int
-  date           DateTime
-  stadium        Stadium          @relation(fields: [stadiumId], references: [id])
-  homeTeamId     String
-  homeTeam       Team             @relation(name: "homeTeam", fields: [homeTeamId], references: [id])
-  homeScore      Int?
-  awayTeamId     String
-  awayTeam       Team             @relation(name: "awayTeam", fields: [awayTeamId], references: [id])
-  awayScore      Int?
-  group          String
-  stadiumId      String
-  ReservedTicket ReservedTicket[]
+  id              String           @id @default(cuid()) @map("_id")
+  matchNumber     Int              @unique
+  roundNumber     Int
+  date            DateTime
+  stadium         Stadium          @relation(fields: [stadiumId], references: [id])
+  homeTeamId      String
+  homeTeam        Team             @relation(name: "homeTeam", fields: [homeTeamId], references: [id])
+  homeScore       Int?
+  awayTeamId      String
+  awayTeam        Team             @relation(name: "awayTeam", fields: [awayTeamId], references: [id])
+  awayScore       Int?
+  group           String
+  stadiumId       String
+  reservedTickets  ReservedTicket[]
 }
 
 // all teams
