@@ -46,7 +46,7 @@ model Match {
   stadiumId       String
   ended           Boolean          @default(false)
   reservedTickets ReservedTicket[]
-  matchEvents      MatchEvent[]
+  matchEvents     MatchEvent[]
 }
 
 model MatchEvent {
@@ -67,18 +67,29 @@ model Team {
   name        String       @unique
   homeMatches Match[]      @relation(name: "homeTeam")
   awayMatches Match[]      @relation(name: "awayTeam")
-  matchEvents  MatchEvent[]
-  players      Player[]
+  matchEvents MatchEvent[]
+  players     Player[]
+  Manager     Manager[]
 }
 
 // all players
 model Player {
-  id        String       @id @default(cuid()) @map("_id")
-  name      String
-  team      Team         @relation(fields: [teamId], references: [id])
+  id        String         @id @default(cuid()) @map("_id")
+  firstName String
+  lastName  String
+  team      Team           @relation(fields: [teamId], references: [id])
   teamId    String
   kitNumber Int
+  position  PlayerPosition
   events    MatchEvent[]
+}
+
+model Manager {
+  id        String @id @default(cuid()) @map("_id")
+  firstName String
+  lastName  String
+  team      Team   @relation(fields: [teamId], references: [id])
+  teamId    String
 }
 
 // contains list of all sold matches
@@ -101,4 +112,11 @@ enum MatchEventType {
   YELLOW_CARD
   RED_CARD
   SUBSTITUTION
+}
+
+enum PlayerPosition {
+  GOALKEEPER
+  DEFENDER
+  MIDFIELDER
+  FORWARD
 }
