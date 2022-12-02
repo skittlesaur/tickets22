@@ -58,7 +58,7 @@ const HelpLayout = ({ children, title }: HelpProps) => {
         <div className="mx-4 md:mx-0 md:sticky top-0 md:border-r border-gray-200 md:min-w-[12em]">
           <HelpTOC />
         </div>
-        <div className="py-8 flex flex-col gap-4">
+        <div className="py-8 flex flex-col gap-4 overflow-x-auto">
           <MDXProvider components={components}>
             {children}
           </MDXProvider>

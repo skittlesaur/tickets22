@@ -4,6 +4,7 @@ export interface DefaultMutationProps {
   onSettled?: () => void
 }
 
+export const CLIENT_URL = process.env.NEXT_PUBLIC_CLIENT_URL ?? 'http://localhost:9000'
 export const SHOP_SERVICE_URL = process.env.NEXT_PUBLIC_SHOP_SERVICE_URL ?? 'http://localhost:3000'
 export const SHOP_CONSUMER_SERVICE_URL = process.env.NEXT_PUBLIC_SHOP_CONSUMER_SERVICE_URL ?? 'http://localhost:3010'
 export const RESERVATIONS_SERVICE_URL = process.env.NEXT_PUBLIC_RESERVATIONS_SERVICE_URL ?? 'http://localhost:3020'

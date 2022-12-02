@@ -1,10 +1,11 @@
 import Clipboard from '@images/clipboard.svg'
 import toast from 'react-hot-toast'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import useUser from '@hooks/use-user'
 import EyeOff from '@images/eye-off.svg'
 import Eye from '@images/eye.svg'
+import { useRouter } from 'next/router'
 
 interface EndpointProps {
   baseUrl: string
@@ -15,7 +16,8 @@ interface EndpointProps {
   responses: {
     [status: number]: [
       {
-        description: string,
+        description: string
+        code?: string
         res: string
       }
     ]
@@ -28,6 +30,9 @@ enum AuthorizationMethod {
 }
 
 const Endpoint = ({ baseUrl, path, title, method, requiresToken = false, responses }: EndpointProps) => {
+  const router = useRouter()
+  const { code, endpoint, status } = router.query
+
   const { data: user } = useUser()
   const [activeAuthorization, setActiveAuthorization] = useState(AuthorizationMethod.CURL)
   const [activeResponse, setActiveResponse] = useState<number>(200)
@@ -52,9 +57,18 @@ const config = {
 axios.${method.toLowerCase()}(url,${method !== 'GET' ? `{ /* data */ },` : ''} config)
 `
 
+  useEffect(() => {
+    if (code && endpoint && status) {
+      setActiveResponse(parseInt(status as string))
+      const anchor = document.getElementById(`${endpoint}-${code}`)
+      if (anchor) {
+        anchor.scrollIntoView({ behavior: 'smooth' })
+      }
+    }
+  }, [code, endpoint, status])
   return (
     <>
-      <h3 id={path} className="font-semibold text-xl pt-6">{title}</h3>
+      <h3 id={path.substring(1)} className="font-semibold text-xl pt-6">{title}</h3>
       <p>
         Endpoint
       </p>
@@ -94,7 +108,7 @@ axios.${method.toLowerCase()}(url,${method !== 'GET' ? `{ /* data */ },` : ''} c
                   Axios
                 </button>
               </div>
-              <div className="relative pl-9 md:pl-4 flex items-center justify-between bg-[#111827] text-[#e5e7eb] rounded-lg p-4 w-full">
+              <div className="overflow-x-auto relative pl-9 md:pl-4 flex items-center justify-between bg-[#111827] text-[#e5e7eb] rounded-lg p-4 w-full">
                 {activeAuthorization === AuthorizationMethod.CURL && (
                   <SyntaxHighlighter
                     language="bash"
@@ -112,7 +126,7 @@ axios.${method.toLowerCase()}(url,${method !== 'GET' ? `{ /* data */ },` : ''} c
                     showInlineLineNumbers
                     useInlineStyles={false}
                     wrapLines={true}
-                    className={'syntax-highlighter'}
+                    className={'overflow-x-auto syntax-highlighter'}
                   >
                     {axios.replace('$TOKEN$', token)}
                   </SyntaxHighlighter>
@@ -164,10 +178,10 @@ axios.${method.toLowerCase()}(url,${method !== 'GET' ? `{ /* data */ },` : ''} c
               </button>
             ))}
           </div>
-          {responses[activeResponse]?.map(({ description, res }) => (
-            <>
+          {responses[activeResponse]?.map(({ description, res, code }) => (
+            <div id={`${path.substring(1)}-${code}`} className="flex flex-col gap-2">
               <p className="text-sm text-gray-600">{description}</p>
-              <div className="relative pl-9 md:pl-4 flex items-center justify-between bg-[#111827] text-[#e5e7eb] rounded-lg p-4 w-full">
+              <div className="overflow-x-auto relative pl-9 md:pl-4 flex items-center justify-between bg-[#111827] text-[#e5e7eb] rounded-lg p-4 w-full">
                 <SyntaxHighlighter
                   language="json"
                   showInlineLineNumbers
@@ -185,7 +199,7 @@ axios.${method.toLowerCase()}(url,${method !== 'GET' ? `{ /* data */ },` : ''} c
                   <Clipboard className="w-5 aspect-square fill-current text-[#e5e7eb]/60 hover:text-[#e5e7eb] transition-all duration-200 ease-in-out" />
                 </button>
               </div>
-            </>
+            </div>
           ))}
         </div>
       </div>

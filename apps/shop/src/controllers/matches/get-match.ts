@@ -10,7 +10,7 @@ const getMatch = async (req: Request, res: Response) => {
         message: 'Missing matches id',
         details: 'The matches id is missing from the request parameters',
         code: 'invalid_parameters',
-        help: `${CLIENT_URL}/help/microservices/shop?code=invalid_parameters#matches/:id`,
+        help: `${CLIENT_URL}/help/microservices/shop?status=400&code=invalid_parameters&endpoint=matches/:id`,
       })
 
     const match = await req.context.prisma.match.findUnique({
@@ -49,9 +49,9 @@ const getMatch = async (req: Request, res: Response) => {
     if (!match)
       return res.status(404).json({
         message: 'Match not found',
-        details: 'The matches with the given id does not exist',
+        details: 'The match with the given id does not exist',
         code: 'not_found',
-        help: `${CLIENT_URL}/help/microservices/shop?code=not_found#matches/:id`,
+        help: `${CLIENT_URL}/help/microservices/shop?status=404&code=not_found&endpoint=matches/:id`,
       })
 
     return res.status(200).json(match)

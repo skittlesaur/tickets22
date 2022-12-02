@@ -1,10 +1,76 @@
 import HelpLayout from '@layouts/help'
+import Endpoint from '@components/help/endpoint'
+import ApiTOC from '@components/help/api-toc'
+import { SHOP_SERVICE_URL, CLIENT_URL } from '@services/constants'
 
 # Shop Microservice
 
 The shop microservice is the core microservice of the application which is responsible for providing match information,
 tickets availability for each game (with the help of [reservations microservice](/help/microservices/reservations)),
 recommendations (with the help of [analytics microservice](/help/microservices/analytics), and prices.
+
+## Public API
+
+<ApiTOC
+  toc={[
+    {
+      title: 'Matches',
+      endpoints: [
+        { title: 'Get match by id', path: 'matches/:id' },
+        { title: 'Get match summary', path: 'matches/:id/summary' },
+      ]
+    },
+  ]}
+/>
+
+<Endpoint
+  baseUrl={SHOP_SERVICE_URL}
+  title="Get match by id"
+  path="/matches/:id"
+  method="GET"
+  responses={{
+    200: [
+    {
+      description: 'Successful response, returns the match details',
+      res: `{
+  "id": "clb4zmk8t0006v0ygcjpd77fa",
+  "matchNumber": 1,
+  "roundNumber": 1,
+  "date": "2022-11-20T16:00:00.000Z",
+  "stadium": {
+    "id": "clb4za6gi0000v0p88y1cvsvn",
+    "name": "Al Bayt Stadium",
+    "capacity": 5
+  },
+  "homeTeam": {
+    "id": "clb4za9lz0002v0p8l1fl6rng",
+    "name": "Qatar"
+  },
+  "homeScore": 0,
+  "awayTeam": {
+    "id": "clb4zaa6u0004v0p8s3smkqfk",
+    "name": "Ecuador"
+  },
+  "awayScore": 2,
+  "group": "A",
+  "ended": true
+}`
+    }
+    ],
+    404: [
+      {
+        description: 'The given id parameter does not match any match in our records. Make sure you are using the correct id, and notice that the id is case sensitive.',
+        code:"not_found",
+        res: `{
+  "message": "Match not found",
+  "details": "The match with the given id does not exist",
+  "code": "not_found",
+  "help": "${CLIENT_URL}/help/microservices/shop?status=404&code=not_found&endpoint=matches/:id"
+}`
+      }
+    ]
+  }}
+/>
 
 export default ({ children }) => (
   <HelpLayout
