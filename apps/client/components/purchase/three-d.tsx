@@ -29,7 +29,7 @@ const ThreeD = ({ seatPosition, setSeatPosition }: ThreeDProps) => {
       materials.preload()
       const objLoader = new OBJLoader()
       objLoader.setMaterials(materials)
-      objLoader.load(`${CLIENT_URL}/3d/stadium2.obj`, (object) => {
+      objLoader.load(`${CLIENT_URL}/3d/stadium.obj`, (object) => {
         object.traverse((child: any) => {
           if (child.isMesh) {
             child.material.map = mapImage
