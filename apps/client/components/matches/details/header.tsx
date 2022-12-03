@@ -4,7 +4,7 @@ import Countdown from '@components/matches/details/countdown'
 import getType from '@lib/get-type'
 
 interface HeaderProps {
-  matchId: string
+  id: string
   homeTeam: {
     id: string
     name: string
@@ -25,6 +25,7 @@ interface HeaderProps {
 
 const Header = (
   {
+    id,
     homeTeam,
     homeScore,
     awayTeam,
@@ -49,6 +50,13 @@ const Header = (
     hour: 'numeric',
     minute: '2-digit',
   })
+
+  if (isLoading)
+    return (
+      <div className="flex items-center justify-center h-32">
+        <div className="animate-pulse w-32 h-5 rounded-md bg-gray-100" />
+      </div>
+    )
 
   return (
     <div className="flex flex-col gap-10">
@@ -78,16 +86,19 @@ const Header = (
             </div>
           </Link>
           <div className="justify-self-center flex items-center justify-center gap-4 text-3xl font-light">
-            {homeScore === null && awayScore === null ? (
-              <p>
-                {formattedTime}
-              </p>
-            ) : (
+            {ended ? (
               <>
                 <p>{homeScore}</p>
                 <p>-</p>
                 <p>{awayScore}</p>
               </>
+            ) : (
+              <Link
+                href={`/matches/${id}/purchase`}
+                className="bg-primary text-sm font-medium text-white px-4 py-1.5 rounded-md border border-transparent hover:border-primary hover:bg-transparent hover:text-primary transition-all duration-200 ease-in-out"
+              >
+                Buy Ticket
+              </Link>
             )}
           </div>
           <Link

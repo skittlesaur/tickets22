@@ -12,7 +12,6 @@ const Match = () => {
     return (
       <div>
         <Seo title="Loading Match..." />
-        Loading
       </div>
     )
 

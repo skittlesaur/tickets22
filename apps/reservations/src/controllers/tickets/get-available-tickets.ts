@@ -7,6 +7,12 @@ const getAvailableTickets = async (req: Request, res: Response) => {
     const { id } = req.params
 
     const { data: match } = await axios.get(`${SHOP_URL}/matches/${id}`)
+
+    if (match.ended)
+      return res.status(400).json({
+        message: 'This match has already ended',
+      })
+
     const { id: stadiumId } = match.stadium
 
     // get stadium capacity

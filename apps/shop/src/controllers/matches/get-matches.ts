@@ -31,6 +31,7 @@ const getMatches = async (req: Request, res: Response) => {
         },
         awayScore: true,
         group: true,
+        ended: true,
       }
     })
 
