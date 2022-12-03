@@ -1,10 +1,8 @@
-import AppLayout from '@layouts/app'
+import Purchase from '@components/purchase'
 
 const PurchasePage = () => {
   return (
-    <AppLayout>
-      purhcase
-    </AppLayout>
+    <Purchase />
   )
 }
 
