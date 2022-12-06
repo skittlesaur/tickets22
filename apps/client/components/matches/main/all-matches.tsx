@@ -22,7 +22,6 @@ const AllMatches = ({ matches }: MatchesProps) => {
   const [displayedMatches, setDisplayedMatches] = useState<any[]>([])
 
   useEffect(() => {
-    console.log(matches)
     if (!matches) return
 
     const groupedMatches: any = {}
