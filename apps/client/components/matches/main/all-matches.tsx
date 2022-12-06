@@ -19,24 +19,25 @@ interface MatchesProps {
 const AllMatches = ({ matches }: MatchesProps) => {
   const [matchType, setMatchType] = useState(MatchType.GROUP_STAGE)
 
-  const [displayedMatches, setDisplayedMatches] = useState<any>([])
+  const [displayedMatches, setDisplayedMatches] = useState<any[]>([])
 
   useEffect(() => {
+    console.log(matches)
     if (!matches) return
 
     const groupedMatches: any = {}
     let toDisplay = matches
 
     if (matchType === MatchType.GROUP_STAGE)
-      toDisplay = matches.filter((match: any) => [1, 2, 3].includes(match.roundNumber))
+      toDisplay = matches?.filter((match: any) => [1, 2, 3].includes(match.roundNumber))
     else if (matchType === MatchType.ROUND_OF_16)
-      toDisplay = matches.filter((match: any) => match.roundNumber === 4)
+      toDisplay = matches?.filter((match: any) => match.roundNumber === 4)
     else if (matchType === MatchType.QUARTER_FINALS)
-      toDisplay = matches.filter((match: any) => match.roundNumber === 5)
+      toDisplay = matches?.filter((match: any) => match.roundNumber === 5)
     else if (matchType === MatchType.SEMI_FINALS)
-      toDisplay = matches.filter((match: any) => match.roundNumber === 6)
+      toDisplay = matches?.filter((match: any) => match.roundNumber === 6)
     else if (matchType === MatchType.THIRD_PLACE_AND_FINAL)
-      toDisplay = matches.filter((match: any) => match.roundNumber === 7)
+      toDisplay = matches?.filter((match: any) => match.roundNumber === 7)
 
 
     toDisplay?.forEach((match: any) => {
