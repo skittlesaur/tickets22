@@ -9,6 +9,8 @@ interface MatchesPageProps {
 }
 
 const MatchesPage = ({ matches, upcoming }: MatchesPageProps) => {
+  if (!matches || !upcoming) return null
+
   return (
     <AppLayout activePage="Matches">
       <Seo
@@ -21,15 +23,20 @@ const MatchesPage = ({ matches, upcoming }: MatchesPageProps) => {
 }
 
 export const getStaticProps = async () => {
-  const matches = await SHOP_SERVICE.get(`/matches`).then((res) => res.data)
-  const upcoming = await SHOP_SERVICE.get(`/matches/upcoming`).then((res) => res.data)
+  try {
+    const matches = await SHOP_SERVICE.get(`/matches`).then((res) => res.data)
+    const upcoming = await SHOP_SERVICE.get(`/matches/upcoming`).then((res) => res.data)
 
-  return {
-    props: {
-      matches,
-      upcoming,
-    },
-    revalidate: 10,
+    return {
+      props: {
+        matches,
+        upcoming,
+      },
+      revalidate: 10,
+    }
+  } catch (e) {
+    console.log(e)
+    return { props: { matches: null, upcoming: null }, revalidate: 10 }
   }
 }
 
