@@ -1,6 +1,6 @@
 # Blender 3.3.1
 # www.blender.org
-mtllib stadium2.mtl
+mtllib stadium.mtl
 o stadium
 v 188.240112 17.524445 -61.790867
 v 173.687653 17.524445 -83.741425
@@ -41345,7 +41345,7 @@ vt 0.708800 0.936200
 vt 0.729500 0.972500
 vt 0.709000 0.966800
 s 1
-usemtl 10093_Wembley_stadion_V1_Diffuse
+usemtl stadium
 f 1/1/1 2/4/2 3/6/2 4/9/3
 f 5/11/4 6/13/5 3/6/2 2/4/2
 f 7/15/6 8/17/7 6/13/5 5/11/4

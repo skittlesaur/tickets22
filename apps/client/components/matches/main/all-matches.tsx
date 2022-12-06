@@ -12,9 +12,12 @@ export enum MatchType {
   THIRD_PLACE_AND_FINAL = '3rd Place & Final',
 }
 
-const AllMatches = () => {
+interface MatchesProps {
+  matches: any
+}
+
+const AllMatches = ({ matches }: MatchesProps) => {
   const [matchType, setMatchType] = useState(MatchType.GROUP_STAGE)
-  const { data: matches, isLoading: matchesLoading } = MatchesQuery()
 
   const [displayedMatches, setDisplayedMatches] = useState<any>([])
 
@@ -72,7 +75,7 @@ const AllMatches = () => {
         All Matches
       </h1>
       <TypeSelector matchType={matchType} setMatchType={setMatchType} />
-      {matchesLoading ? (
+      {!matches ? (
         <Loader color="bg-primary" />
       ) : (
         <div className="flex flex-col gap-10">

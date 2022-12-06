@@ -4,24 +4,17 @@ import Header from '@components/matches/details/header'
 import Seo from '@components/seo'
 import HeaderSummary from '@components/matches/details/header-summary'
 
-const Match = () => {
-  const matchId = getDynamicQuery('id')
-  const { data: match, isLoading }: any = useMatchQuery(matchId)
-
-  if (isLoading)
-    return (
-      <div>
-        <Seo title="Loading Match..." />
-      </div>
-    )
-
+interface MatchPageProps {
+  match: any
+}
+const Match = ({match}: MatchPageProps) => {
   return (
     <div className="flex flex-col">
       <Seo
         title={`${match.homeTeam.name} ${match.homeScore !== null && match.awayScore !== null ? `${match.homeScore}-${match.awayScore}` : 'vs'} ${match.awayTeam.name} - World Cup 2022`}
       />
       <div className="flex flex-col gap-12">
-        <Header {...match} isLoading={isLoading} />
+        <Header {...match} isLoading={!match} />
         <HeaderSummary
           ended={match?.ended}
           homeTeamId={match.homeTeam.id}

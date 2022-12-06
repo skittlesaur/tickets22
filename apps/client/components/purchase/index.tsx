@@ -4,6 +4,7 @@ import useMatchQuery from '@services/shop/match-query'
 import getDynamicQuery from '@lib/get-dynamic-query'
 import FullscreenLoader from '@components/fullscreen-loader'
 import getTeamIcon from '@lib/get-team-icon'
+import Stadium from '@components/purchase/stadium'
 
 export enum SeatPosition {
   NORTH,
@@ -98,10 +99,7 @@ const Purchase = () => {
             </h1>
           </div>
         </div>
-        <ThreeD
-          seatPosition={seatPosition}
-          setSeatPosition={setSeatPosition}
-        />
+        <Stadium />
       </div>
     </div>
   )

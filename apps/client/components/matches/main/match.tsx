@@ -1,22 +1,7 @@
 import getTeamIcon from '@lib/get-team-icon'
 import Link from 'next/link'
-import useTicketAvailabilityQuery from '@services/reservations/ticket-availability-query'
 
 const Match = ({ match }: any) => {
-
-  const getAvailableTickets = () => {
-    const { data, isLoading } = useTicketAvailabilityQuery(match.id)
-
-    if (isLoading)
-      return (
-        <div className="absolute left-4 top-1/2 -translate-y-1/2 bg-gray-100 animate-pulse w-32 h-5 rounded-md" />
-      )
-    return (
-      <div className="absolute left-4 top-1/2 -translate-y-1/2 bg-primary text-white text-sm px-2 py-1 rounded-md">
-        {data?.availableTickets} tickets available
-      </div>
-    )
-  }
   return (
     <Link
       href={`/matches/${match.id}`}
@@ -27,7 +12,6 @@ const Match = ({ match }: any) => {
         key={match.id}
         className="relative grid matches-grid gap-12 items-center border border-secondary bg-white px-4 py-2 rounded-lg group-hover:shadow-lg transition-all duration-200 ease-in-out"
       >
-        {!match.ended && getAvailableTickets()}
         <div className="flex items-center justify-end gap-6">
           <div className="hidden md:block">
             {match.homeTeam.name}
