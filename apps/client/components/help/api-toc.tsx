@@ -1,17 +1,17 @@
-import Link from 'next/link'
+import Link from "next/link";
 
 interface apiTOCProps {
   toc: [
     {
-      title: string
+      title: string;
       endpoints: [
         {
-          title: string,
-          path: string
+          title: string;
+          path: string;
         }
-      ]
+      ];
     }
-  ]
+  ];
 }
 
 const ApiTOC = ({ toc }: apiTOCProps) => {
@@ -23,12 +23,9 @@ const ApiTOC = ({ toc }: apiTOCProps) => {
             {title}
           </li>
           {endpoints.map(({ title, path }) => (
-            <li
-              key={path}
-              className="ml-14"
-            >
+            <li key={path} className="ml-14">
               <Link
-                className="text-gray-500 hover:text-black"
+                className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white"
                 href={`#${path}`}
               >
                 {title}
@@ -38,7 +35,7 @@ const ApiTOC = ({ toc }: apiTOCProps) => {
         </div>
       ))}
     </ul>
-  )
-}
+  );
+};
 
-export default ApiTOC
+export default ApiTOC;
