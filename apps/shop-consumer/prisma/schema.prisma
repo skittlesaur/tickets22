@@ -21,13 +21,13 @@ model User {
   reservedTickets   ReservedTicket[]
 }
 
-// all stadiums
-model Stadium {
-  id       String  @id @default(cuid()) @map("_id")
-  name     String  @unique
-  capacity Int
-  Match    Match[] //@todo: rename to matches
-}
+// // all stadiums
+// model Stadium {
+//   id       String  @id @default(cuid()) @map("_id")
+//   name     String  @unique
+//   capacity Int
+//   Match    Match[] //@todo: rename to matches
+// }
 
 // all games
 model Match {
@@ -35,16 +35,16 @@ model Match {
   matchNumber     Int              @unique
   roundNumber     Int
   date            DateTime
-  stadium         Stadium          @relation(fields: [stadiumId], references: [id])
-  stadiumId       String
-  //availability    AvailableTickets[]
+  stadiumName     String
+  // stadium         Stadium          @relation(fields: [stadiumId], references: [id])
+  // stadiumId       String
   homeTeamId      String
   homeTeam        Team             @relation(name: "homeTeam", fields: [homeTeamId], references: [id])
   homeScore       Int?
   awayTeamId      String
   awayTeam        Team             @relation(name: "awayTeam", fields: [awayTeamId], references: [id])
   awayScore       Int?
-  group           String
+  group           String?
   ended           Boolean          @default(false)
   reservedTickets ReservedTicket[]
   matchEvents     MatchEvent[]
@@ -52,12 +52,10 @@ model Match {
 
 model AvailableTickets {
   id          String @id @default(cuid()) @map("_id")
-  matchNumber String
-  // match     Match    @relation(fields: [matchId], references: [id])
-  // matchId   String
+  matchNumber Int    @unique
   category    Int
   available   Int
-  pending     Int
+  pending     Int    @default(0)
   price       Int
 }
 
