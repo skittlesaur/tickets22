@@ -1,0 +1,15 @@
+{
+  "message": {
+    "meta" : {
+      "action": "TICKET_CANCELLED"
+    },
+    "body": {
+      "matchNumber": 2,
+      "tickets": {
+        "category": 1,
+        "quantity": 2,
+        "price": 75
+      }
+    }
+  }
+}

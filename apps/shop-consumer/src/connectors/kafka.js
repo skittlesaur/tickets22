@@ -56,8 +56,6 @@ const startKafkaConsumer = async () => {
           return;
         }
 
-        console.log(`${parsedMessage}`);
-
         // process message if there is no validation error
         const validationError = validate.kafkaMessage(parsedMessage);
         if (!isEmpty(validationError)) {

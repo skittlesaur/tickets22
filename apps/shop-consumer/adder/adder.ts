@@ -7,6 +7,24 @@ const adder = async () => {
   for (let i = 0; i < matchList.length; i++) {
     const match = matchList[i]
 
+    // Stadium
+    let stadium = await prisma.stadium.findUnique({
+      where: {
+        name: match.location
+      },
+      select: {
+        id: true
+      }
+    })
+
+    if (!stadium) {
+      stadium = await prisma.team.create({
+        data: {
+          name: match.location
+        }
+      })
+    }
+
     // Home Team
     let homeTeam = await prisma.team.findUnique({
       where: {
@@ -50,7 +68,7 @@ const adder = async () => {
         matchNumber: match.matchNumber,
         roundNumber: match.roundNumber,
         date: match.dateUtc,
-        stadiumName: match.location,
+        stadiumId: stadium.id,
         homeTeamId: homeTeam.id,
         homeScore: 0,
         awayTeamId: awayTeam.id,
@@ -91,34 +109,28 @@ const adder = async () => {
   }
 }
 
-// adder()
+
+//adder()
 
 // const test = async () => {
-//   const prisma = new PrismaClient()
+//   try {
+//     const prisma = new PrismaClient()
 
-  // const test = await prisma.availableTickets.findUnique({
-  //   where: {
-  //     matchNumber: 21
-  //   },
-  //   select: {
-  //     id: true
-  //   }
-  // })
+//     const pendingTickets = await prisma.availableTickets.findFirst({
+//       where: {
+//         matchNumber: 2,
+//         category: { equals: 1 },
+//       },
+//       select: {
+//         id: true,
+//         pending: true,
+//       },
+//     });
 
-//   const test2 = await prisma.availableTickets.findFirst({
-//     where: {
-//       matchNumber: 21,
-//       category: {
-//         equals: 1
-//       }
-//     },
-//     select: {
-//       pending: true
-//     }
-//   })
-
-//   console.log(test2)
+//     console.log(pendingTickets)
+//   } catch (error) {
+//     console.log(error)
+//   }
 // }
 
 // test()
-

@@ -1,92 +1,43 @@
 const axios = require("axios");
-const { PrismaClient } = require("@prisma/client");
+import { RESERVATIONS_URL } from "../constants";
 
 const processPendingTicket = async (message) => {
-  const prisma = new PrismaClient();
+  try {
+    const ticketPending = await axios.post(
+      `${RESERVATIONS_URL}/tickets/proccesors/pending`,
+      message.message
+    );
 
-  const pendingTickets = prisma.availableTickets.findFirst({
-    where: {
-      matchNumber: message.body.matchNumber,
-      category: { equals: message.body.tickets.category },
-    },
-    select: {
-      id: true,
-      pending: true,
-    },
-  });
-
-  const newPending = pendingTickets.pending + message.body.tickets.quantity;
-
-  const tickets = prisma.availabletickets.update({
-    where: {
-      id: pendingTickets.id,
-    },
-    data: {
-      pending: newPending,
-    },
-  });
-
-  return Promise.resolve("[processPendingTicket]");
+    console.log("tickets are pending");
+  } catch (error) {
+    console.log(error.response);
+  }
 };
 
 const processCancelledTicket = async (message) => {
-  const prisma = new PrismaClient();
+  try {
+    const ticketCancelled = await axios.post(
+      `${RESERVATIONS_URL}/tickets/proccesors/cancelled`,
+      message.message
+    );
 
-  const pendingTickets = prisma.availableTickets.findFirst({
-    where: {
-      matchNumber: message.body.matchNumber,
-      category: { equals: message.body.tickets.category },
-    },
-    select: {
-      id: true,
-      pending: true,
-    },
-  });
-
-  const newPending = pendingTickets.pending - message.body.tickets.quantity;
-
-  const tickets = prisma.availabletickets.update({
-    where: {
-      id: pendingTickets.id,
-    },
-    data: {
-      pending: newPending,
-    },
-  });
-
-  return Promise.resolve("[processCancelledTicket]");
+    console.log("tickets are cancelled");
+  } catch (error) {
+    console.log(error.response);
+  }
 };
 
 const processReservedTicket = async (message) => {
-  const prisma = new PrismaClient();
+  try {
+    const ticketPending = await axios.post(
+      `${RESERVATIONS_URL}/tickets/proccesors/reserved`,
+      message.message
+    );
 
-  const reservedTickets = prisma.availableTickets.findFirst({
-    where: {
-      matchNumber: message.body.matchNumber,
-      category: { equals: message.body.tickets.category },
-    },
-    select: {
-      id: true,
-      available: true,
-      pending: true,
-    },
-  });
-
-  const newAvailable =
-    reservedTickets.available - message.body.tickets.quantity;
-  const newPending = reservedTickets.pending - message.body.tickets.quantity;
-
-  const tickets = prisma.availabletickets.update({
-    where: {
-      id: reservedTickets.id,
-    },
-    data: {
-      available: newAvailable,
-      pending: newPending,
-    },
-  });
-
-  return Promise.resolve("[processReservedTicket]");
+    console.log("tickets are reserved");
+  } catch (error) {
+    console.log(error.response);
+  }
 };
 
 const processMasterlist = async (message) => {

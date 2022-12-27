@@ -21,23 +21,14 @@ model User {
   reservedTickets   ReservedTicket[]
 }
 
-// // all stadiums
-// model Stadium {
-//   id       String  @id @default(cuid()) @map("_id")
-//   name     String  @unique
-//   capacity Int
-//   Match    Match[] //@todo: rename to matches
-// }
-
 // all games
 model Match {
   id              String           @id @default(cuid()) @map("_id")
   matchNumber     Int              @unique
   roundNumber     Int
   date            DateTime
-  stadiumName     String
-  // stadium         Stadium          @relation(fields: [stadiumId], references: [id])
-  // stadiumId       String
+  stadium         Stadium          @relation(fields: [stadiumId], references: [id])
+  stadiumId       String
   homeTeamId      String
   homeTeam        Team             @relation(name: "homeTeam", fields: [homeTeamId], references: [id])
   homeScore       Int?
@@ -48,6 +39,13 @@ model Match {
   ended           Boolean          @default(false)
   reservedTickets ReservedTicket[]
   matchEvents     MatchEvent[]
+}
+
+// all stadiums
+model Stadium {
+  id    String  @id @default(cuid()) @map("_id")
+  name  String  @unique
+  Match Match[] //@todo: rename to matches
 }
 
 model AvailableTickets {
@@ -87,13 +85,15 @@ model MatchEvent {
 
 // all teams
 model Team {
-  id          String       @id @default(cuid()) @map("_id")
-  name        String       @unique
-  homeMatches Match[]      @relation(name: "homeTeam")
-  awayMatches Match[]      @relation(name: "awayTeam")
-  matchEvents MatchEvent[]
-  players     Player[]
-  Manager     Manager[]
+  id             String       @id @default(cuid()) @map("_id")
+  name           String       @unique
+  primaryColor   String?
+  secondaryColor String?
+  homeMatches    Match[]      @relation(name: "homeTeam")
+  awayMatches    Match[]      @relation(name: "awayTeam")
+  matchEvents    MatchEvent[]
+  players        Player[]
+  Manager        Manager[]
 }
 
 // all players
