@@ -5,7 +5,7 @@ const processPendingTicket = async (message) => {
   try {
     const ticketPending = await axios.post(
       `${RESERVATIONS_URL}/tickets/proccesors/pending`,
-      message.message
+      message
     );
 
     console.log("tickets are pending");
@@ -18,7 +18,7 @@ const processCancelledTicket = async (message) => {
   try {
     const ticketCancelled = await axios.post(
       `${RESERVATIONS_URL}/tickets/proccesors/cancelled`,
-      message.message
+      message
     );
 
     console.log("tickets are cancelled");
@@ -31,7 +31,7 @@ const processReservedTicket = async (message) => {
   try {
     const ticketPending = await axios.post(
       `${RESERVATIONS_URL}/tickets/proccesors/reserved`,
-      message.message
+      message
     );
 
     console.log("tickets are reserved");

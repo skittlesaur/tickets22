@@ -5,6 +5,8 @@ import * as bodyParser from 'body-parser'
 import { CLIENT_URL, PORT } from './constants'
 import tickets from './routes/tickets'
 import { PrismaClient, User } from '@prisma/client'
+const { startKafkaProducer } = require('./connectors/kafka');
+
 
 declare global {
   namespace Express {
@@ -34,6 +36,10 @@ server.use((req, res, next) => {
   }
   next()
 })
+
+
+// Start Kafka Producer
+startKafkaProducer();
 
 server.use('/tickets', tickets)
 server.get('/', (req, res) => {

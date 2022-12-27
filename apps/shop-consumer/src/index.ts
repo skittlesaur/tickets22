@@ -15,7 +15,7 @@ server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({ extended: true }))
 
 
-//startKafkaConsumer()
+startKafkaConsumer()
 
 server.get('/', (req, res) => {
   res.redirect(`${CLIENT_URL}/help/microservices/shop-consumer`)
@@ -23,22 +23,6 @@ server.get('/', (req, res) => {
 
 server.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`)
-})
-
-processReservedTicket({
-  "message": {
-    "meta": {
-      "action": "TICKET_PENDING"
-    },
-    "body": {
-      "matchNumber": 1,
-      "tickets": {
-        "category": 1,
-        "quantity": 2,
-        "price": 75
-      }
-    }
-  }
 })
 
 export default server
