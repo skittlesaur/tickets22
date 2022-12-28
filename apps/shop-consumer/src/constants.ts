@@ -1,6 +1,10 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
+export const TICKET_PENDING = 'TICKET_PENDING'
+export const TICKET_RESERVED = 'TICKET_RESERVED'
+export const TICKET_CANCELLED = 'TICKET_CANCELLED'
+
 export const PORT = process.env.PORT ?? 3010
 
 export const CLIENT_URL = process.env.CLIENT_URL ?? 'http://localhost:9000'

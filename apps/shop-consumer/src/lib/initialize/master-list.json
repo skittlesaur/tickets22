@@ -1,0 +1,1666 @@
+[
+    {
+      "matchNumber": 1,
+      "roundNumber": 1,
+      "dateUtc": "2022-11-20T16:00:00Z",
+      "location": "Al Bayt Stadium",
+      "availability": {
+        "category1": {
+          "available": 5,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Qatar",
+      "awayTeam": "Ecuador",
+      "group": "A"
+    },
+    {
+      "matchNumber": 3,
+      "roundNumber": 1,
+      "dateUtc": "2022-11-21T13:00:00Z",
+      "location": "Khalifa International Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "England",
+      "awayTeam": "Iran",
+      "group": "B"
+    },
+    {
+      "matchNumber": 2,
+      "roundNumber": 1,
+      "dateUtc": "2022-11-21T16:00:00Z",
+      "location": "Al Thumama Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Senegal",
+      "awayTeam": "Netherlands",
+      "group": "A"
+    },
+    {
+      "matchNumber": 4,
+      "roundNumber": 1,
+      "dateUtc": "2022-11-21T19:00:00Z",
+      "location": "Ahmad Bin Ali Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "USA",
+      "awayTeam": "Wales",
+      "group": "B"
+    },
+    {
+      "matchNumber": 8,
+      "roundNumber": 1,
+      "dateUtc": "2022-11-22T10:00:00Z",
+      "location": "Lusail Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Argentina",
+      "awayTeam": "Saudi Arabia",
+      "group": "C"
+    },
+    {
+      "matchNumber": 6,
+      "roundNumber": 1,
+      "dateUtc": "2022-11-22T13:00:00Z",
+      "location": "Education City Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Denmark",
+      "awayTeam": "Tunisia",
+      "group": "D"
+    },
+    {
+      "matchNumber": 7,
+      "roundNumber": 1,
+      "dateUtc": "2022-11-22T16:00:00Z",
+      "location": "Stadium 974",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Mexico",
+      "awayTeam": "Poland",
+      "group": "C"
+    },
+    {
+      "matchNumber": 5,
+      "roundNumber": 1,
+      "dateUtc": "2022-11-22T19:00:00Z",
+      "location": "Al Janoub Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "France",
+      "awayTeam": "Australia",
+      "group": "D"
+    },
+    {
+      "matchNumber": 12,
+      "roundNumber": 1,
+      "dateUtc": "2022-11-23T10:00:00Z",
+      "location": "Al Bayt Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Morocco",
+      "awayTeam": "Croatia",
+      "group": "F"
+    },
+    {
+      "matchNumber": 11,
+      "roundNumber": 1,
+      "dateUtc": "2022-11-23T13:00:00Z",
+      "location": "Khalifa International Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Germany",
+      "awayTeam": "Japan",
+      "group": "E"
+    },
+    {
+      "matchNumber": 10,
+      "roundNumber": 1,
+      "dateUtc": "2022-11-23T16:00:00Z",
+      "location": "Al Thumama Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Spain",
+      "awayTeam": "Costa Rica",
+      "group": "E"
+    },
+    {
+      "matchNumber": 9,
+      "roundNumber": 1,
+      "dateUtc": "2022-11-23T19:00:00Z",
+      "location": "Ahmad Bin Ali Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Belgium",
+      "awayTeam": "Canada",
+      "group": "F"
+    },
+    {
+      "matchNumber": 13,
+      "roundNumber": 1,
+      "dateUtc": "2022-11-24T10:00:00Z",
+      "location": "Al Janoub Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Switzerland",
+      "awayTeam": "Cameroon",
+      "group": "G"
+    },
+    {
+      "matchNumber": 14,
+      "roundNumber": 1,
+      "dateUtc": "2022-11-24T13:00:00Z",
+      "location": "Education City Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Uruguay",
+      "awayTeam": "Korea Republic",
+      "group": "H"
+    },
+    {
+      "matchNumber": 15,
+      "roundNumber": 1,
+      "dateUtc": "2022-11-24T16:00:00Z",
+      "location": "Stadium 974",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Portugal",
+      "awayTeam": "Ghana",
+      "group": "H"
+    },
+    {
+      "matchNumber": 16,
+      "roundNumber": 1,
+      "dateUtc": "2022-11-24T19:00:00Z",
+      "location": "Lusail Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Brazil",
+      "awayTeam": "Serbia",
+      "group": "G"
+    },
+    {
+      "matchNumber": 17,
+      "roundNumber": 2,
+      "dateUtc": "2022-11-25T10:00:00Z",
+      "location": "Ahmad Bin Ali Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Wales",
+      "awayTeam": "Iran",
+      "group": "B"
+    },
+    {
+      "matchNumber": 18,
+      "roundNumber": 2,
+      "dateUtc": "2022-11-25T13:00:00Z",
+      "location": "Al Thumama Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Qatar",
+      "awayTeam": "Senegal",
+      "group": "A"
+    },
+    {
+      "matchNumber": 19,
+      "roundNumber": 2,
+      "dateUtc": "2022-11-25T16:00:00Z",
+      "location": "Khalifa International Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Netherlands",
+      "awayTeam": "Ecuador",
+      "group": "A"
+    },
+    {
+      "matchNumber": 20,
+      "roundNumber": 2,
+      "dateUtc": "2022-11-25T19:00:00Z",
+      "location": "Al Bayt Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "England",
+      "awayTeam": "USA",
+      "group": "B"
+    },
+    {
+      "matchNumber": 21,
+      "roundNumber": 2,
+      "dateUtc": "2022-11-26T10:00:00Z",
+      "location": "Al Janoub Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Tunisia",
+      "awayTeam": "Australia",
+      "group": "D"
+    },
+    {
+      "matchNumber": 22,
+      "roundNumber": 2,
+      "dateUtc": "2022-11-26T13:00:00Z",
+      "location": "Education City Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Poland",
+      "awayTeam": "Saudi Arabia",
+      "group": "C"
+    },
+    {
+      "matchNumber": 23,
+      "roundNumber": 2,
+      "dateUtc": "2022-11-26T16:00:00Z",
+      "location": "Stadium 974",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "France",
+      "awayTeam": "Denmark",
+      "group": "D"
+    },
+    {
+      "matchNumber": 24,
+      "roundNumber": 2,
+      "dateUtc": "2022-11-26T19:00:00Z",
+      "location": "Lusail Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Argentina",
+      "awayTeam": "Mexico",
+      "group": "C"
+    },
+    {
+      "matchNumber": 25,
+      "roundNumber": 2,
+      "dateUtc": "2022-11-27T10:00:00Z",
+      "location": "Ahmad Bin Ali Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Japan",
+      "awayTeam": "Costa Rica",
+      "group": "E"
+    },
+    {
+      "matchNumber": 26,
+      "roundNumber": 2,
+      "dateUtc": "2022-11-27T13:00:00Z",
+      "location": "Al Thumama Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Belgium",
+      "awayTeam": "Morocco",
+      "group": "F"
+    },
+    {
+      "matchNumber": 27,
+      "roundNumber": 2,
+      "dateUtc": "2022-11-27T16:00:00Z",
+      "location": "Khalifa International Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Croatia",
+      "awayTeam": "Canada",
+      "group": "F"
+    },
+    {
+      "matchNumber": 28,
+      "roundNumber": 2,
+      "dateUtc": "2022-11-27T19:00:00Z",
+      "location": "Al Bayt Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Spain",
+      "awayTeam": "Germany",
+      "group": "E"
+    },
+    {
+      "matchNumber": 29,
+      "roundNumber": 2,
+      "dateUtc": "2022-11-28T10:00:00Z",
+      "location": "Al Janoub Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Cameroon",
+      "awayTeam": "Serbia",
+      "group": "G"
+    },
+    {
+      "matchNumber": 30,
+      "roundNumber": 2,
+      "dateUtc": "2022-11-28T13:00:00Z",
+      "location": "Education City Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Korea Republic",
+      "awayTeam": "Ghana",
+      "group": "H"
+    },
+    {
+      "matchNumber": 31,
+      "roundNumber": 2,
+      "dateUtc": "2022-11-28T16:00:00Z",
+      "location": "Stadium 974",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Brazil",
+      "awayTeam": "Switzerland",
+      "group": "G"
+    },
+    {
+      "matchNumber": 32,
+      "roundNumber": 2,
+      "dateUtc": "2022-11-28T19:00:00Z",
+      "location": "Lusail Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Portugal",
+      "awayTeam": "Uruguay",
+      "group": "H"
+    },
+    {
+      "matchNumber": 35,
+      "roundNumber": 3,
+      "dateUtc": "2022-11-29T15:00:00Z",
+      "location": "Khalifa International Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Ecuador",
+      "awayTeam": "Senegal",
+      "group": "A"
+    },
+    {
+      "matchNumber": 36,
+      "roundNumber": 3,
+      "dateUtc": "2022-11-29T15:00:00Z",
+      "location": "Al Bayt Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Netherlands",
+      "awayTeam": "Qatar",
+      "group": "A"
+    },
+    {
+      "matchNumber": 33,
+      "roundNumber": 3,
+      "dateUtc": "2022-11-29T19:00:00Z",
+      "location": "Ahmad Bin Ali Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Wales",
+      "awayTeam": "England",
+      "group": "B"
+    },
+    {
+      "matchNumber": 34,
+      "roundNumber": 3,
+      "dateUtc": "2022-11-29T19:00:00Z",
+      "location": "Al Thumama Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Iran",
+      "awayTeam": "USA",
+      "group": "B"
+    },
+    {
+      "matchNumber": 37,
+      "roundNumber": 3,
+      "dateUtc": "2022-11-30T15:00:00Z",
+      "location": "Al Janoub Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Australia",
+      "awayTeam": "Denmark",
+      "group": "D"
+    },
+    {
+      "matchNumber": 38,
+      "roundNumber": 3,
+      "dateUtc": "2022-11-30T15:00:00Z",
+      "location": "Education City Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Tunisia",
+      "awayTeam": "France",
+      "group": "D"
+    },
+    {
+      "matchNumber": 39,
+      "roundNumber": 3,
+      "dateUtc": "2022-11-30T19:00:00Z",
+      "location": "Stadium 974",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Poland",
+      "awayTeam": "Argentina",
+      "group": "C"
+    },
+    {
+      "matchNumber": 40,
+      "roundNumber": 3,
+      "dateUtc": "2022-11-30T19:00:00Z",
+      "location": "Lusail Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Saudi Arabia",
+      "awayTeam": "Mexico",
+      "group": "C"
+    },
+    {
+      "matchNumber": 41,
+      "roundNumber": 3,
+      "dateUtc": "2022-12-01T15:00:00Z",
+      "location": "Ahmad Bin Ali Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Croatia",
+      "awayTeam": "Belgium",
+      "group": "F"
+    },
+    {
+      "matchNumber": 42,
+      "roundNumber": 3,
+      "dateUtc": "2022-12-01T15:00:00Z",
+      "location": "Al Thumama Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Canada",
+      "awayTeam": "Morocco",
+      "group": "F"
+    },
+    {
+      "matchNumber": 43,
+      "roundNumber": 3,
+      "dateUtc": "2022-12-01T19:00:00Z",
+      "location": "Khalifa International Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Japan",
+      "awayTeam": "Spain",
+      "group": "E"
+    },
+    {
+      "matchNumber": 44,
+      "roundNumber": 3,
+      "dateUtc": "2022-12-01T19:00:00Z",
+      "location": "Al Bayt Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Costa Rica",
+      "awayTeam": "Germany",
+      "group": "E"
+    },
+    {
+      "matchNumber": 45,
+      "roundNumber": 3,
+      "dateUtc": "2022-12-02T15:00:00Z",
+      "location": "Al Janoub Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Ghana",
+      "awayTeam": "Uruguay",
+      "group": "H"
+    },
+    {
+      "matchNumber": 46,
+      "roundNumber": 3,
+      "dateUtc": "2022-12-02T15:00:00Z",
+      "location": "Education City Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Korea Republic",
+      "awayTeam": "Portugal",
+      "group": "H"
+    },
+    {
+      "matchNumber": 47,
+      "roundNumber": 3,
+      "dateUtc": "2022-12-02T19:00:00Z",
+      "location": "Stadium 974",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Serbia",
+      "awayTeam": "Switzerland",
+      "group": "G"
+    },
+    {
+      "matchNumber": 48,
+      "roundNumber": 3,
+      "dateUtc": "2022-12-02T19:00:00Z",
+      "location": "Lusail Stadium",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "Cameroon",
+      "awayTeam": "Brazil",
+      "group": "G"
+    },
+    {
+      "matchNumber": 49,
+      "roundNumber": 4,
+      "dateUtc": "2022-12-03T15:00:00Z",
+      "location": "TBA",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "1A",
+      "awayTeam": "2B",
+      "group": null
+    },
+    {
+      "matchNumber": 50,
+      "roundNumber": 4,
+      "dateUtc": "2022-12-03T19:00:00Z",
+      "location": "TBA",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "1C",
+      "awayTeam": "2D",
+      "group": null
+    },
+    {
+      "matchNumber": 52,
+      "roundNumber": 4,
+      "dateUtc": "2022-12-04T15:00:00Z",
+      "location": "TBA",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "1D",
+      "awayTeam": "2C",
+      "group": null
+    },
+    {
+      "matchNumber": 51,
+      "roundNumber": 4,
+      "dateUtc": "2022-12-04T19:00:00Z",
+      "location": "TBA",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "1B",
+      "awayTeam": "2A",
+      "group": null
+    },
+    {
+      "matchNumber": 53,
+      "roundNumber": 4,
+      "dateUtc": "2022-12-05T15:00:00Z",
+      "location": "TBA",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "1E",
+      "awayTeam": "2F",
+      "group": null
+    },
+    {
+      "matchNumber": 54,
+      "roundNumber": 4,
+      "dateUtc": "2022-12-05T19:00:00Z",
+      "location": "TBA",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "1G",
+      "awayTeam": "2H",
+      "group": null
+    },
+    {
+      "matchNumber": 55,
+      "roundNumber": 4,
+      "dateUtc": "2022-12-06T15:00:00Z",
+      "location": "TBA",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "1F",
+      "awayTeam": "2E",
+      "group": null
+    },
+    {
+      "matchNumber": 56,
+      "roundNumber": 4,
+      "dateUtc": "2022-12-06T19:00:00Z",
+      "location": "TBA",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "1H",
+      "awayTeam": "2G",
+      "group": null
+    },
+    {
+      "matchNumber": 58,
+      "roundNumber": 5,
+      "dateUtc": "2022-12-09T15:00:00Z",
+      "location": "TBA",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "TBA",
+      "awayTeam": "TBA",
+      "group": null
+    },
+    {
+      "matchNumber": 57,
+      "roundNumber": 5,
+      "dateUtc": "2022-12-09T19:00:00Z",
+      "location": "TBA",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "TBA",
+      "awayTeam": "TBA",
+      "group": null
+    },
+    {
+      "matchNumber": 60,
+      "roundNumber": 5,
+      "dateUtc": "2022-12-10T15:00:00Z",
+      "location": "TBA",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "TBA",
+      "awayTeam": "TBA",
+      "group": null
+    },
+    {
+      "matchNumber": 59,
+      "roundNumber": 5,
+      "dateUtc": "2022-12-10T19:00:00Z",
+      "location": "TBA",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "TBA",
+      "awayTeam": "TBA",
+      "group": null
+    },
+    {
+      "matchNumber": 61,
+      "roundNumber": 6,
+      "dateUtc": "2022-12-13T19:00:00Z",
+      "location": "TBA",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "TBA",
+      "awayTeam": "TBA",
+      "group": null
+    },
+    {
+      "matchNumber": 62,
+      "roundNumber": 6,
+      "dateUtc": "2022-12-14T19:00:00Z",
+      "location": "TBA",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "TBA",
+      "awayTeam": "TBA",
+      "group": null
+    },
+    {
+      "matchNumber": 63,
+      "roundNumber": 7,
+      "dateUtc": "2022-12-17T15:00:00Z",
+      "location": "TBA",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "TBA",
+      "awayTeam": "TBA",
+      "group": null
+    },
+    {
+      "matchNumber": 64,
+      "roundNumber": 7,
+      "dateUtc": "2022-12-18T15:00:00Z",
+      "location": "TBA",
+      "availability": {
+        "category1": {
+          "available": 20,
+          "pending": 0,
+          "price": 75
+        },
+        "category2": {
+          "available": 20,
+          "pending": 0,
+          "price": 125
+        },
+        "category3": {
+          "available": 20,
+          "pending": 0,
+          "price": 195
+        }            
+      },
+      "homeTeam": "TBA",
+      "awayTeam": "TBA",
+      "group": null
+    }
+  ]
