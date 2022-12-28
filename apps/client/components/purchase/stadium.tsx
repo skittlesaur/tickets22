@@ -1,10 +1,7 @@
 import { Canvas, useFrame } from '@react-three/fiber'
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
 import { Suspense, useEffect, useState } from 'react'
 import { Vector3 } from 'three'
-import { CLIENT_URL } from '@services/constants'
-import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader'
-import { OrbitControls, Stars } from '@react-three/drei'
+import { OrbitControls } from '@react-three/drei'
 import { SeatPosition } from '@components/purchase/index'
 
 const cameraProps: { [key: string]: any } = {
@@ -121,7 +118,7 @@ const Stadium = ({ seatPosition }: StadiumProps) => {
       <ambientLight intensity={.5} />
       <spotLight position={[10, 15, 10]} angle={0.15} penumbra={1} />
       <pointLight position={[-10, -15, -10]} />
-      <Stars radius={100} depth={50} count={4000} factor={4} saturation={0} fade />
+      {/*<Stars radius={100} depth={50} count={4000} factor={4} saturation={0} fade />*/}
       <Suspense
         fallback={
           <div className="flex items-center justify-center w-full h-full">
