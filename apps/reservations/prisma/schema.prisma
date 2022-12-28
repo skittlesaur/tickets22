@@ -23,22 +23,22 @@ model User {
 
 // all games
 model Match {
-  id              String           @id @default(cuid()) @map("_id")
-  matchNumber     Int              @unique
-  roundNumber     Int
-  date            DateTime
-  stadium         Stadium          @relation(fields: [stadiumId], references: [id])
-  stadiumId       String
-  homeTeamId      String
-  homeTeam        Team             @relation(name: "homeTeam", fields: [homeTeamId], references: [id])
-  homeScore       Int?
-  awayTeamId      String
-  awayTeam        Team             @relation(name: "awayTeam", fields: [awayTeamId], references: [id])
-  awayScore       Int?
-  group           String?
-  ended           Boolean          @default(false)
-  reservedTickets ReservedTicket[]
-  matchEvents     MatchEvent[]
+  matchNumber      Int                @id @map("_id")
+  roundNumber      Int
+  date             DateTime
+  stadium          Stadium            @relation(fields: [stadiumId], references: [id])
+  stadiumId        String
+  homeTeamId       String
+  homeTeam         Team               @relation(name: "homeTeam", fields: [homeTeamId], references: [id])
+  homeScore        Int?
+  awayTeamId       String
+  awayTeam         Team               @relation(name: "awayTeam", fields: [awayTeamId], references: [id])
+  awayScore        Int?
+  group            String?
+  ended            Boolean            @default(false)
+  reservedTickets  ReservedTicket[]
+  matchEvents      MatchEvent[]
+  availableTickets AvailableTickets[]
 }
 
 // all stadiums
@@ -50,7 +50,8 @@ model Stadium {
 
 model AvailableTickets {
   id          String @id @default(cuid()) @map("_id")
-  matchNumber Int    @unique
+  match       Match  @relation(fields: [matchNumber], references: [matchNumber])
+  matchNumber Int
   category    Int
   available   Int
   pending     Int    @default(0)
@@ -63,19 +64,19 @@ model ReservedTicket {
   userId         String
   user           User?    @relation(fields: [userId], references: [id]) // if user authenticated, then user is not null
   email          String? // if guest purchase, track their email
-  match          Match    @relation(fields: [matchId], references: [id])
+  match          Match    @relation(fields: [matchNumber], references: [matchNumber])
+  matchNumber    Int
   seat           String
   price          Int
   externalSeller String? // if the ticket was purchased from some other team, store the team name
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
-  matchId        String
 }
 
 model MatchEvent {
   id          String         @id @default(cuid()) @map("_id")
-  match       Match          @relation(fields: [matchId], references: [id])
-  matchId     String
+  match       Match          @relation(fields: [matchNumber], references: [matchNumber])
+  matchNumber Int
   eventType   MatchEventType
   minute      String
   team        Team?          @relation(fields: [teamId], references: [id])
