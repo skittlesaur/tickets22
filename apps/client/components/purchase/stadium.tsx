@@ -4,7 +4,7 @@ import { Suspense, useEffect, useState } from 'react'
 import { Vector3 } from 'three'
 import { CLIENT_URL } from '@services/constants'
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader'
-import { OrbitControls } from '@react-three/drei'
+import { OrbitControls, Stars } from '@react-three/drei'
 import { SeatPosition } from '@components/purchase/index'
 
 const cameraProps: { [key: string]: any } = {
@@ -93,24 +93,24 @@ const Stadium = ({ seatPosition }: StadiumProps) => {
   const [loaded, setLoaded] = useState(0)
 
   useEffect(() => {
-    new MTLLoader().load(`${CLIENT_URL}/3d/stadium.mtl`, (materials) => {
-      materials.preload()
-      new OBJLoader().setMaterials(materials).load(
-        `${CLIENT_URL}/3d/stadium.obj`,
-        (model) => {
-          model.position.set(0, 0, 0)
-          setModel(model)
-        },
-        (progress) => {
-          console.log(progress.loaded / progress.total * 100)
-          setLoaded(progress.loaded / progress.total * 100)
-        },
-        (error) => {
-          console.log(error)
-          setLoaded(-1)
-        },
-      )
-    })
+    // new MTLLoader().load(`${CLIENT_URL}/3d/stadium.mtl`, (materials) => {
+    //   materials.preload()
+    //   new OBJLoader().setMaterials(materials).load(
+    //     `${CLIENT_URL}/3d/stadium.obj`,
+    //     (model) => {
+    //       model.position.set(0, 0, 0)
+    //       setModel(model)
+    //     },
+    //     (progress) => {
+    //       console.log(progress.loaded / progress.total * 100)
+    //       setLoaded(progress.loaded / progress.total * 100)
+    //     },
+    //     (error) => {
+    //       console.log(error)
+    //       setLoaded(-1)
+    //     },
+    //   )
+    // })
   }, [])
 
   return (
@@ -121,7 +121,7 @@ const Stadium = ({ seatPosition }: StadiumProps) => {
       <ambientLight intensity={.5} />
       <spotLight position={[10, 15, 10]} angle={0.15} penumbra={1} />
       <pointLight position={[-10, -15, -10]} />
-      {/*<Stars radius={100} depth={50} count={4000} factor={4} saturation={0} fade />*/}
+      <Stars radius={100} depth={50} count={4000} factor={4} saturation={0} fade />
       <Suspense
         fallback={
           <div className="flex items-center justify-center w-full h-full">
@@ -132,10 +132,10 @@ const Stadium = ({ seatPosition }: StadiumProps) => {
         }
       >
         <mesh>
-          <primitive
-            position={[0, -20, 0]}
-            object={model}
-          />
+          {/*<primitive*/}
+          {/*  position={[0, -20, 0]}*/}
+          {/*  object={model}*/}
+          {/*/>*/}
         </mesh>
       </Suspense>
     </Canvas>
