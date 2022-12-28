@@ -24,7 +24,7 @@ const Purchase = () => {
   const router = useRouter()
   const id = getDynamicQuery('id')
   const { data: match, isLoading, isError } = useMatchQuery(id)
-  const [seatPosition, setSeatPosition] = useState<SeatPosition>(SeatPosition.NORTH)
+  const [seatPosition, setSeatPosition] = useState<SeatPosition>(SeatPosition.NOT_SELECTED)
   const [ticketType, setTicketType] = useState<TicketType>(TicketType.CATEGORY_1)
 
   if (isLoading)
