@@ -6,8 +6,7 @@ import { CLIENT_URL, PORT } from './constants'
 import { PrismaClient, User } from '@prisma/client'
 import matches from './routes/matches'
 import stadiums from './routes/stadiums'
-import players from './routes/players'
-import scrapeEvents from './lib/scrape-events'
+import team from './routes/team'
 
 declare global {
   namespace Express {
@@ -40,7 +39,7 @@ server.use((req, res, next) => {
 
 server.use('/matches', matches)
 server.use('/stadiums', stadiums)
-server.use('/players', players)
+server.use('/team', team)
 
 server.get('/', (req, res) => {
   res.redirect(`${CLIENT_URL}/help/microservices/shop`)

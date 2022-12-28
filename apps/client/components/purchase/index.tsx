@@ -72,8 +72,10 @@ const Purchase = () => {
             <select
               id="type"
               name="type"
+              className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm disabled:opacity-50"
+              value={ticketType}
               onChange={(e) => setTicketType(e.target.value as TicketType)}
-              className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+              disabled={seatPosition === SeatPosition.NOT_SELECTED}
             >
               {Object.values(TicketType).map((type) => (
                 <option key={type} value={type}>

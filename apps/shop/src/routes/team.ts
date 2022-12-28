@@ -3,6 +3,6 @@ import getRandomPlayer from '../controllers/players/random-player'
 
 const router = express.Router()
 
-router.get('/team/:teamId', getRandomPlayer)
+router.get('/:teamId/players/random', getRandomPlayer)
 
 export default router

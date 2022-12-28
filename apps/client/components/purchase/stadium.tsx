@@ -34,8 +34,13 @@ interface StadiumProps {
   seatPosition: SeatPosition
 }
 
+const convertDegreeToRadian = (degree: number) => {
+  return (degree * Math.PI) / 180
+}
+
 const Stadium = ({ seatPosition }: StadiumProps) => {
   const [model, setModel] = useState<any>()
+  const [hovering, setHovering] = useState('')
 
   useEffect(() => {
     new MTLLoader().load(`${CLIENT_URL}/3d/stadium.mtl`, (materials) => {
@@ -113,7 +118,7 @@ const Stadium = ({ seatPosition }: StadiumProps) => {
       <Stars radius={100} depth={50} count={4000} factor={4} saturation={0} fade />
       <mesh>
         <primitive
-          position={[0, -30, 0]}
+          position={[0, -20, 0]}
           object={model}
         />
       </mesh>
