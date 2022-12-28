@@ -15,7 +15,7 @@ const Match = ({ match }: any) => {
           </div>
         </div>
         <div className="w-full h-full bg-secondary rounded-2xl flex items-center justify-center gap-2 font-semibold dark:bg-gray-800 dark:text-secondary">
-          {match.homeScore !== null && match.awayScore !== null ? (
+          {match.ended ? (
             <>
               <span>{match.homeScore}</span>
               <span>:</span>

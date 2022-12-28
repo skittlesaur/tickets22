@@ -35,7 +35,6 @@ export const getStaticProps = async () => {
       revalidate: 10,
     }
   } catch (e) {
-    console.log(e)
     return { props: { matches: null, upcoming: null }, revalidate: 10 }
   }
 }

@@ -16,10 +16,14 @@ const getMatchSummary = async (req: Request, res: Response) => {
             eventType: true,
             minute: true,
             description: true,
+            homeScore: true,
+            awayScore: true,
             team: {
               select: {
                 id: true,
                 name: true,
+                primaryColor: true,
+                secondaryColor: true,
               },
             },
           },

@@ -14,7 +14,7 @@ interface HeaderSummaryProps {
 
 const HeaderSummary = ({ ended, homeTeamId, homeScore, awayTeamId, awayScore }: HeaderSummaryProps) => {
   const matchId = getDynamicQuery('id')
-  const { data: events, isLoading } = useMatchSummaryQuery(matchId, ended)
+  const { data: events, isLoading } = useMatchSummaryQuery(matchId)
   const mainEvents = events?.filter((event: any) => ['GOAL', 'GOAL_PENALTY'].includes(event.eventType)) ?? []
 
   if (isLoading) {

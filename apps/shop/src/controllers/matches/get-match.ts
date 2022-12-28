@@ -24,7 +24,6 @@ const getMatch = async (req: Request, res: Response) => {
           select: {
             id: true,
             name: true,
-            capacity: true,
           },
         },
         homeTeam: {
@@ -56,6 +55,12 @@ const getMatch = async (req: Request, res: Response) => {
 
     return res.status(200).json(match)
   } catch (e) {
+    return res.status(500).json({
+      message: 'Internal server error',
+      details: 'An internal server error occurred',
+      code: 'internal_server_error',
+      help: `${CLIENT_URL}/help/microservices/shop?status=500&code=internal_server_error&endpoint=matches/:id`,
+    })
   }
 }
 
