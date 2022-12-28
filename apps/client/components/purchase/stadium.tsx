@@ -1,13 +1,11 @@
 import { Canvas, useFrame } from '@react-three/fiber'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
-import { Suspense, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Vector3 } from 'three'
 import { CLIENT_URL } from '@services/constants'
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader'
 import { OrbitControls, Stars } from '@react-three/drei'
 import { SeatPosition } from '@components/purchase/index'
-import { Simulate } from 'react-dom/test-utils'
-import progress = Simulate.progress
 
 const cameraProps: { [key: string]: any } = {
   not_selected: {
@@ -136,19 +134,17 @@ const Stadium = ({ seatPosition }: StadiumProps) => {
     <Canvas
       shadows
     >
-      <Suspense fallback={null}>
-        {/*<Camera seatPosition={seatPosition} render={loaded === 100} />*/}
-        <ambientLight intensity={.5} />
-        <spotLight position={[10, 15, 10]} angle={0.15} penumbra={1} />
-        <pointLight position={[-10, -15, -10]} />
-        <Stars radius={100} depth={50} count={4000} factor={4} saturation={0} fade />
-        {/*<mesh>*/}
-        {/*  <primitive*/}
-        {/*    position={[0, -20, 0]}*/}
-        {/*    object={model}*/}
-        {/*  />*/}
-        {/*</mesh>*/}
-      </Suspense>
+      {/*<Camera seatPosition={seatPosition} render={loaded === 100} />*/}
+      {/*<ambientLight intensity={.5} />*/}
+      {/*<spotLight position={[10, 15, 10]} angle={0.15} penumbra={1} />*/}
+      {/*<pointLight position={[-10, -15, -10]} />*/}
+      {/*<Stars radius={100} depth={50} count={4000} factor={4} saturation={0} fade />*/}
+      {/*<mesh>*/}
+      {/*  <primitive*/}
+      {/*    position={[0, -20, 0]}*/}
+      {/*    object={model}*/}
+      {/*  />*/}
+      {/*</mesh>*/}
     </Canvas>
   )
 }
