@@ -2,8 +2,21 @@ import express from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import * as bodyParser from 'body-parser'
-import { PORT } from './constants'
-import { CLIENT_URL } from 'tickets22-shop/src/constants'
+import { CLIENT_URL, PORT } from './constants'
+import { PrismaClient, User } from '@prisma/client'
+import initilaize from './routers/initialize'
+import { startKafkaConsumer } from './connectors/kafka'
+
+declare global {
+  namespace Express {
+    interface Request {
+      context: {
+        prisma: PrismaClient,
+        user?: User
+      }
+    }
+  }
+}
 
 const server = express()
 
@@ -11,6 +24,17 @@ server.use(cors())
 server.use(cookieParser())
 server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({ extended: true }))
+
+server.use((req, res, next) => {
+  req.context = {
+    prisma: new PrismaClient(),
+  }
+  next()
+})
+
+server.use('/initialize', initilaize)
+
+startKafkaConsumer()
 
 server.get('/', (req, res) => {
   res.redirect(`${CLIENT_URL}/help/microservices/shop-consumer`)
@@ -21,3 +45,4 @@ server.listen(PORT, () => {
 })
 
 export default server
+
