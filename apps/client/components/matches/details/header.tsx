@@ -25,7 +25,6 @@ interface HeaderProps {
 
 const Header = (
   {
-    id,
     homeTeam,
     homeScore,
     awayTeam,
@@ -94,7 +93,7 @@ const Header = (
               </>
             ) : (
               <Link
-                href={`/matches/${id}/purchase`}
+                href={`/matches/${matchNumber}/purchase`}
                 className="bg-primary text-sm font-medium text-white px-4 py-1.5 rounded-md border border-transparent hover:border-primary hover:bg-transparent hover:text-primary transition-all duration-200 ease-in-out"
               >
                 Buy Ticket

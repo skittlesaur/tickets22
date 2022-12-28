@@ -5,9 +5,19 @@ const getMatchSummary = async (req: Request, res: Response) => {
   try {
     const { id } = req.params
 
+    const matchNumber = parseInt(id)
+
+    if (isNaN(matchNumber))
+      return res.status(400).json({
+        message: 'Invalid matches id',
+        details: 'The matches id is not a number',
+        code: 'invalid_parameters',
+        help: `${CLIENT_URL}/help/microservices/shop?status=400&code=invalid_parameters&endpoint=matches/:id`,
+      })
+
     const match = await req.context.prisma.match.findUnique({
       where: {
-        id: id,
+        matchNumber,
       },
       select: {
         matchEvents: {

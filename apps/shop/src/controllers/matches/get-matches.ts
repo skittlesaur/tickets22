@@ -5,7 +5,6 @@ const getMatches = async (req: Request, res: Response) => {
     const matches = await req.context.prisma.match.findMany({
       orderBy: { date: 'asc' },
       select: {
-        id: true,
         matchNumber: true,
         roundNumber: true,
         date: true,

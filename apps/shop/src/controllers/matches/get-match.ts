@@ -13,10 +13,19 @@ const getMatch = async (req: Request, res: Response) => {
         help: `${CLIENT_URL}/help/microservices/shop?status=400&code=invalid_parameters&endpoint=matches/:id`,
       })
 
+    const matchNumber = parseInt(id)
+
+    if (isNaN(matchNumber))
+      return res.status(400).json({
+        message: 'Invalid matches id',
+        details: 'The matches id is not a number',
+        code: 'invalid_parameters',
+        help: `${CLIENT_URL}/help/microservices/shop?status=400&code=invalid_parameters&endpoint=matches/:id`,
+      })
+
     const match = await req.context.prisma.match.findUnique({
-      where: { id },
+      where: { matchNumber },
       select: {
-        id: true,
         matchNumber: true,
         roundNumber: true,
         date: true,

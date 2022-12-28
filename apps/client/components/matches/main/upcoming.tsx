@@ -22,7 +22,7 @@ const Upcoming = ({ upcoming = [] }: UpcomingProps) => {
         Upcoming
       </h1>
       <Link
-        href={`/matches/${upcoming[current].id}`}
+        href={`/matches/${upcoming[current].matchNumber}`}
         className="relative group overflow-hidden rounded-lg shadow-md border border-primary text-primary md:h-[18em] hover:shadow-xl hover:bg-primary hover:text-white transition-all duration-150 ease-in-out"
       >
         <div className="relative w-full flex flex-col gap-3 p-4 md:p-6">

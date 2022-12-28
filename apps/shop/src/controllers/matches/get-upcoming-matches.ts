@@ -13,7 +13,6 @@ const getUpcomingMatches = async (req: Request, res: Response) => {
       },
       take: 4,
       select: {
-        id: true,
         date: true,
         roundNumber: true,
         matchNumber: true,

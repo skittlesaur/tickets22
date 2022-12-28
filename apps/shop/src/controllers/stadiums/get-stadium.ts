@@ -17,7 +17,6 @@ const getStadium = async (req: Request, res: Response) => {
       select: {
         id: true,
         name: true,
-        capacity: true,
       },
     })
 

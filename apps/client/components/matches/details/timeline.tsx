@@ -66,7 +66,7 @@ interface TimelineProps {
 }
 
 const Timeline = ({ match }: TimelineProps) => {
-  const { data: timeline, isLoading } = useMatchSummaryQuery(match.id)
+  const { data: timeline, isLoading } = useMatchSummaryQuery(match.matchNumber)
   const sortedTimeline = useMemo(() => [...timeline ?? []].reverse(), [timeline])
   const [hiddenEvents, setHiddenEvents] = useState<any>([])
 
