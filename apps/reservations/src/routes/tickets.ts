@@ -6,6 +6,7 @@ import processReservedTicket from '../controllers/processors/process-reserved-ti
 import reserveTickets from '../controllers/tickets/start-ticket-checkout'
 import startTicketCheckout from '../controllers/tickets/start-ticket-checkout'
 import cancelTickets from '../controllers/tickets/cancel-tickets';
+import optionalUser from '../middleware/optional-user';
 
 const router = express.Router()
 
@@ -17,7 +18,7 @@ router.post('/processors/reserved', processReservedTicket)
 router.post('/cancel', cancelTickets)
 router.post('/finalize', reserveTickets)
 
-router.post('/reserve', startTicketCheckout)
+router.post('/reserve', optionalUser, startTicketCheckout)
 
 
 
