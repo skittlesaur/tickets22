@@ -25,7 +25,6 @@ const kafkaMessageValidation = {
    * @return null if validation passes otherwise a validation error
    */
   kafkaMessage(reservation: message) {
-    console.log('reservation', reservation)
     const schema = Joi.object()
       .keys({
         meta: Joi.object()

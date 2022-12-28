@@ -48,14 +48,14 @@ const startKafkaConsumer = async () => {
 				// Deserialize message body
 				const parsedMessage = JSON.parse(message.value)
 				if (isEmpty(parsedMessage)) {
-					console.log('cannot process empty message')
+					throw new Error('cannot process empty message')
 					return
 				}
 
 				// process message if there is no validation error
 				const validationError = validate.kafkaMessage(parsedMessage)
 				if (!isEmpty(validationError)) {
-					console.log(
+					throw new Error(
 						'cannot process message with validation error:',
 						validationError.message
 					)

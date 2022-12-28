@@ -95,7 +95,7 @@ const initilaize = async (req: Request, res: Response) => {
       })
 
 
-      console.log(`${i + 1}: ${matchEntry.matchNumber}`)
+      console.log(`${matchEntry.matchNumber}`)
     }
 
     res.status(200).json({ message: 'initialized' })
@@ -105,26 +105,3 @@ const initilaize = async (req: Request, res: Response) => {
 }
 
 export default initilaize
-
-// const test = async () => {
-//   try {
-//     const prisma = new PrismaClient()
-
-//     const pendingTickets = await prisma.availableTickets.findFirst({
-//       where: {
-//         matchNumber: 2,
-//         category: { equals: 1 },
-//       },
-//       select: {
-//         id: true,
-//         pending: true,
-//       },
-//     });
-
-//     console.log(pendingTickets)
-//   } catch (error) {
-//     console.log(error)
-//   }
-// }
-
-// test()
