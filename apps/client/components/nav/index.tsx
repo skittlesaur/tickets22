@@ -29,8 +29,8 @@ const Nav = ({ activePage, forceLightText = false }: NavProps) => {
         activePage === "Home" ? "fixed" : "sticky"
       } top-0 w-full backdrop-blur ${
         forceLightText
-          ? "bg-gray-900/10 border-gray-400"
-          : "bg-gray-50/10 border-gray-200 dark:border-gray-700"
+          ? "bg-gray-900/50 border-gray-700"
+          : "bg-gray-50/10 border-gray-200 dark:bg-gray-900/50 dark:border-gray-700"
       } border-b`}
     >
       <div
@@ -41,7 +41,7 @@ const Nav = ({ activePage, forceLightText = false }: NavProps) => {
             href="/"
             className={`flex items-center gap-3 ${
               forceLightText ? "text-secondary" : "text-primary"
-            } ${transition} hover:text-primary/70`}
+            } ${transition} hover:text-primary/70 dark:text-secondary`}
           >
             <div className="w-4">
               <Logo className="[&>*]:fill-current" />
@@ -56,7 +56,7 @@ const Nav = ({ activePage, forceLightText = false }: NavProps) => {
                   className={`text-sm ${
                     activePage === page.name
                       ? `${
-                          forceLightText ? "text-secondary" : "text-primary"
+                          forceLightText ? "text-secondary" : "text-primary dark:text-secondary"
                         } font-medium`
                       : `${
                           forceLightText
