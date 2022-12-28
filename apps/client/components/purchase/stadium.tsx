@@ -137,7 +137,7 @@ const Stadium = ({ seatPosition }: StadiumProps) => {
       shadows
     >
       <Suspense fallback={null}>
-        <Camera seatPosition={seatPosition} render={loaded === 100} />
+        {/*<Camera seatPosition={seatPosition} render={loaded === 100} />*/}
         <ambientLight intensity={.5} />
         <spotLight position={[10, 15, 10]} angle={0.15} penumbra={1} />
         <pointLight position={[-10, -15, -10]} />
