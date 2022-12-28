@@ -7,6 +7,7 @@ interface AppProps {
   forceLightText?: boolean;
   children: ReactNode;
   isFullWidth?: boolean;
+  noPaddingY?: boolean;
 }
 
 const AppLayout = (
@@ -15,9 +16,10 @@ const AppLayout = (
     children,
     forceLightText = false,
     isFullWidth = false,
+    noPaddingY = false,
   }: AppProps) => {
   return (
-    <div className="bg-gray-50 relative flex flex-col min-h-screen gap-16 max-w-full overflow-clip dark:bg-gray-980 transition-all duration-200 ease-in-out">
+    <div className={`bg-gray-50 relative flex flex-col min-h-screen ${noPaddingY ? '' : 'gap-16'} max-w-full overflow-clip dark:bg-gray-980 transition-all duration-200 ease-in-out`}>
       <Nav activePage={activePage} forceLightText={forceLightText} />
       <div className={`${isFullWidth ? '' : 'max-w-screen-xl mx-auto'} w-full grow px-4 md:px-0`}>
         {children}

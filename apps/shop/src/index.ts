@@ -49,6 +49,4 @@ server.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`)
 })
 
-// scrapeEvents()
-
 export default server

@@ -12,7 +12,7 @@ const TeamCard = ({ team }: any) => {
       <Link
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
-        href={`/teams/${team.id}`}
+        href={`/teams/${team.name.replace(' ', '-').toLowerCase()}`}
         className="relative z-[1] flex flex-col items-center gap-4 p-10 hover:text-secondary transition-all duration-200 ease-in-out"
       >
         <div className={`w-20 aspect-square ${hover ? 'drop-shadow-xl' : ''} transition-all duration-200 ease-in-out`}>

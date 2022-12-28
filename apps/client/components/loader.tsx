@@ -4,7 +4,7 @@ interface LoaderProps {
   color?: string
 }
 
-const Loader = ({ color = 'bg-gray-50' }: LoaderProps) => {
+const Loader = ({ color = 'bg-primary dark:bg-secondary' }: LoaderProps) => {
   return (
     <motion.div
       className="m-auto inline-flex gap-1"
