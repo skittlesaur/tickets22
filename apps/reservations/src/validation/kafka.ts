@@ -1,4 +1,5 @@
-const Joi = require("@hapi/joi");
+import Joi from 'joi'
+
 import {
   TICKET_RESERVED,
   TICKET_PENDING,
