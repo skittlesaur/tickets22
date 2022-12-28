@@ -1,5 +1,6 @@
 const axios = require("axios");
 import { RESERVATIONS_URL } from "../constants";
+import { Response } from 'express';
 
 interface message {
   meta: {
@@ -54,8 +55,12 @@ export const processReservedTicket = async (message: message) => {
   }
 };
 
-const processMasterlist = async (message: object) => {
-  // console.log("[processMasterlist]", message);
+export const processMasterlist = async (masterlistMessage: object) => {
+  try {
+    const updateMasterList = await axios.post(`${RESERVATIONS_URL}/tickets/processors/masterlist`, masterlistMessage)
 
-  return Promise.resolve("[processMasterlist]");
+    console.log('masterlist Updated')
+  } catch (error: any) {
+    console.log(error.response)
+  }
 };
