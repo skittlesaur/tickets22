@@ -13,6 +13,8 @@ const reserveTickets = async (req: Request, res: Response) => {
     }
 
     const message = req.body.message
+    // @todo: check available tickets if tickets are available and price right
+    // @todo: split the controller to 3 seperate controllers depndn=ing on what happens
 
     await sendKafkaMessage(TICKET_PENDING, {
       meta: { action: TICKET_PENDING },
