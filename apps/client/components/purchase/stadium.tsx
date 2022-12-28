@@ -1,6 +1,6 @@
 import { Canvas, useFrame } from '@react-three/fiber'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { Vector3 } from 'three'
 import { CLIENT_URL } from '@services/constants'
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader'
@@ -89,39 +89,63 @@ interface StadiumProps {
 
 const Stadium = ({ seatPosition }: StadiumProps) => {
   const [model, setModel] = useState<any>()
-  const [render, setRender] = useState(false)
+  const [loaded, setLoaded] = useState(0)
 
   useEffect(() => {
     new MTLLoader().load(`${CLIENT_URL}/3d/stadium.mtl`, (materials) => {
       materials.preload()
-      new OBJLoader().setMaterials(materials).load(`${CLIENT_URL}/3d/stadium.obj`, (model) => {
-        model.position.set(0, 0, 0)
-        setModel(model)
-      })
+      new OBJLoader().setMaterials(materials).load(
+        `${CLIENT_URL}/3d/stadium.obj`,
+        (model) => {
+          model.position.set(0, 0, 0)
+          setModel(model)
+        },
+        (progress) => {
+          setLoaded(progress.loaded / progress.total * 100)
+        },
+        (error) => {
+          console.log(error)
+          setLoaded(-1)
+        },
+      )
     })
   }, [])
 
-  useEffect(() => {
-    if (model) setRender(true)
-  }, [model])
+  if (loaded === -1)
+    return (
+      <div className="flex items-center justify-center w-full h-full">
+        <p className="text-white">Error loading stadium</p>
+      </div>
+    )
 
-  if (!model || !render) return <></>
+
+  if (!model || loaded !== 100)
+    return (
+      <div className="flex items-center justify-center w-full h-full">
+        <div className="bg-secondary w-1/2 h-2 relative overflow-hidden">
+          <div className="absolute left-0 top-0 bottom-0 bg-primary" style={{ width: `${loaded}%` }} />
+        </div>
+      </div>
+    )
 
   return (
     <Canvas
       shadows
     >
-      <Camera seatPosition={seatPosition} />
-      <ambientLight intensity={.5} />
-      <spotLight position={[10, 15, 10]} angle={0.15} penumbra={1} />
-      <pointLight position={[-10, -15, -10]} />
-      <Stars radius={100} depth={50} count={4000} factor={4} saturation={0} fade />
-      <mesh>
-        <primitive
-          position={[0, -20, 0]}
-          object={model}
-        />
-      </mesh>
+      <Suspense fallback={null}>
+
+        <Camera seatPosition={seatPosition} />
+        <ambientLight intensity={.5} />
+        <spotLight position={[10, 15, 10]} angle={0.15} penumbra={1} />
+        <pointLight position={[-10, -15, -10]} />
+        <Stars radius={100} depth={50} count={4000} factor={4} saturation={0} fade />
+        <mesh>
+          <primitive
+            position={[0, -20, 0]}
+            object={model}
+          />
+        </mesh>
+      </Suspense>
     </Canvas>
   )
 }
