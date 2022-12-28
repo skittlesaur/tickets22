@@ -1015,7 +1015,7 @@
     "@chevrotain/types" "10.4.2"
     lodash "4.17.21"
 
-"@chevrotain/gast@10.4.2":
+"@chevrotain/gast@10.4.2", "@chevrotain/gast@^10.4.2":
   version "10.4.2"
   resolved "https://registry.yarnpkg.com/@chevrotain/gast/-/gast-10.4.2.tgz#236dc48e54cba16260c03bece25d5a3b6e2f5dab"
   integrity sha512-4ZAn8/mjkmYonilSJ60gGj1tAF0cVWYUMlIGA0e4ATAc3a648aCnvpBw7zlPHDQjFp50XC13iyWEgWAKiRKTOA==
@@ -2456,6 +2456,11 @@ character-reference-invalid@^2.0.0:
   version "2.0.1"
   resolved "https://registry.npmjs.org/character-reference-invalid/-/character-reference-invalid-2.0.1.tgz"
   integrity sha512-iBZ4F4wRbyORVsu0jPV7gXkOsGYjGHPmAyv+HiHG8gi5PtC9KI2j1+v8/tlibRvjoWX027ypmG/n0HtO5t7unw==
+
+charset-encoder-js@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/charset-encoder-js/-/charset-encoder-js-1.0.1.tgz#181db4786e1eb685ca55b27ba6ee486dc583dfeb"
+  integrity sha512-mCzvdWqYN0BdeXr4xN2AYTHKk4pSsVz2wWcHraYl8NMKlnG/Oz8J1ty23BriaynKHtOgO1efAxCfguU1OsmxVA==
 
 chevrotain@^10.1.2:
   version "10.4.2"
