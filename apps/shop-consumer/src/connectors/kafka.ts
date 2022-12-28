@@ -1,6 +1,6 @@
 require('dotenv').config()
 import { TICKET_RESERVED, TICKET_PENDING, TICKET_CANCELLED } from '../constants';
-import { processPendingTicket, processReservedTicket, processCancelledTicket } from '../proccesors/shop'
+import { processPendingTicket, processReservedTicket, processCancelledTicket, processMasterlist } from '../proccesors/shop'
 import { kafkaMasterlistMessage, kafkaMessage } from '../validation/kafka';
 import { Kafka } from 'kafkajs'
 import { isEmpty } from 'lodash'
@@ -49,7 +49,6 @@ export const startKafkaConsumer = async () => {
         const parsedMessage = JSON.parse(message.value)
         if (isEmpty(parsedMessage)) {
           throw new Error('cannot process empty message')
-          return
         }
 
         // process message if there is no validation error
@@ -75,8 +74,8 @@ export const startKafkaConsumer = async () => {
             break
         }
 
-      } catch (e) {
-        console.log('Unable to process message')
+      } catch (error: any) {
+        console.log(error)
       }
     },
   })
@@ -87,24 +86,20 @@ export const startKafkaConsumer = async () => {
         // Deserialize message body
         const parsedMessage = JSON.parse(message.value)
         if (isEmpty(parsedMessage)) {
-          console.log('cannot process empty message')
-          return
+          throw new Error(`cannot process empty message`)
         }
 
         // process message if there is no validation error
         const validationError = kafkaMasterlistMessage(parsedMessage)
         if (!isEmpty(validationError)) {
-          console.log(
-            'cannot process master list message with validation error:',
-            validationError.message
-          )
-          return
+          throw new Error(`cannot process master list message with validation error: ${validationError.message}`)
         }
 
+        console.log('masterlist message received succesfully')
         // call the processor
-        //await shopProcessor.processMasterlist(parsedMessage)
-      } catch (e) {
-        console.log('Unable to process message')
+        await processMasterlist(parsedMessage)
+      } catch (error: any) {
+        console.log(error)
       }
     },
   })
