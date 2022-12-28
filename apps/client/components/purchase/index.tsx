@@ -11,6 +11,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import SeatForm from '@components/purchase/seat-form'
 import InfoForm from '@components/purchase/info-form'
 import useUser from '@hooks/use-user'
+import toast from 'react-hot-toast'
 
 export enum SeatPosition {
   NOT_SELECTED = 'Select a seat',
@@ -70,8 +71,22 @@ const Purchase = () => {
   }
 
   const handlePurchase = () => {
+    // validate seat position
+    if (seatPosition === SeatPosition.NOT_SELECTED) return toast.error('Please select a seat position')
+
+    // validate ticket type
+    if (!categoryData[ticketType].available) return toast.error('Please select a ticket type')
+
     if (step === 1) return setStep(2)
 
+    // validate email
+    if (!email) return toast.error('Please enter your email')
+
+    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+    if (!emailRegex.test(email)) return toast.error('Please enter a valid email')
+
+    // @todo: create reservation
 
   }
 
