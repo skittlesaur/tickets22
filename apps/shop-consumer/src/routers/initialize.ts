@@ -1,5 +1,5 @@
 import express from 'express'
-import initilaize from '../lib/adder/initialize';
+import initilaize from '../lib/initialize/initialize';
 
 const router = express.Router()
 

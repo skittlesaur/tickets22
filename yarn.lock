@@ -1434,6 +1434,11 @@
   resolved "https://registry.yarnpkg.com/@prisma/engines/-/engines-4.8.0.tgz#5123c67dc0d2caa008268fc63081ca2d68b2ed7e"
   integrity sha512-A1Asn2rxZMlLAj1HTyfaCv0VQrLUv034jVay05QlqZg1qiHPeA3/pGTfNMijbsMYCsGVxfWEJuaZZuNxXGMCrA==
 
+"@prisma/studio@^0.479.0":
+  version "0.479.0"
+  resolved "https://registry.yarnpkg.com/@prisma/studio/-/studio-0.479.0.tgz#d58612d6dc7bb32fd95690893f29afa93faeeb8c"
+  integrity sha512-/dlgusVbtglUIvwIpu5qt3sYNXpulH1WlucyoEYb7tBtt/E7Sitk/BAfLuKSlcfNzDKLYZ8W6+u0JB4jO39vYA==
+
 "@react-spring/animated@~9.5.5":
   version "9.5.5"
   resolved "https://registry.yarnpkg.com/@react-spring/animated/-/animated-9.5.5.tgz#d3bfd0f62ed13a337463a55d2c93bb23c15bbf3e"

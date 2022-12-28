@@ -35,7 +35,7 @@ server.use((req, res, next) => {
 
 server.use('/initialize', initilaize)
 
-//startKafkaConsumer()
+startKafkaConsumer()
 
 server.get('/', (req, res) => {
   res.redirect(`${CLIENT_URL}/help/microservices/shop-consumer`)

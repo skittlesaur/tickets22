@@ -7,10 +7,12 @@ const createCheckoutSession = async (req: Request, res: Response) => {
 
     console.log(req)
 
-    const session = await stripe.checkout.sessions.create({
-      mode: 'payment',
-      success_url: `${CLIENT_URL}`
-    })
+    throw new Error('nah fam')
+
+    // const session = await stripe.checkout.sessions.create({
+    //   mode: 'payment',
+    //   success_url: `${CLIENT_URL}`
+    // })
 
     // const token = await stripe.tokens.create({
     //   card: {
