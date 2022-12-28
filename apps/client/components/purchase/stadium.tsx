@@ -13,20 +13,20 @@ const cameraProps: { [key: string]: any } = {
     lookAt: [0, 0, 0],
   },
   north: {
-    position: [0, 55, 20],
-    lookAt: [0, 50, 0],
+    position: [0, 25, 40],
+    lookAt: [0, 20, 0],
   },
   south: {
-    position: [0, 55, 20],
-    lookAt: [0, 50, 100],
+    position: [0, 25, 10],
+    lookAt: [-5, 20, 100],
   },
   east: {
-    position: [20, 55, 15],
-    lookAt: [100, 50, 20],
+    position: [20, 25, 15],
+    lookAt: [100, 20, 15],
   },
   west: {
-    position: [-20, 55, 15],
-    lookAt: [-100, 50, 5],
+    position: [-20, 25, 15],
+    lookAt: [-100, 20, 12],
   },
 }
 
@@ -110,9 +110,12 @@ const Stadium = ({ seatPosition }: StadiumProps) => {
       <ambientLight intensity={.5} />
       <spotLight position={[10, 15, 10]} angle={0.15} penumbra={1} />
       <pointLight position={[-10, -15, -10]} />
-      <Stars radius={100} depth={50} count={2000} factor={4} saturation={0} fade />
+      <Stars radius={100} depth={50} count={4000} factor={4} saturation={0} fade />
       <mesh>
-        <primitive object={model} />
+        <primitive
+          position={[0, -30, 0]}
+          object={model}
+        />
       </mesh>
     </Canvas>
   )

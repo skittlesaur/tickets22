@@ -85,7 +85,7 @@ const Purchase = () => {
         </form>
       </div>
       <div className="relative w-full h-full bg-gray-200/10 flex flex-col">
-        <div className="border-b border-gray-200 bg-gray-100 grid grid-cols-[2fr_0.5fr_2fr] items-center py-4">
+        <div className="absolute top-0 z-50 w-full border-b border-gray-200 bg-gray-200/40 backdrop-blur grid grid-cols-[2fr_0.5fr_2fr] items-center py-4">
           <div className="flex gap-4 items-center justify-self-end">
             <h1 className="font-semibold text-2xl tracking-tight">
               {match.homeTeam.name}
