@@ -68,9 +68,15 @@ model ReservedTicket {
   matchNumber    Int
   seat           String
   price          Int
-  externalSeller String? // if the ticket was purchased from some other team, store the team name
+  category       Int
+  status         TicketStatus
+  ipAddress      String?
+  seatPosition   SeatPosition
+  seatRow        Int
+  seatNumber     Int
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+  externalSeller String? // if the ticket was purchased from some other team, store the team name
 }
 
 model MatchEvent {
@@ -139,4 +145,18 @@ enum PlayerPosition {
   DEFENDER
   MIDFIELDER
   FORWARD
+}
+
+enum TicketStatus {
+  PENDING
+  PURCHASED
+  CANCELLED
+  PENDING_TIMEOUT
+}
+
+enum SeatPosition {
+  NORTH
+  SOUTH
+  EAST
+  WEST
 }

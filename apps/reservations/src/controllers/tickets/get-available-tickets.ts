@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import axios from 'axios'
 import { SHOP_URL } from '../../constants'
+import { TicketStatus } from '@prisma/client'
 
 const getAvailableTickets = async (req: Request, res: Response) => {
   try {
@@ -13,22 +14,46 @@ const getAvailableTickets = async (req: Request, res: Response) => {
         message: 'This match has already ended',
       })
 
-    const { id: stadiumId } = match.stadium
-
-    // get stadium capacity
-    const { data: stadium } = await axios.get(`${SHOP_URL}/stadiums/${stadiumId}`)
-    const { capacity: stadiumCapacity } = stadium
-
-    // get tickets sold
-    const ticketsSold = await req.context.prisma.reservedTicket.count({
+    const availableTickets = await req.context.prisma.availableTickets.findMany({
       where: {
-        matchId: id,
+        matchNumber: match.matchNumber,
       },
     })
 
-    const availableTickets = stadiumCapacity - ticketsSold
+    const tickets: any[] = []
 
-    res.status(200).json({ availableTickets })
+    for (const ticket of availableTickets) {
+      if (ticket.available === 0 && ticket.pending > 0) {
+        const nextAvailableTicket = await req.context.prisma.reservedTicket.findFirst({
+          where: {
+            matchNumber: match.matchNumber,
+            category: ticket.category,
+            status: TicketStatus.PENDING,
+          },
+          orderBy: {
+            createdAt: 'asc',
+          },
+          select: {
+            createdAt: true,
+          },
+        })
+
+        if (nextAvailableTicket) {
+          tickets.push({
+            ...ticket,
+            nextAvailableTicket: {
+              createdAt: nextAvailableTicket?.createdAt,
+              availableAt: new Date(nextAvailableTicket?.createdAt.getTime() + 1000 * 60 * 10),
+            },
+          })
+          continue
+        }
+      }
+
+      tickets.push(ticket)
+    }
+
+    return res.status(200).json(tickets)
   } catch (e: any) {
     if (e.isAxiosError) {
       const { data, status } = e.response
