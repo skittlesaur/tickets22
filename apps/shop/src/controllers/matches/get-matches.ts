@@ -13,26 +13,25 @@ const getMatches = async (req: Request, res: Response) => {
           select: {
             id: true,
             name: true,
-            capacity: true
-          }
+          },
         },
         homeTeam: {
           select: {
             id: true,
-            name: true
+            name: true,
           },
         },
         homeScore: true,
         awayTeam: {
           select: {
             id: true,
-            name: true
+            name: true,
           },
         },
         awayScore: true,
         group: true,
         ended: true,
-      }
+      },
     })
 
     res.status(200).json(matches)
