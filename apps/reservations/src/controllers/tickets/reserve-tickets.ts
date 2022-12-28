@@ -1,21 +1,18 @@
 import { Request, Response } from 'express'
-const { validateTicketReservationDto } = require('../../validation/reservation');
-const messages = require('../../constants');
 import axios from 'axios';
 import { PAYMENTS_URL } from '../../constants';
+import validateTicketReservationDto from '../../validation/reservation';
+
 const { sendKafkaMessage } = require('../../connectors/kafka');
+const messages = require('../../constants');
 
 const reserveTickets = async (req: Request, res: Response) => {
   try {
-    // validate payload before proceeding with reservations
+
     const validationError = validateTicketReservationDto(req.body);
     if (validationError) {
       return res.status(403).send(validationError.message);
     }
-
-    // Send message indicating ticket is pending checkout
-    // so shop consumers can process message and call
-    // sp-shop-api to decrement available ticket count
 
     const message = req.body.message
 
@@ -30,10 +27,12 @@ const reserveTickets = async (req: Request, res: Response) => {
     console.log('this is what Im giving to the stripe', req.body)
     // Perform Stripe Payment Flow (axios call to /payments)
     try {
-      const stripeCharge = await axios.post(
-        `${PAYMENTS_URL}/payments/`,
-        req.body
-      );
+      // const stripeCharge = await axios.post(
+      //   `${PAYMENTS_URL}/payments/`,
+      //   req.body
+      // );
+
+      throw new Error('not rn')
 
       await sendKafkaMessage(messages.TICKET_RESERVED, {
         meta: { action: messages.TICKET_RESERVED },
@@ -54,6 +53,7 @@ const reserveTickets = async (req: Request, res: Response) => {
           tickets: req.body.message.body.tickets,
         }
       });
+
       return res.status(400).send(`could not process payment: ${stripeError.message}`);
     }
 
