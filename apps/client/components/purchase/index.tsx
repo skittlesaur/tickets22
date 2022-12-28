@@ -1,33 +1,39 @@
-import ThreeD from '@components/purchase/three-d'
 import { useState } from 'react'
 import useMatchQuery from '@services/shop/match-query'
 import getDynamicQuery from '@lib/get-dynamic-query'
 import FullscreenLoader from '@components/fullscreen-loader'
 import getTeamIcon from '@lib/get-team-icon'
 import Stadium from '@components/purchase/stadium'
+import { useRouter } from 'next/router'
 
 export enum SeatPosition {
-  NORTH,
-  SOUTH,
-  EAST,
-  WEST,
-  NOT_SELECTED,
+  NOT_SELECTED = 'Select a seat',
+  NORTH = 'North',
+  SOUTH = 'South',
+  EAST = 'East',
+  WEST = 'West',
 }
 
 enum TicketType {
   CATEGORY_1 = 'Category 1',
   CATEGORY_2 = 'Category 2',
   CATEGORY_3 = 'Category 3',
-  CATEGORY_4 = 'Category 4',
 }
 
 const Purchase = () => {
+  const router = useRouter()
   const id = getDynamicQuery('id')
-  const { data: match, isLoading } = useMatchQuery(id)
-  const [seatPosition, setSeatPosition] = useState<SeatPosition>(SeatPosition.NOT_SELECTED)
+  const { data: match, isLoading, isError } = useMatchQuery(id)
+  const [seatPosition, setSeatPosition] = useState<SeatPosition>(SeatPosition.NORTH)
   const [ticketType, setTicketType] = useState<TicketType>(TicketType.CATEGORY_1)
 
-  if (isLoading || !match) return <FullscreenLoader text="Loading Ticket" />
+  if (isLoading)
+    return <FullscreenLoader text="Loading Ticket" />
+
+  if (isError) {
+    router.push('/matches?error=Falied to load match ticket')
+    return <></>
+  }
 
   return (
     <div className="w-screen h-screen flex bg-gray-100">
@@ -50,13 +56,13 @@ const Purchase = () => {
               name="seatPosition"
               className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
               value={seatPosition}
-              onChange={(e) => setSeatPosition(Number(e.target.value))}
+              onChange={(e) => setSeatPosition(e.target.value as SeatPosition)}
             >
-              <option value={SeatPosition.NOT_SELECTED}>Select Seat Position</option>
-              <option value={SeatPosition.NORTH}>North</option>
-              <option value={SeatPosition.SOUTH}>South</option>
-              <option value={SeatPosition.EAST}>East</option>
-              <option value={SeatPosition.WEST}>West</option>
+              {Object.values(SeatPosition).map((position) => (
+                <option key={position} value={position}>
+                  {position}
+                </option>
+              ))}
             </select>
           </div>
           <div>
@@ -69,10 +75,11 @@ const Purchase = () => {
               onChange={(e) => setTicketType(e.target.value as TicketType)}
               className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
             >
-              <option value={TicketType.CATEGORY_1}>{TicketType.CATEGORY_1}</option>
-              <option value={TicketType.CATEGORY_2}>{TicketType.CATEGORY_2}</option>
-              <option value={TicketType.CATEGORY_3}>{TicketType.CATEGORY_3}</option>
-              <option value={TicketType.CATEGORY_4}>{TicketType.CATEGORY_4}</option>
+              {Object.values(TicketType).map((type) => (
+                <option key={type} value={type}>
+                  {type}
+                </option>
+              ))}
             </select>
           </div>
         </form>
@@ -99,7 +106,7 @@ const Purchase = () => {
             </h1>
           </div>
         </div>
-        <Stadium />
+        <Stadium seatPosition={seatPosition} />
       </div>
     </div>
   )

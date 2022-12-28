@@ -21,21 +21,7 @@ const MatchPage = ({ match }: MatchPageProps) => {
   )
 }
 
-export const getStaticPaths = async () => {
-  try {
-    const matches = await SHOP_SERVICE.get(`/matches`).then((res) => res.data)
-
-    const paths = matches?.map((match: any) => ({
-      params: { id: match.id.toString() },
-    }))
-
-    return { paths, fallback: 'blocking' }
-  } catch (e) {
-    console.log(e)
-    return { paths: [], fallback: 'blocking' }
-  }
-}
-export const getStaticProps = async (context: GetStaticPropsContext) => {
+export const getServerSideProps = async (context: GetStaticPropsContext) => {
   try {
     const { id } = context.params ?? {}
     if (!id)
@@ -46,8 +32,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     return {
       props: {
         match,
-      },
-      revalidate: 10,
+      }
     }
   } catch (e) {
     console.log(e)

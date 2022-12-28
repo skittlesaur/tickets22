@@ -22,7 +22,7 @@ const MatchesPage = ({ matches, upcoming }: MatchesPageProps) => {
   )
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   try {
     const matches = await SHOP_SERVICE.get(`/matches`).then((res) => res.data)
     const upcoming = await SHOP_SERVICE.get(`/matches/upcoming`).then((res) => res.data)
@@ -32,10 +32,10 @@ export const getStaticProps = async () => {
         matches,
         upcoming,
       },
-      revalidate: 10,
     }
   } catch (e) {
-    return { props: { matches: null, upcoming: null }, revalidate: 10 }
+    console.log(e)
+    return { props: { matches: null, upcoming: null } }
   }
 }
 
