@@ -27,11 +27,14 @@ export enum TicketType {
   CATEGORY_3 = 'Category 3',
 }
 
-const Purchase = () => {
+interface PurchaseProps {
+  match: any
+}
+
+const Purchase = ({ match }: PurchaseProps) => {
   const { data: user } = useUser()
   const router = useRouter()
   const id = getDynamicQuery('id')
-  const { data: match, isLoading, isError } = useMatchQuery(id)
   const [seatPosition, setSeatPosition] = useState<SeatPosition>(SeatPosition.NOT_SELECTED)
   const [ticketType, setTicketType] = useState<TicketType>(TicketType.CATEGORY_1)
   const [step, setStep] = useState(1)
@@ -62,10 +65,10 @@ const Purchase = () => {
     return ticketsData.every((ticket: any) => ticket.available === 0 && ticket.pending === 0)
   }, [ticketsData])
 
-  if (isLoading || ticketsLoading)
+  if (ticketsLoading)
     return <FullscreenLoader text="Loading Ticket" />
 
-  if (isError || ticketsError) {
+  if (ticketsError) {
     router.push('/matches?error=Falied to load match ticket')
     return <></>
   }
