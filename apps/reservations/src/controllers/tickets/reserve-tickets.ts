@@ -7,10 +7,14 @@ import { sendKafkaMessage } from '../../connectors/kafka';
 const reserveTickets = async (req: Request, res: Response) => {
   try {
 
+    // @todo: see req.user if user is logged in and get email based on that   
+
     const validationError = validateTicketReservationDto(req.body);
     if (validationError) {
       return res.status(403).send(validationError.message);
     }
+
+    // @todo: check the available tickets first if tickets are available and price is accurate 
 
     const message = req.body.message
 
