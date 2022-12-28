@@ -4,9 +4,8 @@ import cookieParser from 'cookie-parser'
 import * as bodyParser from 'body-parser'
 import { CLIENT_URL, PORT } from './constants'
 import { PrismaClient, User } from '@prisma/client'
-import initilaize from './routers/initialize';
-const { startKafkaConsumer } = require('./connectors/kafka');
-const { processReservedTicket } = require('./proccesors/shop')
+import initilaize from './routers/initialize'
+import { startKafkaConsumer } from './connectors/kafka'
 
 declare global {
   namespace Express {

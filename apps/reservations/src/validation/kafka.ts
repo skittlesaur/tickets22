@@ -5,8 +5,6 @@ import {
   TICKET_CANCELLED,
 } from "../constants";
 
-const { tickets } = require("./shared-schema");
-
 interface message {
   meta: {
     action: string
@@ -38,7 +36,11 @@ const kafkaMessage = (reservation: message) => {
       body: Joi.object()
         .keys({
           matchNumber: Joi.number().required(),
-          tickets,
+          tickets: Joi.object().keys({
+            category: Joi.number().strict().valid(1, 2, 3).required(),
+            quantity: Joi.number().strict().min(1).max(2).required(),
+            price: Joi.number().strict().valid(75, 125, 195).required(),
+          }).required(),
         })
         .unknown(false),
     })

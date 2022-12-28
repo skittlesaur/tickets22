@@ -1,10 +1,8 @@
 import { Request, Response } from 'express'
 import axios from 'axios';
-import { PAYMENTS_URL } from '../../constants';
+import { PAYMENTS_URL, TICKET_CANCELLED, TICKET_PENDING, TICKET_RESERVED } from '../../constants';
 import validateTicketReservationDto from '../../validation/reservation';
-
-const { sendKafkaMessage } = require('../../connectors/kafka');
-const messages = require('../../constants');
+import { sendKafkaMessage } from '../../connectors/kafka';
 
 const reserveTickets = async (req: Request, res: Response) => {
   try {
@@ -16,8 +14,8 @@ const reserveTickets = async (req: Request, res: Response) => {
 
     const message = req.body.message
 
-    await sendKafkaMessage(messages.TICKET_PENDING, {
-      meta: { action: messages.TICKET_PENDING },
+    await sendKafkaMessage(TICKET_PENDING, {
+      meta: { action: TICKET_PENDING },
       body: {
         matchNumber: message.body.matchNumber,
         tickets: message.body.tickets,
@@ -34,8 +32,8 @@ const reserveTickets = async (req: Request, res: Response) => {
 
       throw new Error('not rn')
 
-      await sendKafkaMessage(messages.TICKET_RESERVED, {
-        meta: { action: messages.TICKET_RESERVED },
+      await sendKafkaMessage(TICKET_RESERVED, {
+        meta: { action: TICKET_RESERVED },
         body: {
           matchNumber: message.body.matchNumber,
           tickets: message.body.tickets,
@@ -46,8 +44,8 @@ const reserveTickets = async (req: Request, res: Response) => {
     } catch (stripeError: any) {
       // Send cancellation message indicating ticket sale failed
 
-      await sendKafkaMessage(messages.TICKET_CANCELLED, {
-        meta: { action: messages.TICKET_CANCELLED },
+      await sendKafkaMessage(TICKET_CANCELLED, {
+        meta: { action: TICKET_CANCELLED },
         body: {
           matchNumber: req.body.message.body.matchNumber,
           tickets: req.body.message.body.tickets,

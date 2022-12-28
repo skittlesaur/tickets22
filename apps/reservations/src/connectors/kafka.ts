@@ -1,29 +1,27 @@
 require('dotenv').config()
 import kafkaMessage from "../validation/kafka"
-
-const { Kafka } = require('kafkajs')
-const messages = require('../constants')
+import { Kafka } from 'kafkajs'
 
 const kafka = new Kafka({
   clientId: `${process.env.CLIENT_ID}-${process.env.ENV}`,
-  brokers: [process.env.KAFKA_BROKERS],
+  brokers: [`${process.env.KAFKA_BROKERS}`],
   ssl: true,
   logLevel: 2,
   sasl: {
     mechanism: 'plain',
-    username: process.env.KAFKA_SASL_USERNAME,
-    password: process.env.KAFKA_SASL_PASSWORD,
+    username: `${process.env.KAFKA_SASL_USERNAME}`,
+    password: `${process.env.KAFKA_SASL_PASSWORD}`,
   },
 })
 
 const topic = `${process.env.TOPIC_FIFA_TICKET_SALES}-${process.env.ENV}`
 const producer = kafka.producer()
 
-const startKafkaProducer = async () => {
+export const startKafkaProducer = async () => {
   await producer.connect()
 }
 
-const sendKafkaMessage = async (messageType: any, message: any) => {
+export const sendKafkaMessage = async (messageType: any, message: any) => {
   try {
     // validate kafka message against schema prior to sending
     const validationError = kafkaMessage(message)
@@ -42,9 +40,4 @@ const sendKafkaMessage = async (messageType: any, message: any) => {
   } catch (error: any) {
     console.log({ messageValidationError: error.message })
   }
-}
-
-module.exports = {
-  startKafkaProducer,
-  sendKafkaMessage,
 }

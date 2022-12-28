@@ -5,7 +5,7 @@ import * as bodyParser from 'body-parser'
 import { CLIENT_URL, PORT } from './constants'
 import tickets from './routes/tickets'
 import { PrismaClient, User } from '@prisma/client'
-const { startKafkaProducer } = require('./connectors/kafka');
+import { startKafkaProducer } from './connectors/kafka'
 
 
 declare global {

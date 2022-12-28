@@ -1,5 +1,4 @@
 import { Request, Response } from 'express'
-// const matchList = require('./master-list.json')
 import matchList from './master-list.json'
 
 const initilaize = async (req: Request, res: Response) => {

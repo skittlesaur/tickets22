@@ -6,16 +6,16 @@ interface message {
     action: string
   },
   body: {
-    matchNumber: Int16Array,
+    matchNumber: number,
     tickets: {
-      category: Int16Array,
-      quantity: Int16Array,
-      price: Int16Array
+      category: number,
+      quantity: number,
+      price: number
     }
   }
 }
 
-const processPendingTicket = async (message: message) => {
+export const processPendingTicket = async (message: message) => {
   try {
     const ticketPending = await axios.post(
       `${RESERVATIONS_URL}/tickets/processors/pending`,
@@ -28,7 +28,7 @@ const processPendingTicket = async (message: message) => {
   }
 };
 
-const processCancelledTicket = async (message: message) => {
+export const processCancelledTicket = async (message: message) => {
   try {
     const ticketCancelled = await axios.post(
       `${RESERVATIONS_URL}/tickets/processors/cancelled`,
@@ -41,7 +41,7 @@ const processCancelledTicket = async (message: message) => {
   }
 };
 
-const processReservedTicket = async (message: message) => {
+export const processReservedTicket = async (message: message) => {
   try {
     const ticketPending = await axios.post(
       `${RESERVATIONS_URL}/tickets/processors/reserved`,
@@ -58,10 +58,4 @@ const processMasterlist = async (message: object) => {
   // console.log("[processMasterlist]", message);
 
   return Promise.resolve("[processMasterlist]");
-};
-
-module.exports = {
-  processPendingTicket,
-  processReservedTicket,
-  processCancelledTicket,
 };
