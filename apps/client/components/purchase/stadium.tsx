@@ -1,10 +1,10 @@
 import { Canvas, useFrame } from '@react-three/fiber'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { Vector3 } from 'three'
 import { CLIENT_URL } from '@services/constants'
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader'
-import { OrbitControls, Stars } from '@react-three/drei'
+import { OrbitControls } from '@react-three/drei'
 import { SeatPosition } from '@components/purchase/index'
 
 const cameraProps: { [key: string]: any } = {
@@ -37,10 +37,10 @@ const Camera = ({ seatPosition, render }: { seatPosition: SeatPosition, render: 
   const [position, setPosition] = useState<any>()
   const [lookAt, setLookAt] = useState<any>()
 
+  if (!render) return <></>
 
   useFrame(state => {
     if (!position) return
-    if (!render) return
 
     if (animation) {
       if (seatPosition === SeatPosition.NOT_SELECTED
@@ -113,38 +113,31 @@ const Stadium = ({ seatPosition }: StadiumProps) => {
     })
   }, [])
 
-  if (loaded === -1)
-    return (
-      <div className="flex items-center justify-center w-full h-full">
-        <p className="text-white">Error loading stadium</p>
-      </div>
-    )
-
-
-  if (!model || loaded !== 100)
-    return (
-      <div className="flex items-center justify-center w-full h-full">
-        <div className="bg-secondary w-1/2 h-2 relative overflow-hidden">
-          <div className="absolute left-0 top-0 bottom-0 bg-primary" style={{ width: `${loaded}%` }} />
-        </div>
-      </div>
-    )
-
   return (
     <Canvas
       shadows
     >
-      {/*<Camera seatPosition={seatPosition} render={loaded === 100} />*/}
-      {/*<ambientLight intensity={.5} />*/}
-      {/*<spotLight position={[10, 15, 10]} angle={0.15} penumbra={1} />*/}
-      {/*<pointLight position={[-10, -15, -10]} />*/}
+      <Camera seatPosition={seatPosition} render={loaded === 100} />
+      <ambientLight intensity={.5} />
+      <spotLight position={[10, 15, 10]} angle={0.15} penumbra={1} />
+      <pointLight position={[-10, -15, -10]} />
       {/*<Stars radius={100} depth={50} count={4000} factor={4} saturation={0} fade />*/}
-      {/*<mesh>*/}
-      {/*  <primitive*/}
-      {/*    position={[0, -20, 0]}*/}
-      {/*    object={model}*/}
-      {/*  />*/}
-      {/*</mesh>*/}
+      <Suspense
+        fallback={
+          <div className="flex items-center justify-center w-full h-full">
+            <div className="bg-secondary w-1/2 h-2 relative overflow-hidden">
+              <div className="absolute left-0 top-0 bottom-0 bg-primary" style={{ width: `${loaded}%` }} />
+            </div>
+          </div>
+        }
+      >
+        <mesh>
+          <primitive
+            position={[0, -20, 0]}
+            object={model}
+          />
+        </mesh>
+      </Suspense>
     </Canvas>
   )
 }
