@@ -139,12 +139,12 @@ const Stadium = ({ seatPosition }: StadiumProps) => {
         <spotLight position={[10, 15, 10]} angle={0.15} penumbra={1} />
         <pointLight position={[-10, -15, -10]} />
         <Stars radius={100} depth={50} count={4000} factor={4} saturation={0} fade />
-        <mesh>
-          <primitive
-            position={[0, -20, 0]}
-            object={model}
-          />
-        </mesh>
+        {/*<mesh>*/}
+        {/*  <primitive*/}
+        {/*    position={[0, -20, 0]}*/}
+        {/*    object={model}*/}
+        {/*  />*/}
+        {/*</mesh>*/}
       </Suspense>
     </Canvas>
   )
