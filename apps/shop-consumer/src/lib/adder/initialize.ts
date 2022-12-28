@@ -1,14 +1,13 @@
-const { PrismaClient } = require('@prisma/client');
+import { Request, Response } from 'express'
 const matchList = require('./master-list.json')
 
-const adder = async () => {
-  const prisma = new PrismaClient()
+const initilaize = async (req: Request, res: Response) => {
 
-  for (let i = 0; i < matchList.length; i++) {
+  for (let i = 0; i < 1/*matchList.length */; i++) {
     const match = matchList[i]
 
     // Stadium
-    let stadium = await prisma.stadium.findUnique({
+    let stadium = await req.context.prisma.stadium.findUnique({
       where: {
         name: match.location
       },
@@ -18,7 +17,7 @@ const adder = async () => {
     })
 
     if (!stadium) {
-      stadium = await prisma.team.create({
+      stadium = await req.context.prisma.team.create({
         data: {
           name: match.location
         }
@@ -26,7 +25,7 @@ const adder = async () => {
     }
 
     // Home Team
-    let homeTeam = await prisma.team.findUnique({
+    let homeTeam = await req.context.prisma.team.findUnique({
       where: {
         name: match.homeTeam
       },
@@ -36,7 +35,7 @@ const adder = async () => {
     })
 
     if (!homeTeam) {
-      homeTeam = await prisma.team.create({
+      homeTeam = await req.context.prisma.team.create({
         data: {
           name: match.homeTeam
         }
@@ -44,7 +43,7 @@ const adder = async () => {
     }
 
     // Away Team
-    let awayTeam = await prisma.team.findUnique({
+    let awayTeam = await req.context.prisma.team.findUnique({
       where: {
         name: match.awayTeam
       },
@@ -54,7 +53,7 @@ const adder = async () => {
     })
 
     if (!awayTeam) {
-      awayTeam = await prisma.team.create({
+      awayTeam = await req.context.prisma.team.create({
         data: {
           name: match.awayTeam
         }
@@ -63,7 +62,7 @@ const adder = async () => {
     }
 
     // Creating the match
-    const matchEntry = await prisma.match.create({
+    const matchEntry = await req.context.prisma.match.create({
       data: {
         matchNumber: match.matchNumber,
         roundNumber: match.roundNumber,
@@ -78,7 +77,7 @@ const adder = async () => {
     })
 
     // Creating the available tickets 
-    const ticket1 = await prisma.availableTickets.create({
+    const ticket1 = await req.context.prisma.availableTickets.create({
       data: {
         matchNumber: match.matchNumber,
         category: 1,
@@ -87,7 +86,7 @@ const adder = async () => {
       }
     })
 
-    const ticket2 = await prisma.availableTickets.create({
+    const ticket2 = await req.context.prisma.availableTickets.create({
       data: {
         matchNumber: match.matchNumber,
         category: 2,
@@ -96,7 +95,7 @@ const adder = async () => {
       }
     })
 
-    const ticket3 = await prisma.availableTickets.create({
+    const ticket3 = await req.context.prisma.availableTickets.create({
       data: {
         matchNumber: match.matchNumber,
         category: 3,
@@ -107,10 +106,11 @@ const adder = async () => {
 
     console.log(`${i + 1}: ${matchEntry.id}`)
   }
+
+  res.status(200).json({ message: 'initialized' })
 }
 
-
-//adder()
+export default initilaize
 
 // const test = async () => {
 //   try {
