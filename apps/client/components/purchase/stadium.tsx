@@ -89,6 +89,7 @@ interface StadiumProps {
 
 const Stadium = ({ seatPosition }: StadiumProps) => {
   const [model, setModel] = useState<any>()
+  const [render, setRender] = useState(false)
 
   useEffect(() => {
     new MTLLoader().load(`${CLIENT_URL}/3d/stadium.mtl`, (materials) => {
@@ -100,7 +101,11 @@ const Stadium = ({ seatPosition }: StadiumProps) => {
     })
   }, [])
 
-  if (!model) return <></>
+  useEffect(() => {
+    if (model) setRender(true)
+  }, [model])
+
+  if (!model || !render) return <></>
 
   return (
     <Canvas
