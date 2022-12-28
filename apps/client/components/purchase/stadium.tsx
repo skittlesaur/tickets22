@@ -93,7 +93,9 @@ const Stadium = ({ seatPosition }: StadiumProps) => {
   const [loaded, setLoaded] = useState(0)
 
   useEffect(() => {
+    console.log('loading')
     new MTLLoader().load(`${CLIENT_URL}/3d/stadium.mtl`, (materials) => {
+      console.log('loaded materials')
       materials.preload()
       new OBJLoader().setMaterials(materials).load(
         `${CLIENT_URL}/3d/stadium.obj`,
