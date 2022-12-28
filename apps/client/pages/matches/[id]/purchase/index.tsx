@@ -1,6 +1,5 @@
 import Purchase from '@components/purchase'
 import { GetStaticPaths } from 'next'
-import getMatches from 'tickets22-shop/src/controllers/matches/get-matches'
 import SHOP_SERVICE from '@services/shop'
 
 interface PurchasePageProps {
