@@ -6,6 +6,8 @@ import { CLIENT_URL } from '@services/constants'
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader'
 import { OrbitControls, Stars } from '@react-three/drei'
 import { SeatPosition } from '@components/purchase/index'
+import { Simulate } from 'react-dom/test-utils'
+import progress = Simulate.progress
 
 const cameraProps: { [key: string]: any } = {
   not_selected: {
@@ -30,7 +32,7 @@ const cameraProps: { [key: string]: any } = {
   },
 }
 
-const Camera = ({ seatPosition }: { seatPosition: SeatPosition }) => {
+const Camera = ({ seatPosition, render }: { seatPosition: SeatPosition, render: boolean }) => {
   const [animation, setAnimation] = useState(false)
   const [lastAnimationPosition, setLastAnimationPosition] = useState<any>()
   const [step, setStep] = useState(0)
@@ -40,6 +42,7 @@ const Camera = ({ seatPosition }: { seatPosition: SeatPosition }) => {
 
   useFrame(state => {
     if (!position) return
+    if (!render) return
 
     if (animation) {
       if (seatPosition === SeatPosition.NOT_SELECTED
@@ -101,6 +104,7 @@ const Stadium = ({ seatPosition }: StadiumProps) => {
           setModel(model)
         },
         (progress) => {
+          console.log(progress.loaded / progress.total * 100)
           setLoaded(progress.loaded / progress.total * 100)
         },
         (error) => {
@@ -133,8 +137,7 @@ const Stadium = ({ seatPosition }: StadiumProps) => {
       shadows
     >
       <Suspense fallback={null}>
-
-        <Camera seatPosition={seatPosition} />
+        <Camera seatPosition={seatPosition} render={loaded === 100} />
         <ambientLight intensity={.5} />
         <spotLight position={[10, 15, 10]} angle={0.15} penumbra={1} />
         <pointLight position={[-10, -15, -10]} />
