@@ -6,6 +6,8 @@ const useMatchQuery = (id: string) => {
     queryKey: ['match', id],
     queryFn: () => SHOP_SERVICE.get(`/matches/${id}`).then((res) => res.data),
     staleTime: 1000 * 60 * 10, // 10 minutes
+    cacheTime: 1000 * 60 * 10, // 10 minutes
+    retry: 1,
   })
 
   return query

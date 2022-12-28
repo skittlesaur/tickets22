@@ -1,84 +1,166 @@
-import ThreeD from '@components/purchase/three-d'
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import useMatchQuery from '@services/shop/match-query'
 import getDynamicQuery from '@lib/get-dynamic-query'
 import FullscreenLoader from '@components/fullscreen-loader'
 import getTeamIcon from '@lib/get-team-icon'
 import Stadium from '@components/purchase/stadium'
+import { useRouter } from 'next/router'
+import { useQuery } from 'react-query'
+import RESERVATIONS_SERVICE from '@services/reservations'
+import { AnimatePresence, motion } from 'framer-motion'
+import SeatForm from '@components/purchase/seat-form'
+import InfoForm from '@components/purchase/info-form'
+import useUser from '@hooks/use-user'
 
 export enum SeatPosition {
-  NORTH,
-  SOUTH,
-  EAST,
-  WEST,
-  NOT_SELECTED,
+  NOT_SELECTED = 'Select a seat',
+  NORTH = 'North',
+  SOUTH = 'South',
+  EAST = 'East',
+  WEST = 'West',
 }
 
-enum TicketType {
+export enum TicketType {
   CATEGORY_1 = 'Category 1',
   CATEGORY_2 = 'Category 2',
   CATEGORY_3 = 'Category 3',
-  CATEGORY_4 = 'Category 4',
 }
 
 const Purchase = () => {
+  const { data: user } = useUser()
+  const router = useRouter()
   const id = getDynamicQuery('id')
-  const { data: match, isLoading } = useMatchQuery(id)
+  const { data: match, isLoading, isError } = useMatchQuery(id)
   const [seatPosition, setSeatPosition] = useState<SeatPosition>(SeatPosition.NOT_SELECTED)
   const [ticketType, setTicketType] = useState<TicketType>(TicketType.CATEGORY_1)
+  const [step, setStep] = useState(1)
+  const [email, setEmail] = useState(user?.email || '')
 
-  if (isLoading || !match) return <FullscreenLoader text="Loading Ticket" />
+  const { data: ticketsData, isLoading: ticketsLoading, isError: ticketsError } = useQuery({
+    queryKey: ['availableTickets', id],
+    queryFn: () => RESERVATIONS_SERVICE.get(`/tickets/match/${id}/available`).then((res) => res.data),
+  })
+
+  const categoryData = useMemo(() => {
+    if (!ticketsData) return {}
+
+    const category1 = ticketsData.find((ticket: any) => ticket.category === 1)
+    const category2 = ticketsData.find((ticket: any) => ticket.category === 2)
+    const category3 = ticketsData.find((ticket: any) => ticket.category === 3)
+
+    return {
+      [TicketType.CATEGORY_1]: category1,
+      [TicketType.CATEGORY_2]: category2,
+      [TicketType.CATEGORY_3]: category3,
+    }
+  }, [ticketsData])
+
+  const allSoldOut = useMemo(() => {
+    if (!ticketsData) return false
+
+    return ticketsData.every((ticket: any) => ticket.available === 0 && ticket.pending === 0)
+  }, [ticketsData])
+
+  if (isLoading || ticketsLoading)
+    return <FullscreenLoader text="Loading Ticket" />
+
+  if (isError || ticketsError) {
+    router.push('/matches?error=Falied to load match ticket')
+    return <></>
+  }
+
+  const handlePurchase = () => {
+    if (step === 1) return setStep(2)
+
+
+  }
 
   return (
     <div className="w-screen h-screen flex bg-gray-100">
-      <div className="w-1/3 border-r border-gray-200 py-20 px-10 flex flex-col gap-10">
-        <div>
-          <h1 className="font-semibold text-3xl tracking-tight">
-            Purchase Ticket
-          </h1>
-          <p className="font-semibold text-gray-600">
-            Seat Details
-          </p>
+      <div className="w-1/3 border-r border-gray-200 py-20 px-10 flex flex-col justify-between">
+        <div className="flex flex-col gap-10">
+          <div>
+            <h1 className="font-semibold text-3xl tracking-tight">
+              Purchase Ticket
+            </h1>
+            <p className="font-semibold text-gray-600">
+              {step === 1 && 'Seat Details'}
+              {step === 2 && 'Personal Details'}
+            </p>
+          </div>
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={step}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.2 }}
+            >
+              {step === 1 && (
+                <SeatForm
+                  ticketType={ticketType}
+                  setTicketType={setTicketType}
+                  seatPosition={seatPosition}
+                  setSeatPosition={setSeatPosition}
+                />
+              )}
+              {step === 2 && (
+                <InfoForm
+                  email={email}
+                  setEmail={setEmail}
+                />
+              )}
+            </motion.div>
+          </AnimatePresence>
         </div>
-        <form className="flex flex-col gap-4">
-          <div>
-            <label htmlFor="seatPosition" className="block text-sm font-medium text-gray-600">
-              Seat Position
-            </label>
-            <select
-              id="seatPosition"
-              name="seatPosition"
-              className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
-              value={seatPosition}
-              onChange={(e) => setSeatPosition(Number(e.target.value))}
+        <AnimatePresence mode="wait">
+          {!allSoldOut && seatPosition !== SeatPosition.NOT_SELECTED && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.4 }}
+              className="flex flex-col gap-2"
             >
-              <option value={SeatPosition.NOT_SELECTED}>Select Seat Position</option>
-              <option value={SeatPosition.NORTH}>North</option>
-              <option value={SeatPosition.SOUTH}>South</option>
-              <option value={SeatPosition.EAST}>East</option>
-              <option value={SeatPosition.WEST}>West</option>
-            </select>
+              <div className="flex items-end justify-between gap-2">
+                <p className={`${categoryData[ticketType].available === 0 && categoryData[ticketType].pending === 0 ? 'opacity-50' : 'opacity-100'} transition-all duration-200 ease-in-out`}>
+                <span>
+                $
+                </span>
+                  <span className="font-semibold text-3xl">
+              {categoryData[ticketType].price}
+                </span>
+                  <span className="text-gray-500">
+              {' '}/ticket
+                </span>
+                </p>
+                {categoryData[ticketType].available === 0 && categoryData[ticketType].pending === 0 && (
+                  <p className="text-primary font-semibold">
+                    Sold Out
+                  </p>
+                )}
+              </div>
+              <button
+                disabled={categoryData[ticketType].available === 0 && categoryData[ticketType].pending === 0}
+                type="button"
+                className="w-full flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-white hover:border-primary hover:text-primary transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-primary disabled:hover:text-white"
+                onClick={handlePurchase}
+              >
+                {step === 1 ? 'Continue' : 'Purchase'}
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        {allSoldOut && (
+          <div className="flex flex-col gap-2">
+            <p className="text-center text-gray-500">
+              All tickets are sold out
+            </p>
           </div>
-          <div>
-            <label htmlFor="type" className="block text-sm font-medium text-gray-600">
-              Ticket Type
-            </label>
-            <select
-              id="type"
-              name="type"
-              onChange={(e) => setTicketType(e.target.value as TicketType)}
-              className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
-            >
-              <option value={TicketType.CATEGORY_1}>{TicketType.CATEGORY_1}</option>
-              <option value={TicketType.CATEGORY_2}>{TicketType.CATEGORY_2}</option>
-              <option value={TicketType.CATEGORY_3}>{TicketType.CATEGORY_3}</option>
-              <option value={TicketType.CATEGORY_4}>{TicketType.CATEGORY_4}</option>
-            </select>
-          </div>
-        </form>
+        )}
       </div>
       <div className="relative w-full h-full bg-gray-200/10 flex flex-col">
-        <div className="border-b border-gray-200 bg-gray-100 grid grid-cols-[2fr_0.5fr_2fr] items-center py-4">
+        <div className="absolute top-0 z-50 w-full border-b border-gray-200 bg-gray-200/40 backdrop-blur grid grid-cols-[2fr_0.5fr_2fr] items-center py-4">
           <div className="flex gap-4 items-center justify-self-end">
             <h1 className="font-semibold text-2xl tracking-tight">
               {match.homeTeam.name}
@@ -99,7 +181,7 @@ const Purchase = () => {
             </h1>
           </div>
         </div>
-        <Stadium />
+        <Stadium seatPosition={seatPosition} />
       </div>
     </div>
   )

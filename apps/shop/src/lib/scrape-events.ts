@@ -1,7 +1,7 @@
 import { MatchEventType, PrismaClient } from '@prisma/client'
 import axios from 'axios'
 
-const url = 'https://api.fifa.com/api/v3/timelines/17/255711/285063/400235458'
+const url = 'https://api.fifa.com/api/v3/timelines/17/255711/285063/400128082'
 const prisma = new PrismaClient()
 
 const getEventType = (type: number): MatchEventType | undefined => {
@@ -41,10 +41,14 @@ const scrapeEvents = async () => {
     const events = data.Event
     console.log(Array.isArray(events) ? 'yes' : 'no')
 
-    const matchId = 'clb4zmne6000ev0ygfdqscl4o'
-    const homeId = 'clb4zacmf0009v0p8lr1demmt'
-    const awayId = 'clb4zadbb000bv0p8ersygsa1'
-    const fifaHomeId = '43942'
+    if(!Array.isArray(events)) {
+      return
+    }
+
+    const matchId = 'clc64k78i0006v0zs51ml5147'
+    const homeId = 'clc64k5ni0002v0zsl3ymiveh'
+    const awayId = 'clc64k6ro0004v0zsrcp4obzt'
+    const fifaHomeId = '43834'
 
     for (const event of events) {
       const eventType = getEventType(event.Type)
@@ -65,6 +69,8 @@ const scrapeEvents = async () => {
           matchId,
           eventType,
           minute: event.MatchMinute,
+          homeScore: event.HomeGoals,
+          awayScore: event.AwayGoals,
           ...additional,
         },
       })

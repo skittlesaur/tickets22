@@ -60,17 +60,23 @@ model AvailableTickets {
 
 // contains list of all sold matches
 model ReservedTicket {
-  id             String   @id @default(cuid()) @map("_id")
+  id             String       @id @default(cuid()) @map("_id")
   userId         String
-  user           User?    @relation(fields: [userId], references: [id]) // if user authenticated, then user is not null
+  user           User?        @relation(fields: [userId], references: [id]) // if user authenticated, then user is not null
   email          String? // if guest purchase, track their email
-  match          Match    @relation(fields: [matchNumber], references: [matchNumber])
+  match          Match        @relation(fields: [matchNumber], references: [matchNumber])
   matchNumber    Int
   seat           String
   price          Int
+  category       Int
+  status         TicketStatus
+  ipAddress      String?
+  seatPosition   SeatPosition
+  seatRow        Int
+  seatNumber     Int
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
   externalSeller String? // if the ticket was purchased from some other team, store the team name
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
 }
 
 model MatchEvent {
@@ -81,6 +87,8 @@ model MatchEvent {
   minute      String
   team        Team?          @relation(fields: [teamId], references: [id])
   teamId      String?
+  homeScore   Int            @default(0)
+  awayScore   Int            @default(0)
   description String?
 }
 
@@ -137,4 +145,18 @@ enum PlayerPosition {
   DEFENDER
   MIDFIELDER
   FORWARD
+}
+
+enum TicketStatus {
+  PENDING
+  PURCHASED
+  CANCELLED
+  PENDING_TIMEOUT
+}
+
+enum SeatPosition {
+  NORTH
+  SOUTH
+  EAST
+  WEST
 }

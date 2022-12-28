@@ -5,7 +5,6 @@ const getMatches = async (req: Request, res: Response) => {
     const matches = await req.context.prisma.match.findMany({
       orderBy: { date: 'asc' },
       select: {
-        id: true,
         matchNumber: true,
         roundNumber: true,
         date: true,
@@ -13,30 +12,30 @@ const getMatches = async (req: Request, res: Response) => {
           select: {
             id: true,
             name: true,
-            capacity: true
-          }
+          },
         },
         homeTeam: {
           select: {
             id: true,
-            name: true
+            name: true,
           },
         },
         homeScore: true,
         awayTeam: {
           select: {
             id: true,
-            name: true
+            name: true,
           },
         },
         awayScore: true,
         group: true,
         ended: true,
-      }
+      },
     })
 
     res.status(200).json(matches)
   } catch (err) {
+    console.log(err)
     res.status(500).json({ 'error': err })
   }
 }
