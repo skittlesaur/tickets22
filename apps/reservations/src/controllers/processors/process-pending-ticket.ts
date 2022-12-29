@@ -4,6 +4,8 @@ const processPendingTicket = async (req: Request, res: Response) => {
   try {
     const message = req.body
 
+    console.log('processPendingTicket', message)
+
     const pendingTickets = await req.context.prisma.availableTickets.findFirst({
       where: {
         matchNumber: message.body.matchNumber,
@@ -32,6 +34,7 @@ const processPendingTicket = async (req: Request, res: Response) => {
 
     res.status(200).json(tickets)
   } catch (error: any) {
+    console.log('a7a')
     res.status(400).json({ message: error.message })
   }
 };

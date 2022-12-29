@@ -16,6 +16,7 @@ router.post('/processors/cancelled', processCancelledTicket)
 router.post('/processors/reserved', processReservedTicket)
 
 router.post('/cancel', cancelTickets)
+router.post('/expired',)
 router.post('/finalize', reserveTickets)
 
 router.post('/reserve', optionalUser, startTicketCheckout)

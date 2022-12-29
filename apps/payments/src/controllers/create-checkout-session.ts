@@ -12,23 +12,35 @@ const createCheckoutSession = async (req: Request, res: Response) => {
       payment_method_types: ["card"],
       mode: 'payment',
       currency: 'usd',
-      expires_at: 600,
-      line_items: [
-        { price: data.tickets.price, quantity: data.tickets.quantity }
-      ],
+      expires_at: (Math.floor((Date.now() / 1000)) + 2000),
+      line_items: ticketIds.map(() => {
+        return {
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: `Category ${data.tickets.category} ticket`
+            },
+            unit_amount: data.tickets.price,
+          },
+          quantity: 1
+        }
+      }),
       customer_email: data.email,
       payment_intent_data: {
         metadata: {
-
+          data: JSON.stringify(data),
+          ticketIds: JSON.stringify(ticketIds)
         }
       },
-      success_url: `${CLIENT_URL}`
+      success_url: `${CLIENT_URL}`,
+      cancel_url: `${CLIENT_URL}`
     })
 
-    res.status(200).json()
+    console.log(session.url)
+    res.status(201).json({ url: session.url });
 
   } catch (e: any) {
-    res.status(500).json({ error: e.message })
+    res.status(500).json({ error: e })
   }
 }
 
