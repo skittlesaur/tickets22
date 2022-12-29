@@ -4,7 +4,6 @@ import BallIcon from '@images/ball.svg'
 import LinedSparkles from '@images/lined-sparkles.svg'
 import Sparkle from '@images/sparkle.svg'
 import Diamond from '@images/diamond.svg'
-import Loader from '@components/loader'
 import { AnimatePresence, motion } from 'framer-motion'
 import Link from 'next/link'
 
@@ -23,7 +22,7 @@ const Upcoming = ({ upcoming = [] }: UpcomingProps) => {
       </h1>
       <Link
         href={`/matches/${upcoming[current].matchNumber}`}
-        className="relative group overflow-hidden rounded-lg shadow-md border border-primary dark:border-secondary-700 text-primary dark:text-secondary md:h-[18em] hover:shadow-xl hover:bg-primary hover:bg-gray-900 hover:text-white transition-all duration-150 ease-in-out"
+        className="relative group overflow-hidden rounded-lg shadow-md border border-primary dark:border-secondary-700 text-primary dark:text-secondary md:h-[18em] hover:shadow-xl hover:bg-primary dark:hover:bg-gray-900 hover:text-white transition-all duration-150 ease-in-out"
       >
         <div className="relative w-full flex flex-col gap-3 p-4 md:p-6">
           <div className="flex items-center gap-2 z-[2]">

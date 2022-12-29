@@ -44,7 +44,7 @@ module.exports = {
         xl: '1280px',
       },
       fontFamily: {
-        qatar: ['Qatar2022', 'sans-serif'],
+        qatar: ['Qatar2022', 'Inter', 'sans-serif'],
       }
     },
   },

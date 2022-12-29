@@ -4,11 +4,11 @@ import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 const Stadium = ({ stadium }: any) => {
   const ref = useRef(null)
   const inView = useInView(ref, {
-    amount: .9,
+    amount: .8,
   })
   const { scrollYProgress } = useScroll({ target: ref })
-  const yText = useTransform(scrollYProgress, [0, 1], [-800, 400])
-  const yImage = useTransform(scrollYProgress, [0, 1], [-550, 350])
+  const yText = useTransform(scrollYProgress, [0, 1], [-500, 300])
+  const yImage = useTransform(scrollYProgress, [0, 1], [-280, 200])
 
   return (
     <div
