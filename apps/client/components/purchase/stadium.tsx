@@ -115,6 +115,15 @@ const Stadium = ({ seatPosition }: StadiumProps) => {
     })
   }, [])
 
+  if (!model)
+    return (
+      <div className="flex items-center justify-center w-full h-full">
+        <div className="bg-secondary w-1/2 h-2 relative overflow-hidden">
+          <div className="absolute left-0 top-0 bottom-0 bg-primary" style={{ width: `${loaded}%` }} />
+        </div>
+      </div>
+    )
+
   return (
     <Canvas
       shadows
