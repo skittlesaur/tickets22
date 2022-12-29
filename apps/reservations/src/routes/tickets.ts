@@ -9,10 +9,11 @@ import cancelTickets from '../controllers/tickets/cancel-tickets';
 import optionalUser from '../middleware/optional-user';
 import timeoutTickets from '../controllers/tickets/timeout-tickets';
 import updateMasterlist from '../controllers/processors/update-masterlist';
-
+import getReservedTicket from '../controllers/tickets/get-reserved-ticket'
 
 const router = express.Router()
 
+router.get('/:id', getReservedTicket)
 router.get('/match/:id/available', getAvailableTickets)
 router.post('/processors/pending', processPendingTicket)
 router.post('/processors/cancelled', processCancelledTicket)

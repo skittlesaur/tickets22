@@ -44,6 +44,13 @@ const Purchase = ({ match }: PurchaseProps) => {
 	const [step, setStep] = useState(1)
 	const [email, setEmail] = useState(user?.email || '')
 
+	useEffect(() => {
+		if (user) {
+			setEmail(user.email)
+		}
+	}, [user])
+
+	// @todo: create mutation that posts to reserve ticket
 	const {
 		data: ticketsData,
 		isLoading: ticketsLoading,
@@ -56,7 +63,7 @@ const Purchase = ({ match }: PurchaseProps) => {
 			),
 	})
 
-	// @todo: create mutation that posts to reserve ticket
+	// @todo react use mutatipn
 
 	const categoryData = useMemo(() => {
 		if (!ticketsData) return {}
@@ -104,10 +111,10 @@ const Purchase = ({ match }: PurchaseProps) => {
 		const emailRegex =
 			/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
+		// @todo: call mutation to reserve ticket
+
 		if (!emailRegex.test(email))
 			return toast.error('Please enter a valid email')
-
-		// @todo: call mutation to reserve ticket
 	}
 
 	return (

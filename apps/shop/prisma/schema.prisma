@@ -45,6 +45,7 @@ model Match {
 model Stadium {
   id    String  @id @default(cuid()) @map("_id")
   name  String  @unique
+  capacity Int? @default(40000)
   Match Match[] //@todo: rename to matches
 }
 
