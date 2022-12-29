@@ -7,8 +7,8 @@ const Stadium = ({ stadium }: any) => {
     amount: .9,
   })
   const { scrollYProgress } = useScroll({ target: ref })
-  const yText = useTransform(scrollYProgress, [0, 1], [-600, 400])
-  const yImage = useTransform(scrollYProgress, [0, 1], [-450, 300])
+  const yText = useTransform(scrollYProgress, [0, 1], [-800, 400])
+  const yImage = useTransform(scrollYProgress, [0, 1], [-550, 350])
 
   return (
     <div
