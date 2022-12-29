@@ -12,13 +12,13 @@ const reserveTickets = async (req: Request, res: Response) => {
 
     console.log('data: ', data, 'ticketIds: ', ticketIds)
 
-    // await sendKafkaMessage(TICKET_RESERVED, {
-    //   meta: { action: TICKET_RESERVED },
-    //   body: {
-    //     matchNumber: data.matchNumber,
-    //     tickets: data.tickets,
-    //   }
-    // })
+    await sendKafkaMessage(TICKET_RESERVED, {
+      meta: { action: TICKET_RESERVED },
+      body: {
+        matchNumber: data.matchNumber,
+        tickets: data.tickets,
+      }
+    })
 
     for (let i = 0; i < data.tickets.quantity; i++) {
 

@@ -5,12 +5,25 @@ import validateTicketReservationDto from '../../validation/reservation';
 import { sendKafkaMessage } from '../../connectors/kafka';
 import { TicketStatus } from '@prisma/client'
 import generateSeat from '../lib/generateSeat';
+import seatPosition from '../processors/seat-position';
+
+interface reservation {
+  email: string,
+  matchNumber: number,
+  SeatPosition: seatPosition,
+  tickets: {
+    category: number
+    quantity: number,
+    price: number
+  }
+  ipAddress?: string
+}
 
 const startTicketCheckout = async (req: Request, res: Response) => {
   try {
 
     const { prisma } = req.context
-    const data = req.body
+    const data = req.body // :reservation
 
 
     // const validationError = validateTicketReservationDto(req.body);
@@ -21,7 +34,25 @@ const startTicketCheckout = async (req: Request, res: Response) => {
     const user = req.context.user
     const userId = user?.id
 
-    // @todo: check available tickets if tickets are available and price right
+    const check = await prisma.availableTickets.findFirst({
+      where: {
+        matchNumber: data.matchNumber,
+        category: data.tickets.category
+      },
+      select: {
+        available: true,
+        pending: true,
+        price: true
+      }
+    })
+
+    if (!check) throw new Error('These tickets dont exist')
+
+    if (data.tickets.quantity > check?.available) throw new Error(`The quantity you ordered isnt available, only ${check.available} tickets left`)
+
+    if (check.pending + data.tickets.quantity > check.available) throw new Error(`There are ${check.pending} purchases pending out of ${check.available} tickets available, please try again later`)
+
+    if (data.tickets.price !== check.price) throw new Error('The price of these tickets is invalid')
 
     let ticketIds: string[] = []
 
@@ -44,20 +75,19 @@ const startTicketCheckout = async (req: Request, res: Response) => {
       ticketIds.push(ticket.id)
     }
 
-    // await sendKafkaMessage(TICKET_PENDING, {
-    //   meta: { action: TICKET_PENDING },
-    //   body: {
-    //     matchNumber: data.matchNumber,
-    //     tickets: data.tickets,
-    //   }
-    // });
+    await sendKafkaMessage(TICKET_PENDING, {
+      meta: { action: TICKET_PENDING },
+      body: {
+        matchNumber: data.matchNumber,
+        tickets: data.tickets,
+      }
+    });
 
     const stripeSession = await axios.post(`${PAYMENTS_URL}/payments/`, { data: data, ticketIds: ticketIds })
 
     res.status(200).json({ url: stripeSession.data.url });
   } catch (e: any) {
-    console.log('start-ticket-checkout', e)
-    return res.status(400).json({ message: e.message, test: true });
+    return res.status(400).json({ message: e.message });
   }
 };
 

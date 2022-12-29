@@ -11,13 +11,13 @@ const cancelTickets = async (req: Request, res: Response) => {
 
     console.log('data: ', data, 'ticketIds: ', ticketIds)
 
-    // await sendKafkaMessage(TICKET_CANCELLED, {
-    //   meta: { action: TICKET_CANCELLED },
-    //   body: {
-    //     matchNumber: data.matchNumber,
-    //     tickets: data.tickets,
-    //   }
-    // });
+    await sendKafkaMessage(TICKET_CANCELLED, {
+      meta: { action: TICKET_CANCELLED },
+      body: {
+        matchNumber: data.matchNumber,
+        tickets: data.tickets,
+      }
+    });
 
     for (let i = 0; i < data.tickets.quantity; i++) {
 

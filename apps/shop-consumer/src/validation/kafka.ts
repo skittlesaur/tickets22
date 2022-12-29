@@ -56,6 +56,27 @@ export const kafkaMessage = (reservation: message) => {
  * Validate schema for masterlist object
  * @return null if validation passes otherwise a validation error
  */
+interface tickets {
+  available: number,
+  pending: number,
+  price: number
+}
+interface masterList {
+  matchNumber: number,
+  roundNumber: number,
+  dateUtc: string,
+  location: string,
+  availability: {
+    category1: tickets,
+    category2: tickets,
+    category3: tickets,
+    homeTeam: string,
+    awayTeam: string,
+    group?: string
+  }
+}
+
+
 export const kafkaMasterlistMessage = (matchInfo: object) => {
   const schema = Joi.object()
     .keys({
