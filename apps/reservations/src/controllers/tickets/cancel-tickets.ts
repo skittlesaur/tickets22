@@ -7,22 +7,23 @@ const cancelTickets = async (req: Request, res: Response) => {
   try {
 
     const { prisma } = req.context
-    const data = JSON.parse(req.body)
-    console.log('cancel', data)
+    const { data, ticketIds } = req.body
 
-    await sendKafkaMessage(TICKET_CANCELLED, {
-      meta: { action: TICKET_CANCELLED },
-      body: {
-        matchNumber: data.matchNumber,
-        tickets: data.tickets,
-      }
-    });
+    console.log('data: ', data, 'ticketIds: ', ticketIds)
+
+    // await sendKafkaMessage(TICKET_CANCELLED, {
+    //   meta: { action: TICKET_CANCELLED },
+    //   body: {
+    //     matchNumber: data.matchNumber,
+    //     tickets: data.tickets,
+    //   }
+    // });
 
     for (let i = 0; i < data.tickets.quantity; i++) {
 
       const ticket = await prisma.reservedTicket.update({
         where: {
-          id: data.ticketsIds[i]
+          id: ticketIds[i]
         },
         data: {
           status: TicketStatus.CANCELLED,

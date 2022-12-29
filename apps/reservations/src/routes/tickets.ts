@@ -3,10 +3,11 @@ import getAvailableTickets from '../controllers/tickets/get-available-tickets'
 import processPendingTicket from '../controllers/processors/process-pending-ticket'
 import processCancelledTicket from '../controllers/processors/process-cancelled-ticket'
 import processReservedTicket from '../controllers/processors/process-reserved-ticket'
-import reserveTickets from '../controllers/tickets/start-ticket-checkout'
+import reserveTickets from '../controllers/tickets/reserve-tickets'
 import startTicketCheckout from '../controllers/tickets/start-ticket-checkout'
 import cancelTickets from '../controllers/tickets/cancel-tickets';
 import optionalUser from '../middleware/optional-user';
+import timeoutTickets from '../controllers/tickets/timeout-tickets';
 
 const router = express.Router()
 
@@ -16,7 +17,7 @@ router.post('/processors/cancelled', processCancelledTicket)
 router.post('/processors/reserved', processReservedTicket)
 
 router.post('/cancel', cancelTickets)
-router.post('/expired',)
+router.post('/expired', timeoutTickets)
 router.post('/finalize', reserveTickets)
 
 router.post('/reserve', optionalUser, startTicketCheckout)

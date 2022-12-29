@@ -34,7 +34,6 @@ const processPendingTicket = async (req: Request, res: Response) => {
 
     res.status(200).json(tickets)
   } catch (error: any) {
-    console.log('a7a')
     res.status(400).json({ message: error.message })
   }
 };

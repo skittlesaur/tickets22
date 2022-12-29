@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 
 const updateMasterlist = async (req: Request, res: Response) => {
   try {
+
     const match = req.body
 
     let stadium = await req.context.prisma.stadium.findUnique({
@@ -103,8 +104,6 @@ const updateMasterlist = async (req: Request, res: Response) => {
     })
 
     const updateTickets = await req.context.prisma
-
-
 
     res.status(200).json({ message: `${matchEntry.matchNumber} is done` })
   } catch (error: any) {

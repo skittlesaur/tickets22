@@ -22,7 +22,6 @@ const startTicketCheckout = async (req: Request, res: Response) => {
     const userId = user?.id
 
     // @todo: check available tickets if tickets are available and price right
-    // @todo: split the controller to 3 seperate controllers depndning on what happens
 
     let ticketIds: string[] = []
 
@@ -45,18 +44,17 @@ const startTicketCheckout = async (req: Request, res: Response) => {
       ticketIds.push(ticket.id)
     }
 
-    await sendKafkaMessage(TICKET_PENDING, {
-      meta: { action: TICKET_PENDING },
-      body: {
-        matchNumber: data.matchNumber,
-        tickets: data.tickets,
-      }
-    });
+    // await sendKafkaMessage(TICKET_PENDING, {
+    //   meta: { action: TICKET_PENDING },
+    //   body: {
+    //     matchNumber: data.matchNumber,
+    //     tickets: data.tickets,
+    //   }
+    // });
 
     const stripeSession = await axios.post(`${PAYMENTS_URL}/payments/`, { data: data, ticketIds: ticketIds })
 
-    // Return success response to client
-    res.status(200).json({ message: 'Ticket Purchase Successful', });
+    res.status(200).json({ url: stripeSession.data.url });
   } catch (e: any) {
     console.log('start-ticket-checkout', e)
     return res.status(400).json({ message: e.message, test: true });

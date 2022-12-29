@@ -11,7 +11,6 @@ const createCheckoutSession = async (req: Request, res: Response) => {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: 'payment',
-      currency: 'usd',
       expires_at: (Math.floor((Date.now() / 1000)) + 2000),
       line_items: ticketIds.map(() => {
         return {
@@ -20,7 +19,7 @@ const createCheckoutSession = async (req: Request, res: Response) => {
             product_data: {
               name: `Category ${data.tickets.category} ticket`
             },
-            unit_amount: data.tickets.price,
+            unit_amount: data.tickets.price * 100,
           },
           quantity: 1
         }
@@ -36,10 +35,17 @@ const createCheckoutSession = async (req: Request, res: Response) => {
       cancel_url: `${CLIENT_URL}`
     })
 
-    console.log(session.url)
+    console.log({
+      metadata: {
+        data: JSON.stringify(data),
+        ticketIds: JSON.stringify(ticketIds)
+      }
+    })
+
     res.status(201).json({ url: session.url });
 
   } catch (e: any) {
+    console.log(e)
     res.status(500).json({ error: e })
   }
 }

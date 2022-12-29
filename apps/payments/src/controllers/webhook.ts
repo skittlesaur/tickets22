@@ -5,30 +5,57 @@ import { RESERVATIONS_URL } from '../constants';
 const webhook = async (req: Request, res: Response) => {
   try {
 
-    console.log(req.body)
     const eventType = req.body.type;
-    if (eventType === 'charge.succeeded') {
-      console.log('meta data', req.body.data.object.metadata)
-    }
-    const { metadata } = req.body.data.object;
+    let formattedData = {}
+    const { data, ticketIds } = req.body.data.object.metadata;
 
-    switch (eventType) {
+    switch (req.body.type) {
       case ('charge.succeeded'):
-        await axios.post(`${RESERVATIONS_URL}/tickets/finalize`, { data: metadata });
+        console.log(eventType)
+
+        formattedData = {
+          data: JSON.parse(data),
+          ticketIds: JSON.parse(ticketIds),
+        }
+
+        console.log('formatted data: ', formattedData)
+
+        await axios.post(`${RESERVATIONS_URL}/tickets/finalize`, formattedData);
         break
+
       case ('charge.expired'):
-        await axios.post(`${RESERVATIONS_URL}/tickets/expired`, { data: metadata });
+        console.log(eventType)
+
+        formattedData = {
+          data: JSON.parse(data),
+          ticketIds: JSON.parse(ticketIds),
+        }
+
+        console.log('formatted data: ', formattedData)
+
+        await axios.post(`${RESERVATIONS_URL}/tickets/expire`, formattedData);
         break
+
       case ('charge.failed'):
-        await axios.post(`${RESERVATIONS_URL}/tickets/cancel`, { data: metadata });
+        console.log(eventType)
+
+        formattedData = {
+          data: JSON.parse(data),
+          ticketIds: JSON.parse(ticketIds),
+        }
+
+        console.log('formatted data: ', formattedData)
+
+        await axios.post(`${RESERVATIONS_URL}/tickets/cancel`, formattedData);
         break
+
       default:
-        break
+        console.log('not accepted event type: ', eventType)
+        return
     }
 
-    res.status(200).json(metadata);
+    return res.status(200).json(formattedData)
   } catch (error: any) {
-    console.log('lol');
     console.log('webhook', error)
     res.status(404).json({ message: error.message });
   }

@@ -1,10 +1,9 @@
 import { Request, Response } from 'express'
-import * as bodyParser from 'body-parser';
-import { TICKET_RESERVED } from '../../constants';
 import { sendKafkaMessage } from '../../connectors/kafka';
+import { TICKET_CANCELLED } from '../../constants';
 import { TicketStatus } from '@prisma/client';
 
-const reserveTickets = async (req: Request, res: Response) => {
+const timeoutTickets = async (req: Request, res: Response) => {
   try {
 
     const { prisma } = req.context
@@ -12,13 +11,13 @@ const reserveTickets = async (req: Request, res: Response) => {
 
     console.log('data: ', data, 'ticketIds: ', ticketIds)
 
-    // await sendKafkaMessage(TICKET_RESERVED, {
-    //   meta: { action: TICKET_RESERVED },
+    // await sendKafkaMessage(TICKET_CANCELLED, {
+    //   meta: { action: TICKET_CANCELLED },
     //   body: {
     //     matchNumber: data.matchNumber,
     //     tickets: data.tickets,
     //   }
-    // })
+    // });
 
     for (let i = 0; i < data.tickets.quantity; i++) {
 
@@ -27,16 +26,16 @@ const reserveTickets = async (req: Request, res: Response) => {
           id: ticketIds[i]
         },
         data: {
-          status: TicketStatus.PURCHASED,
+          status: TicketStatus.PENDING_TIMEOUT,
         }
       })
     }
 
-    res.status(200).json('Message to reserve tickets has been sent')
+    res.status(200).json('Message to cancel tickets has been sent')
+
   } catch (e: any) {
-    console.log('reserve-ticket error', e)
-    return res.status(500).json({ message: e.message });
+    res.status(500).json({ message: e.message })
   }
 }
 
-export default reserveTickets
+export default timeoutTickets
