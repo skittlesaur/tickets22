@@ -45,6 +45,7 @@ model Match {
 model Stadium {
   id    String  @id @default(cuid()) @map("_id")
   name  String  @unique
+  capacity Int? @default(40000)
   Match Match[] //@todo: rename to matches
 }
 
@@ -66,7 +67,6 @@ model ReservedTicket {
   email          String? // if guest purchase, track their email
   match          Match        @relation(fields: [matchNumber], references: [matchNumber])
   matchNumber    Int
-  seat           String
   price          Int
   category       Int
   status         TicketStatus
