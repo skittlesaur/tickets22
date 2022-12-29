@@ -1,6 +1,4 @@
 import Stadium from '@components/home/stadium'
-import { useEffect, useRef, useState } from 'react'
-import { useScroll } from 'framer-motion'
 
 const stadiums = [
   {
