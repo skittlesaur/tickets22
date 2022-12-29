@@ -5,6 +5,39 @@ import { kafkaMasterlistMessage, kafkaMessage } from '../validation/kafka';
 import { Kafka } from 'kafkajs'
 import { isEmpty } from 'lodash'
 
+interface ticketSaleMessage {
+  meta: {
+    action: string
+  },
+  body: {
+    matchNumber: number,
+    tickets: {
+      category: number,
+      quantity: number,
+      price: number,
+    }
+  }
+}
+interface tickets {
+  available: number,
+  pending: number,
+  price: number
+}
+interface masterlistMessage {
+  matchNumber: number,
+  roundNumber: number,
+  dateUtc: string,
+  location: string,
+  availability: {
+    category1: tickets,
+    category2: tickets,
+    category3: tickets,
+    homeTeam: string,
+    awayTeam: string,
+    group?: string
+  }
+}
+
 const kafka = new Kafka({
   clientId: `${process.env.CLIENT_ID}-${process.env.ENV}`,
   brokers: [`${process.env.KAFKA_BROKERS}`],

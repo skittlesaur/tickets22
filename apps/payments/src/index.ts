@@ -18,7 +18,7 @@ server.use(cookieParser())
 server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({ extended: true }))
 
-server.use('/payements', payments)
+server.use('/payments', payments)
 server.get('/', (req, res) => {
   res.redirect(`${CLIENT_URL}/help/microservices/payments`)
 })

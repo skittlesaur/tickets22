@@ -2,6 +2,20 @@ require('dotenv').config()
 import kafkaMessage from "../validation/kafka"
 import { Kafka } from 'kafkajs'
 
+interface ticketSaleMessage {
+  meta: {
+    action: string
+  },
+  body: {
+    matchNumber: number,
+    tickets: {
+      category: number,
+      quantity: number,
+      price: number,
+    }
+  }
+}
+
 const kafka = new Kafka({
   clientId: `${process.env.CLIENT_ID}-${process.env.ENV}`,
   brokers: [`${process.env.KAFKA_BROKERS}`],
@@ -21,7 +35,7 @@ export const startKafkaProducer = async () => {
   await producer.connect()
 }
 
-export const sendKafkaMessage = async (messageType: any, message: any) => {
+export const sendKafkaMessage = async (messageType: any, message: any /* type: ticketSaleMessage */) => {
   try {
     // validate kafka message against schema prior to sending
     const validationError = kafkaMessage(message)

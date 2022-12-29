@@ -5,6 +5,8 @@ const processReservedTicket = async (req: Request, res: Response) => {
 
     const message = req.body
 
+    console.log('processReservedTicket', message)
+
     const reservedTickets = await req.context.prisma.availableTickets.findFirst({
       where: {
         matchNumber: message.body.matchNumber,

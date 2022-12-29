@@ -4,6 +4,7 @@ const processCancelledTicket = async (req: Request, res: Response) => {
   try {
 
     const message = req.body
+    console.log('processCancelledTicket', message)
 
     const cancelledTickets = await req.context.prisma.availableTickets.findFirst({
       where: {
