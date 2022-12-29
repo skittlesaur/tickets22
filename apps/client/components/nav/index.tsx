@@ -34,7 +34,7 @@ const Nav = ({ activePage, forceLightText = false }: NavProps) => {
       } border-b`}
     >
       <div
-        className={`flex items-center justify-between px-4 md:px-0 py-4 max-w-screen-xl mx-auto`}
+        className={`flex items-center justify-between px-4 xl:px-0 py-4 max-w-screen-xl mx-auto`}
       >
         <div className="flex items-center gap-20">
           <Link

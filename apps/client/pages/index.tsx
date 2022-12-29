@@ -1,19 +1,22 @@
 import AppLayout from '@layouts/app'
 import Seo from '@components/seo'
 import Home from '@components/home'
+import { useState } from 'react'
 
 const HomePage = () => {
+  const [forceLightText, setForceLightText] = useState(true)
+
   return (
     <AppLayout
       activePage="Home"
       isFullWidth={true}
-      forceLightText={true}
+      forceLightText={forceLightText}
     >
       <Seo
         title="Tickets22"
         description="Tickets22 is a FIFA World Cup 2022 ticketing platform"
       />
-      <Home />
+      <Home setForceLightText={setForceLightText}/>
     </AppLayout>
   )
 }
