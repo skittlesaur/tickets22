@@ -8,6 +8,9 @@ module.exports = {
     './layouts/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
+    fontFamily: {
+      arabic: ['Tajawal', 'sans-serif'],
+    },
     extend: {
       colors: {
         primary: {

@@ -16,5 +16,14 @@ module.exports = withMDX({
     })
 
     return config
+  },
+  redirects: async () => {
+    return [
+      {
+        source: '/tickets',
+        destination: '/matches',
+        permanent: true
+      }
+    ]
   }
 })
