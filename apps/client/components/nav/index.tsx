@@ -30,7 +30,7 @@ const Nav = ({ activePage, forceLightText = false }: NavProps) => {
       } top-0 w-full backdrop-blur ${
         forceLightText
           ? "bg-gray-900/50 border-gray-700"
-          : "bg-gray-50/10 border-gray-200 dark:bg-gray-900/50 dark:border-gray-700"
+          : "bg-gray-100/50 border-gray-200 dark:bg-gray-900/50 dark:border-gray-700"
       } border-b`}
     >
       <div

@@ -12,7 +12,7 @@ const InfoForm = ({ email, setEmail }: any) => {
         <input
           id="email"
           name="email"
-          className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+          className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm disabled:opacity-50"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           disabled={!!user}
