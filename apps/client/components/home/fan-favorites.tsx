@@ -89,7 +89,7 @@ const FanFavorites = () => {
           >
             <Link
               href={`/matches/${match.matchNumber}`}
-              className="relative group rounded-lg border border-primary flex flex-col text-primary overflow-hidden text-lg hover:shadow-xl hover:scale-110 transition-all duration-300"
+              className="relative group rounded-lg border border-primary dark:border-secondary-700 flex flex-col text-primary dark:text-secondary overflow-hidden text-lg hover:shadow-xl hover:scale-110 transition-all duration-300"
             >
               <img
                 src="/images/pattern.jpg"
@@ -112,7 +112,7 @@ const FanFavorites = () => {
                   </div>
                 </div>
               </div>
-              <div className="relative z-[1] px-8 py-4 bg-gray-100 border-t border-primary">
+              <div className="relative z-[1] px-8 py-4 bg-gray-100 dark:bg-gray-800 border-t border-primary dark:border-secondary-700">
                 <p className="font-medium">
                   {match.stadium.name}
                 </p>

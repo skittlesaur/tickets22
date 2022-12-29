@@ -18,7 +18,10 @@ module.exports = {
           DEFAULT: '#83113A',
           800: '#590925',
         },
-        secondary: '#EEEEE4',
+        secondary: {
+          DEFAULT: '#EEEEE4',
+          700: '#7c7c6e',
+        },
         valid: '#00BFA6',
         invalid: '#ce3131',
         loading: '#d59918',

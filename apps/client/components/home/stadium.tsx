@@ -32,7 +32,7 @@ const Stadium = ({ stadium }: any) => {
         </div>
         <motion.div
           style={{ y: yText }}
-          className="flex flex-col items-center gap-2 text-primary"
+          className="flex flex-col items-center gap-2 text-primary dark:text-secondary"
         >
           <h1 className="text-5xl font-qatar">
             {stadium.name}

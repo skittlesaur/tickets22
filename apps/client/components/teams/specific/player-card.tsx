@@ -1,6 +1,6 @@
 const PlayerCard = ({ player }: any) => {
   return (
-    <div className="flex flex-col border border-primary dark:border-secondary/40 rounded-3xl flex flex-col items-center overflow-hidden">
+    <div className="flex flex-col border border-primary dark:border-secondary-700 rounded-3xl flex flex-col items-center overflow-hidden">
       <div className="w-64 aspect-square">
         <img
           src={player.imageUri}
@@ -8,7 +8,7 @@ const PlayerCard = ({ player }: any) => {
           className="object-cover"
         />
       </div>
-      <div className="flex flex-col items-center px-2 py-4 bg-secondary dark:bg-gray-900 w-full border-t border-primary dark:border-secondary/40 drop-shadow-xl">
+      <div className="flex flex-col items-center px-2 py-4 bg-secondary dark:bg-gray-900 w-full border-t border-primary dark:border-secondary-700 drop-shadow-xl">
         <h3 className="font-bold text-lg">
           {player.firstName} {player.lastName}
         </h3>
