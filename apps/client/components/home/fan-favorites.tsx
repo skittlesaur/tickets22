@@ -24,7 +24,7 @@ const matches = [
     'group': 'A',
   },
   {
-    'matchNumber': 1,
+    'matchNumber': 2,
     'roundNumber': 1,
     'date': '2022-11-20T16:00:00.000Z',
     'stadium': {
@@ -42,7 +42,7 @@ const matches = [
     'group': 'A',
   },
   {
-    'matchNumber': 1,
+    'matchNumber': 3,
     'roundNumber': 1,
     'date': '2022-11-20T16:00:00.000Z',
     'stadium': {
@@ -81,7 +81,7 @@ const FanFavorites = () => {
           <motion.div
             key={match.matchNumber}
             initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{
               duration: .45,
               delay: 0.25 * (idx + 1),
