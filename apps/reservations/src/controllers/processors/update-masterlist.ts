@@ -3,9 +3,10 @@ import { Request, Response } from 'express'
 const updateMasterlist = async (req: Request, res: Response) => {
   try {
 
+    const { prisma } = req.context
     const match = req.body
 
-    let stadium = await req.context.prisma.stadium.findUnique({
+    let stadium = await prisma.stadium.findUnique({
       where: {
         name: match.location
       },
@@ -15,7 +16,7 @@ const updateMasterlist = async (req: Request, res: Response) => {
     })
 
     if (!stadium) {
-      stadium = await req.context.prisma.stadium.create({
+      stadium = await prisma.stadium.create({
         data: {
           name: match.location
         }
@@ -23,7 +24,7 @@ const updateMasterlist = async (req: Request, res: Response) => {
     }
 
     // Home Team
-    let homeTeam = await req.context.prisma.team.findUnique({
+    let homeTeam = await prisma.team.findUnique({
       where: {
         name: match.homeTeam
       },
@@ -33,7 +34,7 @@ const updateMasterlist = async (req: Request, res: Response) => {
     })
 
     if (!homeTeam) {
-      homeTeam = await req.context.prisma.team.create({
+      homeTeam = await prisma.team.create({
         data: {
           name: match.homeTeam
         }
@@ -41,7 +42,7 @@ const updateMasterlist = async (req: Request, res: Response) => {
     }
 
     // Away Team
-    let awayTeam = await req.context.prisma.team.findUnique({
+    let awayTeam = await prisma.team.findUnique({
       where: {
         name: match.awayTeam
       },
@@ -51,16 +52,43 @@ const updateMasterlist = async (req: Request, res: Response) => {
     })
 
     if (!awayTeam) {
-      awayTeam = await req.context.prisma.team.create({
+      awayTeam = await prisma.team.create({
         data: {
           name: match.awayTeam
         }
       })
-
     }
 
     // Creating the match
-    const matchEntry = await req.context.prisma.match.upsert({
+
+    let matchEntry2 = await prisma.match.findUnique({
+      where: {
+        matchNumber: match.matchNumber
+      },
+      select: {
+        roundNumber: true,
+        date: true,
+        homeScore: true,
+        awayScore: true,
+        group: true,
+        ended: true,
+      }
+    })
+
+    // if (!matchEntry2) {
+    //   matchEntry2 = await prisma.match.create({
+
+    //       matchNumber: match.matchNu
+    //       roundNumber: true,
+    //       date: true,
+    //       homeScore: true,
+    //       awayScore: true,
+    //       group: true,
+    //       ended: true
+    //   })
+    // }
+
+    const matchEntry = await prisma.match.upsert({
       where: {
         matchNumber: match.matchNumber
       },
@@ -105,7 +133,7 @@ const updateMasterlist = async (req: Request, res: Response) => {
 
     const updateTickets = await req.context.prisma
 
-    res.status(200).json({ message: `${matchEntry.matchNumber} is done` })
+    res.status(200).json({ message: `${matchEntry.matchNumber} is committed` })
   } catch (error: any) {
     res.status(500).json({ error: error.message })
   }
