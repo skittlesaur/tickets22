@@ -7,8 +7,8 @@ const Stadium = ({ stadium }: any) => {
     amount: .8,
   })
   const { scrollYProgress } = useScroll({ target: ref })
-  const yText = useTransform(scrollYProgress, [0, 1], [-500, 300])
-  const yImage = useTransform(scrollYProgress, [0, 1], [-280, 200])
+  const yText = useTransform(scrollYProgress, [0, 1], [-150, 25])
+  const yImage = useTransform(scrollYProgress, [0, 1], [-50, 50])
 
   return (
     <div
@@ -36,7 +36,7 @@ const Stadium = ({ stadium }: any) => {
           style={{ y: yText }}
           animate={{ opacity: inView ? 1 : 0 }}
           transition={{ duration: .8 }}
-          className="flex flex-col items-center gap-2 text-primary dark:text-secondary"
+          className="flex flex-col items-center gap-2 text-primary dark:text-secondary drop-shadow-lg"
         >
           <h1 className="text-3xl md:text-5xl font-qatar">
             {stadium.name}
