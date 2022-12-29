@@ -49,9 +49,9 @@ export const getStaticProps = async ({ params }: any) => {
     }
   } catch (e) {
     return {
-      redirect: {
-        destination: '/404',
-      },
+      props: {
+        team: null,
+      }
     }
   }
 }
