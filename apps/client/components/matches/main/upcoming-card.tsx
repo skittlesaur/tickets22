@@ -8,7 +8,6 @@ interface UpcomingCardProps {
 
 const UpcomingCard = ({ match }: UpcomingCardProps) => {
   const { data: homePlayer, isLoading: homePlayerLoading } = useRandomPlayerQuery(match.homeTeam.matchNumber)
-  console.log(homePlayer)
   const { data: awayPlayer, isLoading: awayPlayerLoading } = useRandomPlayerQuery(match.awayTeam.matchNumber)
 
   if (!match)
