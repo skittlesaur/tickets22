@@ -23,7 +23,7 @@ const Upcoming = ({ upcoming = [] }: UpcomingProps) => {
       </h1>
       <Link
         href={`/matches/${upcoming[current].matchNumber}`}
-        className="relative group overflow-hidden rounded-lg shadow-md border border-primary text-primary md:h-[18em] hover:shadow-xl hover:bg-primary hover:text-white transition-all duration-150 ease-in-out"
+        className="relative group overflow-hidden rounded-lg shadow-md border border-primary dark:border-secondary-700 text-primary dark:text-secondary md:h-[18em] hover:shadow-xl hover:bg-primary hover:bg-gray-900 hover:text-white transition-all duration-150 ease-in-out"
       >
         <div className="relative w-full flex flex-col gap-3 p-4 md:p-6">
           <div className="flex items-center gap-2 z-[2]">
@@ -51,7 +51,7 @@ const Upcoming = ({ upcoming = [] }: UpcomingProps) => {
         {Array.from({ length: upcoming.length }).map((_, i) => (
           <Diamond
             key={i}
-            className={`w-5 md:w-6 aspect-square cursor-pointer ${i === current ? 'fill-primary' : 'fill-secondary'} hover:drop-shadow-md transition-all duration-300 ease-in-out`}
+            className={`w-5 md:w-6 aspect-square cursor-pointer ${i === current ? 'fill-primary dark:fill-secondary' : 'fill-secondary dark:fill-gray-500'} hover:drop-shadow-md transition-all duration-300 ease-in-out`}
             onClick={() => {
               setPrev(current)
               setCurrent(i)

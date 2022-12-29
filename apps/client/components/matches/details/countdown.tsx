@@ -36,7 +36,7 @@ const Countdown = ({ date }: CountdownProps) => {
   }, [date])
 
   return (
-    <div className="bg-gray-200 grid grid-cols-7 items-center rounded px-3 py-1 [&>*]:justify-self-center">
+    <div className="bg-gray-200 dark:bg-gray-800 dark:text-gray-400 grid grid-cols-7 items-center rounded px-3 py-1 [&>*]:justify-self-center">
       <p className="w-[5ch]">{timeLeft.days} days</p>
       <div className="w-1.5 aspect-square bg-gray-400 rounded-full" />
       <p className="w-[5ch]">{timeLeft.hours} hrs</p>

@@ -94,7 +94,7 @@ const Header = (
             ) : (
               <Link
                 href={`/matches/${matchNumber}/purchase`}
-                className="bg-primary text-sm font-medium text-white px-4 py-1.5 rounded-md border border-transparent hover:border-primary hover:bg-transparent hover:text-primary transition-all duration-200 ease-in-out"
+                className="bg-primary dark:bg-secondary dark:text-black dark:hover:border-secondary-700 text-sm font-medium text-white px-4 py-1.5 rounded-md border border-transparent hover:border-primary hover:bg-transparent hover:text-primary transition-all duration-200 ease-in-out"
               >
                 Buy Ticket
               </Link>

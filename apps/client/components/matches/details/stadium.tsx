@@ -7,7 +7,7 @@ const Stadium = ({ stadium }: StadiumProps) => {
 
   return (
     <>
-      <div className="w-full h-[1px] bg-gray-200" />
+      <div className="w-full h-[1px] bg-gray-200 dark:bg-gray-800" />
       <div className="flex items-center justify-center text-sm">
         <div className="w-16 aspect-square select-none">
           <img src={`/images/stadiums/${stadium.name.replace(/ /g, '-').toLowerCase()}.webp`} />

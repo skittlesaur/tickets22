@@ -1,4 +1,4 @@
-import { MatchType } from "@components/matches/main/all-matches";
+import { MatchType } from '@components/matches/main/all-matches'
 
 interface TypeSelectorProps {
   matchType: MatchType;
@@ -13,8 +13,8 @@ const TypeSelector = ({ matchType, setMatchType }: TypeSelectorProps) => {
           key={type}
           className={`px-6 py-4 rounded font-semibold text-sm ${
             matchType === type
-              ? "bg-primary text-secondary"
-              : "text-black hover:border-primary hover:text-primary"
+              ? 'bg-primary dark:bg-secondary text-secondary dark:text-black'
+              : 'text-black hover:border-primary dark:hover:border-secondary-700 hover:text-primary'
           } border border-transparent transition-all duration-200 ease-in-out dark:text-secondary`}
           onClick={() => setMatchType(type)}
         >
@@ -22,7 +22,7 @@ const TypeSelector = ({ matchType, setMatchType }: TypeSelectorProps) => {
         </button>
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default TypeSelector;
+export default TypeSelector

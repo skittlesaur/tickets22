@@ -74,7 +74,7 @@ const AllMatches = ({ matches }: MatchesProps) => {
       <h1 className="font-black text-4xl">All Matches</h1>
       <TypeSelector matchType={matchType} setMatchType={setMatchType} />
       {!matches ? (
-        <Loader color="bg-primary" />
+        <Loader color="bg-primary dark:bg-secondary" />
       ) : (
         <div className="flex flex-col gap-10">
           {displayedMatches.map((group: any) => (
@@ -82,7 +82,7 @@ const AllMatches = ({ matches }: MatchesProps) => {
               key={group.date}
               className="flex flex-col gap-4 overflow-hidden"
             >
-              <h2 className="text-primary font-semibold text-xl">
+              <h2 className="text-primary dark:text-secondary font-semibold text-xl">
                 {group.date}
               </h2>
               <div className="py-4 bg-gray-50 rounded-lg flex flex-col gap-4 dark:bg-gray-980 transition-all duration-200 ease-in-out">
