@@ -1,19 +1,13 @@
 import { Request, Response } from 'express'
+import axios from 'axios'
+import { SECURITY_URL } from '../../constants'
 
 const getReservedTicket = async (req: Request, res: Response) => {
   try {
     const { id } = req.params
-    const { user, prisma } = req.context
+    const { prisma } = req.context
 
-    if (!user) {
-      return res.status(401).json({
-        status: 401,
-        code: 'UNAUTHORIZED',
-        message: 'Unauthorized',
-      })
-    }
-
-    const ticket = await prisma.reservedTicket.findUnique({
+    const ticket: any = await prisma.reservedTicket.findUnique({
       where: {
         id: id,
       },
@@ -28,21 +22,21 @@ const getReservedTicket = async (req: Request, res: Response) => {
               select: {
                 name: true,
                 capacity: true,
-              }
+              },
             },
             homeTeam: {
               select: {
                 name: true,
-              }
+              },
             },
             awayTeam: {
               select: {
                 name: true,
-              }
-            }
-          }
+              },
+            },
+          },
         },
-      }
+      },
     })
 
     if (!ticket) {
@@ -53,18 +47,38 @@ const getReservedTicket = async (req: Request, res: Response) => {
       })
     }
 
-    if (ticket.userId !== user.id) {
-      return res.status(401).json({
-        status: 401,
-        redirect: '/login?error=You are not authorized to view this ticket',
-        message: 'You are not authorized to view this ticket',
+    // validate ticket
+    await axios.post(`${SECURITY_URL}/validate/ticket`, {
+      ticket,
+    }, {
+      headers: {
+        Authorization: req.headers.authorization,
+        cookie: req.headers.cookie,
+        x_forwarded_for: req.headers['x-forwarded-for'],
+        socket_remote_address: req.socket.remoteAddress,
+      },
+    })
+
+    delete ticket.ipAddress
+    delete ticket.externalSeller
+    delete ticket.userId
+    delete ticket.createdAt
+    delete ticket.updatedAt
+    return res.status(200).json(ticket)
+  } catch (e: any) {
+    if (e.isAxiosError) {
+      return res.status(403).json({
+        status: 403,
+        redirect: '/me/tickets?error=Ticket validation failed',
+        message: 'Ticket validation failed',
       })
     }
 
-    return res.status(200).json(ticket)
-  } catch (e) {
-    console.log(e)
-    return res.status(500).json(e)
+    return res.status(400).json({
+      status: 400,
+      redirect: '/me/tickets?error=Ticket validation failed',
+      message: 'Ticket validation failed',
+    })
   }
 }
 

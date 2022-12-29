@@ -20,10 +20,9 @@ const Ticket = () => {
     queryKey: ['ticket', ticketId],
     queryFn: () => RESERVATIONS_SERVICE.get(`/tickets/${ticketId}`).then(res => res.data),
     enabled: !!ticketId,
+    staleTime: Infinity,
+    retry: false,
   })
-
-  if (isLoading || !ticket)
-    return <FullscreenLoader />
 
   if (isError) {
     const { data: errorData } = error.response || {} as any
@@ -32,13 +31,15 @@ const Ticket = () => {
     return <></>
   }
 
-  console.log(ticket)
+  if (isLoading || !ticket)
+    return <FullscreenLoader />
 
   return (
     <div className="w-full h-[49em] overflow-hidden p-16 flex items-center justify-center mx-auto max-w-screen-2xl">
       <div className="flex items-center gap-4 relative w-full h-full bg-secondary border border-primary rounded-3xl shadow-xl overflow-hidden">
         <img
           src="/images/pattern.jpg"
+          alt="pattern"
           className="absolute inset-0 w-full h-full object-cover saturate-0 mix-blend-difference opacity-10 pointer-events-none"
         />
         <div className=" h-full grow p-10 flex flex-col justify-between">

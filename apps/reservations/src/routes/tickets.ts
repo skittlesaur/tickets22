@@ -6,11 +6,10 @@ import processReservedTicket from '../controllers/processors/process-reserved-ti
 import reserveTickets from '../controllers/tickets/reserve-tickets'
 import updateMasterlist from '../controllers/processors/update-masterlist'
 import getReservedTicket from '../controllers/tickets/get-reserved-ticket'
-import authenticatedUser from '../middleware/authenticated-user'
 
 const router = express.Router()
 
-router.get('/:id', authenticatedUser, getReservedTicket)
+router.get('/:id', getReservedTicket)
 router.get('/match/:id/available', getAvailableTickets)
 router.post('/processors/pending', processPendingTicket)
 router.post('/processors/cancelled', processCancelledTicket)
