@@ -14,7 +14,7 @@ interface reservation {
   tickets: {
     category: number
     quantity: number,
-    price: number
+    price?: number // probably will remove
   }
   ipAddress?: string
 }
@@ -22,9 +22,9 @@ interface reservation {
 const startTicketCheckout = async (req: Request, res: Response) => {
   try {
 
-    const { prisma } = req.context
-    const data = req.body // :reservation
+    console.log(req.body)
 
+    const { prisma } = req.context
 
     // const validationError = validateTicketReservationDto(req.body);
     // if (validationError) {
@@ -36,8 +36,8 @@ const startTicketCheckout = async (req: Request, res: Response) => {
 
     const check = await prisma.availableTickets.findFirst({
       where: {
-        matchNumber: data.matchNumber,
-        category: data.tickets.category
+        matchNumber: req.body.matchNumber,
+        category: parseInt(req.body.ticketType)
       },
       select: {
         available: true,
@@ -48,22 +48,33 @@ const startTicketCheckout = async (req: Request, res: Response) => {
 
     if (!check) throw new Error('These tickets dont exist')
 
-    if (data.tickets.quantity > check?.available) throw new Error(`The quantity you ordered isnt available, only ${check.available} tickets left`)
+    const data = {
+      email: req.body.email,
+      seatPosition: req.body.seatPosition.toUpperCase(),
+      matchNumber: req.body.matchNumber,
+      tickets: {
+        category: parseInt(req.body.ticketType),
+        quantity: 1, /* req.body.quantity, */
+        price: check.price
+      }
+    }
 
-    if (check.pending + data.tickets.quantity > check.available) throw new Error(`There are ${check.pending} purchases pending out of ${check.available} tickets available, please try again later`)
+    if (/*  data.tickets.quantity */ 1 > check?.available) throw new Error(`The quantity you ordered isnt available, only ${check.available} tickets left`)
 
-    if (data.tickets.price !== check.price) throw new Error('The price of these tickets is invalid')
+    if (check.pending + 1 /*  data.tickets.quantity */ > check.available) throw new Error(`There are ${check.pending} purchases pending out of ${check.available} tickets available, please try again later`)
+
+    //if (data.tickets.price !== check.price) throw new Error('The price of these tickets is invalid')
 
     let ticketIds: string[] = []
 
-    for (let i = 0; i < data.tickets.quantity; i++) {
+    for (let i = 0; i < 1 /*  data.quantity */; i++) {
 
       const ticket = await prisma.reservedTicket.create({
         data: {
           userId: userId,
           email: data.email,
           matchNumber: data.matchNumber,
-          price: data.tickets.price,
+          price: check.price,
           category: data.tickets.category,
           status: TicketStatus.PENDING,
           seatPosition: data.seatPosition,
@@ -85,7 +96,8 @@ const startTicketCheckout = async (req: Request, res: Response) => {
 
     const stripeSession = await axios.post(`${PAYMENTS_URL}/payments/`, { data: data, ticketIds: ticketIds })
 
-    res.status(200).json({ url: stripeSession.data.url });
+    res.status(200).json({ url: stripeSession.data.url })
+
   } catch (e: any) {
     return res.status(400).json({ message: e.message });
   }
