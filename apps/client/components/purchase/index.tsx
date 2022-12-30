@@ -4,7 +4,7 @@ import FullscreenLoader from '@components/fullscreen-loader'
 import getTeamIcon from '@lib/get-team-icon'
 import Stadium from '@components/purchase/stadium'
 import { useRouter } from 'next/router'
-import { useQuery } from 'react-query'
+import { useMutation, useQuery } from 'react-query'
 import RESERVATIONS_SERVICE from '@services/reservations'
 import { AnimatePresence, motion } from 'framer-motion'
 import SeatForm from '@components/purchase/seat-form'
@@ -64,6 +64,34 @@ const Purchase = ({ match }: PurchaseProps) => {
 
 	// @todo react use mutatipn
 
+	const mutation = useMutation({
+		mutationKey: 'reserve',
+		mutationFn: ({
+			email,
+			matchNumber,
+			seatPosition,
+			ticketType,
+		}: {
+			email: string
+			matchNumber: number
+			ticketType: TicketType
+			seatPosition: SeatPosition
+		}) =>
+			RESERVATIONS_SERVICE.post('/tickets/reserve', {
+				email: email,
+				matchNumber: matchNumber,
+				seatPosition: seatPosition,
+				ticketType: ticketType,
+			}),
+		retry: 0,
+		onSuccess: async (res) => {
+			await router.push(`${res.data.url}`)
+		},
+		onError: (error: any) => {
+			toast.error(`${error}`)
+		},
+	})
+
 	const categoryData = useMemo(() => {
 		if (!ticketsData) return {}
 
@@ -111,6 +139,13 @@ const Purchase = ({ match }: PurchaseProps) => {
 			/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 		// @todo: call mutation to reserve ticket
+		console.log('test test')
+		mutation.mutate({
+			email: email,
+			matchNumber: match.matchNumber,
+			seatPosition: seatPosition,
+			ticketType: ticketType,
+		})
 
 		if (!emailRegex.test(email))
 			return toast.error('Please enter a valid email')
