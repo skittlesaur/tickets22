@@ -31,6 +31,7 @@ const startTicketCheckout = async (req: Request, res: Response) => {
 
     const user = req.context.user
     const userId = user?.id
+    const ipAddress = (req.headers['x-forwarded-for'] || req.socket.remoteAddress) as string
 
     const check = await prisma.availableTickets.findFirst({
       where: {
@@ -52,20 +53,21 @@ const startTicketCheckout = async (req: Request, res: Response) => {
       matchNumber: req.body.matchNumber,
       tickets: {
         category: parseInt(req.body.ticketType),
-        quantity: 1, /* req.body.quantity, */
+        quantity: req.body.quantity,
         price: check.price
       }
+
     }
 
-    if (/*  data.tickets.quantity */ 1 > check?.available) throw new Error(`The quantity you ordered isnt available, only ${check.available} tickets left`)
+    if (data.tickets.quantity > check?.available) throw new Error(`The quantity you ordered isnt available, only ${check.available} tickets left`)
 
-    if (check.pending + 1 /*  data.tickets.quantity */ > check.available) throw new Error(`There are ${check.pending} purchases pending out of ${check.available} tickets available, please try again later`)
+    if (check.pending + data.tickets.quantity > check.available) throw new Error(`There are ${check.pending} purchases pending out of ${check.available} tickets available, please try again later`)
 
     //if (data.tickets.price !== check.price) throw new Error('The price of these tickets is invalid')
 
     let ticketIds: string[] = []
 
-    for (let i = 0; i < 1 /*  data.quantity */; i++) {
+    for (let i = 0; i < data.tickets.quantity; i++) {
 
       const ticket = await prisma.reservedTicket.create({
         data: {
@@ -75,6 +77,7 @@ const startTicketCheckout = async (req: Request, res: Response) => {
           price: check.price,
           category: data.tickets.category,
           status: TicketStatus.PENDING,
+          ipAddress: ipAddress,
           seatPosition: data.seatPosition,
           seatRow: generateSeat(data.tickets.category).seatRow,
           seatNumber: Math.floor(Math.random() * (100 - 1) + 1),
