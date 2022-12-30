@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from 'react'
-import useMatchQuery from '@services/shop/match-query'
 import getDynamicQuery from '@lib/get-dynamic-query'
 import FullscreenLoader from '@components/fullscreen-loader'
 import getTeamIcon from '@lib/get-team-icon'
@@ -23,9 +22,9 @@ export enum SeatPosition {
 }
 
 export enum TicketType {
-	CATEGORY_1 = 1,
-	CATEGORY_2 = 2,
-	CATEGORY_3 = 3,
+	CATEGORY_1 = '1',
+	CATEGORY_2 = '2',
+	CATEGORY_3 = '3',
 }
 
 interface PurchaseProps {
