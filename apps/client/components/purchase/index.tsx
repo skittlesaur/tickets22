@@ -11,7 +11,6 @@ import SeatForm from '@components/purchase/seat-form'
 import InfoForm from '@components/purchase/info-form'
 import useUser from '@hooks/use-user'
 import toast from 'react-hot-toast'
-import { stringify } from 'querystring'
 
 export enum SeatPosition {
 	NOT_SELECTED = 'Select a seat',
