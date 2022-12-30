@@ -5,7 +5,7 @@ import { JWT_SECRET } from '../constants'
 
 const authenticatedUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const token = req.headers.authorization?.split(' ')?.[1] ?? req.cookies?.['access']
+    const token = req.cookies?.['access'] ?? req.headers.authorization?.split(' ')?.[1]
     if (!token)
       return res.status(400).send({
         status: 400,

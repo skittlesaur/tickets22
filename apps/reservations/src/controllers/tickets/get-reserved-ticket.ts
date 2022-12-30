@@ -42,7 +42,7 @@ const getReservedTicket = async (req: Request, res: Response) => {
     if (!ticket) {
       return res.status(404).json({
         status: 404,
-        redirect: '/me/tickets?error=Ticket not found',
+        redirect: '/tickets?error=Ticket not found',
         message: 'Ticket not found',
       })
     }
@@ -66,17 +66,9 @@ const getReservedTicket = async (req: Request, res: Response) => {
     delete ticket.updatedAt
     return res.status(200).json(ticket)
   } catch (e: any) {
-    if (e.isAxiosError) {
-      return res.status(403).json({
-        status: 403,
-        redirect: '/me/tickets?error=Ticket validation failed',
-        message: 'Ticket validation failed',
-      })
-    }
-
     return res.status(400).json({
       status: 400,
-      redirect: '/me/tickets?error=Ticket validation failed',
+      redirect: '/tickets?error=Ticket validation failed',
       message: 'Ticket validation failed',
     })
   }

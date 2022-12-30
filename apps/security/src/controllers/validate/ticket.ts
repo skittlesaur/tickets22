@@ -1,4 +1,6 @@
 import { Request, Response } from 'express'
+import jwt from 'jsonwebtoken'
+import { JWT_SECRET } from '../../constants'
 
 const validateTicket = async (req: Request, res: Response) => {
   try {
@@ -12,16 +14,30 @@ const validateTicket = async (req: Request, res: Response) => {
       })
     }
 
+    console.log(ipAddress, ticket.ipAddress)
     if (ticket.ipAddress === ipAddress) {
       return res.status(200).json({
         message: 'Ticket validated',
       })
     }
 
+    const ticketsCookie = req.cookies['tickets']
+
+    if (ticketsCookie) {
+      const decoded = jwt.verify(ticketsCookie, JWT_SECRET) as any
+      const tickets = decoded.tickets?.map((ticket: any) => ticket.id)
+
+      if (tickets.includes(ticket.id)) {
+        return res.status(200).json({
+          message: 'Ticket validated',
+        })
+      }
+    }
+
     return res.status(403).json({
       message: 'Ticket validation failed',
     })
-  } catch (e) {
+  } catch (e: any) {
     return res.status(400).json({
       message: 'Ticket validation failed',
     })

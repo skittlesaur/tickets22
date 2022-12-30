@@ -35,14 +35,14 @@ const Ticket = () => {
     return <FullscreenLoader />
 
   return (
-    <div className="w-full h-[49em] overflow-hidden p-16 flex items-center justify-center mx-auto max-w-screen-2xl">
+    <div className="text-black w-full h-[49em] overflow-hidden p-16 flex items-center justify-center mx-auto max-w-screen-2xl">
       <div className="flex items-center gap-4 relative w-full h-full bg-secondary border border-primary rounded-3xl shadow-xl overflow-hidden">
         <img
           src="/images/pattern.jpg"
           alt="pattern"
           className="absolute inset-0 w-full h-full object-cover saturate-0 mix-blend-difference opacity-10 pointer-events-none"
         />
-        <div className=" h-full grow p-10 flex flex-col justify-between">
+        <div className="w-[60%] h-full p-10 flex flex-col justify-between">
           <div className="flex w-full justify-between">
             <div className="w-24 aspect-square">
               <WCLogo />
@@ -81,7 +81,7 @@ const Ticket = () => {
               <p className="text-3xl font-qatar mt-4">
                 {getType(ticket.match.roundNumber, ticket.match.gameNumber, ticket.match.group)}
               </p>
-              <p className="text-gray-500 font-arabic">
+              <p className="text-gray-500 font-arabic" style={{ direction: 'rtl' }}>
                 {getTypeAr(ticket.match.roundNumber, ticket.match.gameNumber, ticket.match.group)}
               </p>
             </div>
@@ -185,7 +185,7 @@ const Ticket = () => {
             </div>
           </div>
         </div>
-        <div className="relative h-full w-[40%] pl-52 py-16 flex flex-col items-center justify-between">
+        <div className="absolute top-0 bottom-0 right-0 h-full w-[40%] pl-52 py-16 flex flex-col items-center justify-between">
           <TicketPattern className="absolute left-5 inset-0 drop-shadow-lg" />
           <div className="relative z-[1] text-secondary flex items-center gap-2">
             <Logo className="w-8 [&>*]:fill-current" />

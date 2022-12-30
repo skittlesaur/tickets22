@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { AnimatePresence, motion } from 'framer-motion'
 
 const pages = [
-  { name: 'My Tickets', href: '/me/tickets' },
+  { name: 'My Tickets', href: '/tickets' },
   { name: 'Logout', href: '/logout' },
 ]
 const User = ({ user }: any) => {

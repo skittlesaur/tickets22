@@ -25,7 +25,7 @@ const getArabicTeamName = (teamName: string) => {
   if (teamName === 'Canada') return 'كندا'
   if (teamName === 'Switzerland') return 'سويسرا'
   if (teamName === 'Cameroon') return 'الكاميرون'
-  if (teamName === 'Uruquay') return 'أوروغواي'
+  if (teamName === 'Uruguay') return 'أوروغواي'
   if (teamName === 'Korea Republic') return 'كوريا الجنوبية'
   if (teamName === 'Portugal') return 'البرتغال'
   if (teamName === 'Ghana') return 'غانا'
