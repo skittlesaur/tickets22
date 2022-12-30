@@ -1,6 +1,6 @@
 import { SeatPosition, TicketType } from '@components/purchase/index'
 
-const SeatForm = ({ seatPosition, setSeatPosition, ticketType, setTicketType }: any) => {
+const SeatForm = ({ seatPosition, setSeatPosition, ticketType, setTicketType, quantity, setQuantity }: any) => {
   return (
     <form className="flex flex-col gap-4">
       <div>
@@ -42,6 +42,21 @@ const SeatForm = ({ seatPosition, setSeatPosition, ticketType, setTicketType }: 
             </option>
           ))}
         </select>
+      </div>
+      <div>
+        <label htmlFor="quantity" className="block text-sm font-medium text-gray-600">
+          Quantity
+        </label>
+        <input
+          id="quantity"
+          name="quantity"
+          className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm disabled:opacity-50"
+          value={quantity}
+          onChange={(e) => setQuantity(parseInt(e.target.value || '0', 10))}
+          disabled={seatPosition === SeatPosition.NOT_SELECTED}
+          type="number"
+          min="1"
+        />
       </div>
     </form>
   )
