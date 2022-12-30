@@ -9,8 +9,6 @@ const cancelTickets = async (req: Request, res: Response) => {
     const { prisma } = req.context
     const { data, ticketIds } = req.body
 
-    console.log('data: ', data, 'ticketIds: ', ticketIds)
-
     await sendKafkaMessage(TICKET_CANCELLED, {
       meta: { action: TICKET_CANCELLED },
       body: {

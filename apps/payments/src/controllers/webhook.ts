@@ -18,8 +18,6 @@ const webhook = async (req: Request, res: Response) => {
           ticketIds: JSON.parse(ticketIds),
         }
 
-        console.log('formatted data: ', formattedData)
-
         await axios.post(`${RESERVATIONS_URL}/tickets/finalize`, formattedData);
         break
 
@@ -30,8 +28,6 @@ const webhook = async (req: Request, res: Response) => {
           data: JSON.parse(data),
           ticketIds: JSON.parse(ticketIds),
         }
-
-        console.log('formatted data: ', formattedData)
 
         await axios.post(`${RESERVATIONS_URL}/tickets/expire`, formattedData);
         break
@@ -44,8 +40,6 @@ const webhook = async (req: Request, res: Response) => {
           ticketIds: JSON.parse(ticketIds),
         }
 
-        console.log('formatted data: ', formattedData)
-
         await axios.post(`${RESERVATIONS_URL}/tickets/cancel`, formattedData);
         break
 
@@ -56,7 +50,6 @@ const webhook = async (req: Request, res: Response) => {
 
     return res.status(200).json(formattedData)
   } catch (error: any) {
-    console.log('webhook', error)
     res.status(404).json({ message: error.message });
   }
 };

@@ -22,8 +22,6 @@ interface reservation {
 const startTicketCheckout = async (req: Request, res: Response) => {
   try {
 
-    console.log(req.body)
-
     const { prisma } = req.context
 
     // const validationError = validateTicketReservationDto(req.body);

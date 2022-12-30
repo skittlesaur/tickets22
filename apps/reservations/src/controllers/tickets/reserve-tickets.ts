@@ -10,8 +10,6 @@ const reserveTickets = async (req: Request, res: Response) => {
     const { prisma } = req.context
     const { data, ticketIds } = req.body
 
-    console.log('data: ', data, 'ticketIds: ', ticketIds)
-
     await sendKafkaMessage(TICKET_RESERVED, {
       meta: { action: TICKET_RESERVED },
       body: {
