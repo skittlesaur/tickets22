@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@prisma/client": "^4.6.1",
+    "@sendgrid/mail": "^7.7.0",
     "@types/bcrypt": "^5.0.0",
     "@types/cookie-parser": "^1.4.3",
     "@types/cors": "^2.8.12",

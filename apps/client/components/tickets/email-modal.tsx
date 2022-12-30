@@ -3,6 +3,7 @@ import { useMutation } from 'react-query'
 import SECURITY_SERVICE from '@services/security'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
+import Loader from '@components/loader'
 
 const EmailModal = ({ onClose }: any) => {
   const requestAccessMutation = useMutation({
@@ -10,6 +11,10 @@ const EmailModal = ({ onClose }: any) => {
     mutationFn: () => SECURITY_SERVICE.post('/verify/request-access', {
       email,
     }),
+    onSuccess: () => {
+      toast.success('Email sent!')
+      onClose()
+    },
   })
 
   const [email, setEmail] = useState('')
@@ -59,9 +64,15 @@ const EmailModal = ({ onClose }: any) => {
         />
         <button
           onClick={handleSubmit}
-          className="bg-primary dark:bg-secondary dark:text-primary dark:hover:border-secondary-700 dark:hover:bg-transparent dark:hover:text-secondary px-4 py-2 rounded-lg text-secondary font-medium border border-transparent text-sm hover:text-primary hover:bg-transparent hover:border-primary transition-all duration-200 ease-in-out"
+          disabled={requestAccessMutation.isLoading}
+          className="bg-primary w-40 dark:bg-secondary dark:text-primary dark:hover:border-secondary-700 dark:hover:bg-transparent dark:hover:text-secondary px-4 py-2 rounded-lg text-secondary font-medium border border-transparent text-sm hover:text-primary hover:bg-transparent hover:border-primary transition-all duration-200 ease-in-out disabled:hover:bg-primary"
         >
-          Request Access
+          {requestAccessMutation.isLoading ? (
+              <Loader size="small" color="bg-secondary dark:bg-primary" />
+            )
+            : (
+              'Request Access'
+            )}
         </button>
       </motion.div>
     </motion.div>
