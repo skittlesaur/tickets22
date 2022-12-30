@@ -27,6 +27,10 @@
     svg {
         @apply w-full h-full;
     }
+
+    .bar-of-progress {
+        @apply bg-primary dark:bg-secondary !important;
+    }
 }
 
 .hljs {
