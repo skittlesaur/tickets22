@@ -31,8 +31,8 @@ const createCheckoutSession = async (req: Request, res: Response) => {
           ticketIds: JSON.stringify(ticketIds)
         }
       },
-      success_url: `${CLIENT_URL}`,
-      cancel_url: `${CLIENT_URL}`
+      success_url: `${CLIENT_URL}/tickets`,
+      cancel_url: `${CLIENT_URL}/tickets/cancel?matchNumber=${data.matchNumber}`,
     })
 
     console.log({
