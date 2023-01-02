@@ -34,6 +34,7 @@ const Stadium = ({ stadium }: any) => {
           <motion.img
             style={{ y: yImage }}
             animate={{ opacity: inView ? 1 : 0, transition: { duration: .8 } }}
+            transition={{ duration: .8 }}
             alt={stadium.name}
             src={`/images/stadiums/${stadium.name.replace(/ /g, '-').toLowerCase()}.webp`}
           />
@@ -44,10 +45,10 @@ const Stadium = ({ stadium }: any) => {
           transition={{ duration: .8 }}
           className="flex flex-col items-center gap-2 text-primary dark:text-secondary drop-shadow-lg"
         >
-          <h1 className="text-3xl md:text-5xl font-qatar">
+          <h1 className="text-center text-3xl md:text-5xl font-qatar">
             {stadium.name}
           </h1>
-          <p className="text:sm md:text-base">
+          <p className="text-center text:sm md:text-base">
             {stadium.description}
           </p>
         </motion.div>
