@@ -66,6 +66,7 @@ const FanFavorites = () => {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, {
     amount: 0.5,
+    once: true,
   })
 
   return (
