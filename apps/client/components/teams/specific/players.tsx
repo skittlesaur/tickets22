@@ -7,7 +7,7 @@ import { motion } from 'framer-motion'
 
 const Players = ({ id }: any) => {
   const { data: players } = useQuery({
-    queryKey: ['players', id],
+    queryKey: ['team.players', id],
     queryFn: () => SHOP_SERVICE.get(`/team/${id}/players`).then((res) => res.data),
   })
 
@@ -47,7 +47,7 @@ const Players = ({ id }: any) => {
         <h2 className="uppercase text-xl font-medium">
           Goalkeepers
         </h2>
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
           {playersPositions?.GOALKEEPER.map((player: any) => (
             <PlayerCard key={player.id} player={player} />
           ))}
@@ -57,7 +57,7 @@ const Players = ({ id }: any) => {
         <h2 className="uppercase text-xl font-medium">
           Defenders
         </h2>
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
           {playersPositions?.DEFENDER.map((player: any) => (
             <PlayerCard key={player.id} player={player} />
           ))}
@@ -67,7 +67,7 @@ const Players = ({ id }: any) => {
         <h2 className="uppercase text-xl font-medium">
           Midfielders
         </h2>
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
           {playersPositions?.MIDFIELDER.map((player: any) => (
             <PlayerCard key={player.id} player={player} />
           ))}
@@ -77,7 +77,7 @@ const Players = ({ id }: any) => {
         <h2 className="uppercase text-xl font-medium">
           Forwards
         </h2>
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
           {playersPositions?.FORWARD.map((player: any) => (
             <PlayerCard key={player.id} player={player} />
           ))}

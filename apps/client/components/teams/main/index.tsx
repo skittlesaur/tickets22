@@ -6,7 +6,7 @@ const Teams = ({ teams }: any) => {
       <h1 className="font-black text-4xl">
         World Cup 2022 Teams
       </h1>
-      <div className="grid grid-cols-5 gap-6 items-stretch">
+      <div className="grid grid-cols-2 gap-1 md:grid-cols-3 md:gap-3 lg:grid-cols-5 lg:gap-6 items-stretch">
         {teams.map((team: any) => (
           <TeamCard key={team.id} team={team} />
         ))}

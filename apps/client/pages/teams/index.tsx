@@ -17,10 +17,11 @@ const TeamsPage = ({ teams }: any) => {
 export const getStaticProps = async () => {
   try {
     const { data: teams } = await SHOP_SERVICE.get('/team')
+    const filteredTeams = teams.filter((team: any) => team.name.length > 3 || team.name === 'USA')
 
     return {
       props: {
-        teams,
+        teams: filteredTeams,
       },
     }
   } catch (e) {
