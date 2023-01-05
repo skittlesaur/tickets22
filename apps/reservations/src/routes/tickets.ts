@@ -17,7 +17,7 @@ import { SECURE_ENDPOINT_SECRET } from '../constants'
 const router = express.Router()
 
 router.get('/', optionalUser, userTickets)
-router.get('/:id', getReservedTicket)
+router.get('/:id', optionalUser, getReservedTicket)
 router.post(`/${SECURE_ENDPOINT_SECRET}`, secureUserTickets)
 router.get('/match/:id/available', getAvailableTickets)
 router.post('/processors/pending', processPendingTicket)

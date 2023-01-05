@@ -1,11 +1,41 @@
 import { Request, Response } from 'express'
 import axios from 'axios'
-import { SECURITY_URL } from '../../constants'
+import { SECURE_ENDPOINT_SECRET, SECURITY_URL } from '../../constants'
+
+const isTicketValid = async (ticket: any, user: any, ipAddress: String, cookies: any) => {
+  console.log('check:', ticket, user, ipAddress, cookies)
+  if (user && (user.id === ticket.userId || user.email === ticket.email))
+    return {
+      isValid: true,
+      method: 'authenticated user',
+    }
+
+  if (ticket.ipAddress === ipAddress)
+    return {
+      isValid: true,
+      method: 'ip address',
+    }
+
+  if (cookies) {
+    const { data } = await axios.get(`${SECURITY_URL}/decode-${SECURE_ENDPOINT_SECRET}/${cookies}`)
+    const tickets = data.tickets?.map((ticket: any) => ticket.id)
+
+    if (tickets.includes(ticket.id))
+      return {
+        isValid: true,
+        method: 'cookie',
+      }
+  }
+
+  return {
+    isValid: false,
+  }
+}
 
 const getReservedTicket = async (req: Request, res: Response) => {
   try {
     const { id } = req.params
-    const { prisma } = req.context
+    const { prisma, user } = req.context
 
     const ticket: any = await prisma.reservedTicket.findUnique({
       where: {
@@ -47,18 +77,19 @@ const getReservedTicket = async (req: Request, res: Response) => {
       })
     }
 
+
     // validate ticket
-    await axios.post(`${SECURITY_URL}/validate/ticket`, {
-      ticket,
-    }, {
-      headers: {
-        Authorization: req.headers.authorization,
-        cookie: req.headers.cookie,
-        ipAddress: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
-        'x-forwarded-for': req.headers['x-forwarded-for'] || req.socket.remoteAddress,
-      },
-      withCredentials: true,
-    })
+    const ipAddress = (req.headers['x-forwarded-for'] || req.socket.remoteAddress) as string
+    const ticketsCookie = req.cookies['tickets']
+
+    const validate = await isTicketValid(ticket, user, ipAddress, ticketsCookie)
+    if(!validate.isValid) {
+      return res.status(403).json({
+        status: 403,
+        redirect: '/tickets?error=Ticket validation failed',
+        message: 'Ticket validation failed',
+      })
+    }
 
     delete ticket.ipAddress
     delete ticket.externalSeller
