@@ -3,7 +3,6 @@ import axios from 'axios'
 import { SECURE_ENDPOINT_SECRET, SECURITY_URL } from '../../constants'
 
 const isTicketValid = async (ticket: any, user: any, ipAddress: String, cookies: any) => {
-  console.log('check:', ticket, user, ipAddress, cookies)
   if (user && (user.id === ticket.userId || user.email === ticket.email))
     return {
       isValid: true,

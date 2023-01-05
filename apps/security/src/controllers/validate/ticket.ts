@@ -7,7 +7,6 @@ const validateTicket = async (req: Request, res: Response) => {
     const user = req.context.user
     const ipAddress = req.headers.ipAddress || req.headers['x-forwarded-for'] || req.socket.remoteAddress
     const { ticket } = req.body
-    console.log('check:', ticket, user, ipAddress)
 
     if (user && (user.id === ticket.userId || user.email === ticket.email)) {
       return res.status(200).json({
