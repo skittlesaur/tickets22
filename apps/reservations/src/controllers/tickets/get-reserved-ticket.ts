@@ -55,7 +55,9 @@ const getReservedTicket = async (req: Request, res: Response) => {
         Authorization: req.headers.authorization,
         cookie: req.headers.cookie,
         ipAddress: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
+        'x-forwarded-for': req.headers['x-forwarded-for'] || req.socket.remoteAddress,
       },
+      withCredentials: true,
     })
 
     delete ticket.ipAddress
