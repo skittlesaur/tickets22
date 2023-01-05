@@ -3,9 +3,6 @@ import { Request, Response } from 'express'
 const getGeneralAnalytics = async (req: Request, res: Response) => {
   try {
 
-    // @todo: do analytics breakdown of how much of each category sold
-    // and how many tickets sold and their statuses.
-
     const { prisma } = req.context
 
     const tickets = await prisma.reservedTicket.findMany({
@@ -25,7 +22,6 @@ const getGeneralAnalytics = async (req: Request, res: Response) => {
     let purchasedTickets: number = 0
     let pendingTickets: number = 0
     let cancelledTickets: number = 0
-    //const totalTickets = tickets.length
 
     let purchasedTicketsCategories: number[] = [0, 0, 0]
     let pendingTicketsCategories: number[] = [0, 0, 0]
