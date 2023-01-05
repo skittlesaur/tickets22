@@ -5,6 +5,7 @@ import { JWT_SECRET } from '../constants'
 const optionalUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const token = req.cookies?.['access'] ?? req.headers.authorization?.split(' ')?.[1]
+    console.log('token:', token)
     if (!token)
       return next()
 
