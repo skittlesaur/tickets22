@@ -12,6 +12,7 @@ import { AxiosError } from 'axios'
 import getType, { getTypeAr } from '@lib/get-type'
 import getArabicTeamName from '@lib/get-arabic-team-name'
 import getStadiumNameArabic from '@lib/get-stadium-name-arabic'
+import Seo from '@components/seo'
 
 const Ticket = () => {
   const router = useRouter()
@@ -32,10 +33,21 @@ const Ticket = () => {
   }
 
   if (isLoading || !ticket)
-    return <FullscreenLoader />
+    return (
+      <>
+        <Seo title="Loading Ticket" />
+        <FullscreenLoader />
+      </>
+    )
+
+  if (ticket.status !== 'PURCHASED') {
+    router.push('/tickets')
+    return <></>
+  }
 
   return (
-    <div className="text-black w-full h-[49em] overflow-hidden p-16 flex items-center justify-center mx-auto max-w-screen-2xl">
+    <div className={'text-black h-[49em] p-16 flex items-center justify-center mx-auto w-[96em] max-w-[96em]'}>
+      <Seo title={`Ticket #${ticket.id}`} />
       <div className="flex items-center gap-4 relative w-full h-full bg-secondary border border-primary rounded-3xl shadow-xl overflow-hidden">
         <img
           src="/images/pattern.jpg"
