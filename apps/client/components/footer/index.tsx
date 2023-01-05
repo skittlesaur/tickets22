@@ -1,21 +1,21 @@
 import Link from 'next/link'
-import { useEffect } from 'react'
 import SunIcon from '@images/sun.svg'
 import MoonIcon from '@images/moon.svg'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useTheme } from 'next-themes'
+import { useEffect, useState } from 'react'
 
 const Footer = () => {
-  const { systemTheme, theme, setTheme } = useTheme()
+  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
 
   const themeChanger = () => {
-    const currentTheme = theme === 'system' ? systemTheme : theme
-    const nextTheme = currentTheme === 'dark' ? 'light' : 'dark'
+    const nextTheme = theme === 'dark' ? 'light' : 'dark'
     setTheme(nextTheme)
   }
 
   useEffect(() => {
-    themeChanger()
+    setMounted(true)
   }, [])
 
   return (
@@ -33,29 +33,32 @@ const Footer = () => {
               onClick={themeChanger}
               className="w-9 aspect-square overflow-hidden text-gray-600 rounded-md p-1.5 border border-gray-200 hover:border-gray-400 hover:bg-white transition-all duration-200 ease-in-out dark:text-gray-200 dark:border-gray-800 dark:hover:border-gray-600 dark:hover:bg-gray-900"
             >
-              <AnimatePresence mode="wait" initial={false}>
-                {theme === 'dark' ? (
-                  <motion.div
-                    initial={{ opacity: 0, y: '100%' }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: '-100%' }}
-                    transition={{ duration: 0.2 }}
-                    key="dark"
-                  >
-                    <MoonIcon className="fill-current" />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    initial={{ opacity: 0, y: '100%' }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: '-100%' }}
-                    transition={{ duration: 0.2 }}
-                    key="light"
-                  >
-                    <SunIcon className="fill-current" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              {mounted && (
+                <AnimatePresence mode="wait" initial={false}>
+                  {theme === 'dark' && (
+                    <motion.div
+                      initial={{ opacity: 0, y: '100%' }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: '-100%' }}
+                      transition={{ duration: 0.2 }}
+                      key="dark"
+                    >
+                      <MoonIcon className="fill-current" />
+                    </motion.div>
+                  )}
+                  {theme === 'light' && (
+                    <motion.div
+                      initial={{ opacity: 0, y: '100%' }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: '-100%' }}
+                      transition={{ duration: 0.2 }}
+                      key="light"
+                    >
+                      <SunIcon className="fill-current" />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              )}
             </button>
           </div>
         </div>

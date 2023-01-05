@@ -30,7 +30,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [error])
 
   return (
-    <ThemeProvider enableSystem={true} attribute="class">
+    <ThemeProvider enableSystem={false} attribute="class">
       <QueryClientProvider client={queryClient}>
         <Toaster position="bottom-center" />
         <Component {...pageProps} />
