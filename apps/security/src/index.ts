@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import * as bodyParser from 'body-parser'
-import { CLIENT_URL, PORT, SECURE_ENDPOINT_SECRET } from './constants'
+import { CLIENT_URL, PORT, RESERVATIONS_URL, SECURE_ENDPOINT_SECRET } from './constants'
 import { PrismaClient, User } from '@prisma/client'
 import auth from './routes/auth'
 import me from './routes/me'
@@ -24,7 +24,12 @@ declare global {
 const server = express()
 
 server.use(cors({
-  origin: CLIENT_URL,
+  origin: (origin, callback) => {
+    if ([CLIENT_URL, RESERVATIONS_URL].includes(origin ?? ''))
+      return callback(null, true)
+
+    callback(new Error('Not allowed by CORS'))
+  },
   credentials: true,
 }))
 server.use(cookieParser())

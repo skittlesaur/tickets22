@@ -71,7 +71,7 @@ const getReservedTicket = async (req: Request, res: Response) => {
       status: 400,
       redirect: '/tickets?error=Ticket validation failed',
       message: 'Ticket validation failed',
-      error: e,
+      error: e.response.data,
     })
   }
 }
