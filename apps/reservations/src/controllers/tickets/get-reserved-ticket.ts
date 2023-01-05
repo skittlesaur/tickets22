@@ -54,8 +54,7 @@ const getReservedTicket = async (req: Request, res: Response) => {
       headers: {
         Authorization: req.headers.authorization,
         cookie: req.headers.cookie,
-        x_forwarded_for: req.headers['x-forwarded-for'],
-        socket_remote_address: req.socket.remoteAddress,
+        ipAddress: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
       },
     })
 
@@ -70,6 +69,7 @@ const getReservedTicket = async (req: Request, res: Response) => {
       status: 400,
       redirect: '/tickets?error=Ticket validation failed',
       message: 'Ticket validation failed',
+      error: e,
     })
   }
 }
