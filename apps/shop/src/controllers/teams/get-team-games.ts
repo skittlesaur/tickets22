@@ -4,6 +4,18 @@ const getTeamGames = async (req: Request, res: Response) => {
   try {
     const { teamId } = req.params
 
+    const teamExists = await req.context.prisma.team.findUnique({
+      where: {
+        id: teamId
+      }
+    })
+
+    if (!teamExists) {
+      return res.status(404).json({
+        message: 'Team not found'
+      })
+    }
+
     const teamGames = await req.context.prisma.match.findMany({
       where: {
         OR: [
