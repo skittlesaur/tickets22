@@ -3,7 +3,7 @@ import Nav from '@components/nav'
 import Footer from '@components/footer'
 
 interface AppProps {
-  activePage?: 'Home' | 'Matches' | 'Teams' | 'Help';
+  activePage?: 'Home' | 'Matches' | 'Teams' | 'Analytics' | 'Help';
   forceLightText?: boolean;
   children: ReactNode;
   isFullWidth?: boolean;

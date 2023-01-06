@@ -1,0 +1,163 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// registered user
+model User {
+  id                String           @id @default(cuid()) @map("_id")
+  email             String           @unique
+  password          String
+  name              String?
+  phone             String?
+  verified          Boolean          @default(false)
+  verificationToken String
+  createdAt         DateTime         @default(now())
+  apiKey            String
+  reservedTickets   ReservedTicket[]
+}
+
+// all games
+model Match {
+  matchNumber      Int                @id @map("_id")
+  roundNumber      Int
+  date             DateTime
+  stadium          Stadium            @relation(fields: [stadiumId], references: [id])
+  stadiumId        String
+  homeTeamId       String
+  homeTeam         Team               @relation(name: "homeTeam", fields: [homeTeamId], references: [id])
+  homeScore        Int?
+  awayTeamId       String
+  awayTeam         Team               @relation(name: "awayTeam", fields: [awayTeamId], references: [id])
+  awayScore        Int?
+  group            String?
+  ended            Boolean            @default(false)
+  reservedTickets  ReservedTicket[]
+  matchEvents      MatchEvent[]
+  availableTickets AvailableTickets[]
+}
+
+// all stadiums
+model Stadium {
+  id       String  @id @default(cuid()) @map("_id")
+  name     String  @unique
+  capacity Int?    @default(40000)
+  Match    Match[] //@todo: rename to matches
+}
+
+model AvailableTickets {
+  id          String @id @default(cuid()) @map("_id")
+  match       Match  @relation(fields: [matchNumber], references: [matchNumber])
+  matchNumber Int
+  category    Int
+  available   Int
+  pending     Int    @default(0)
+  price       Int
+}
+
+// contains list of all sold matches
+model ReservedTicket {
+  id             String       @id @default(cuid()) @map("_id")
+  userId         String
+  user           User?        @relation(fields: [userId], references: [id]) // if user authenticated, then user is not null
+  email          String? // if guest purchase, track their email
+  match          Match        @relation(fields: [matchNumber], references: [matchNumber])
+  matchNumber    Int
+  price          Int
+  category       Int
+  status         TicketStatus
+  ipAddress      String?
+  seatPosition   SeatPosition
+  seatRow        Int
+  seatNumber     Int
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  externalSeller String? // if the ticket was purchased from some other team, store the team name
+}
+
+model MatchEvent {
+  id          String         @id @default(cuid()) @map("_id")
+  match       Match          @relation(fields: [matchNumber], references: [matchNumber])
+  matchNumber Int
+  eventType   MatchEventType
+  minute      String
+  team        Team?          @relation(fields: [teamId], references: [id])
+  teamId      String?
+  homeScore   Int            @default(0)
+  awayScore   Int            @default(0)
+  description String?
+}
+
+// all teams
+model Team {
+  id             String       @id @default(cuid()) @map("_id")
+  name           String       @unique
+  continent      String?
+  primaryColor   String?
+  secondaryColor String?
+  homeMatches    Match[]      @relation(name: "homeTeam")
+  awayMatches    Match[]      @relation(name: "awayTeam")
+  matchEvents    MatchEvent[]
+  players        Player[]
+  Manager        Manager[]
+}
+
+// all players
+model Player {
+  id        String         @id @default(cuid()) @map("_id")
+  firstName String
+  lastName  String?
+  team      Team           @relation(fields: [teamId], references: [id])
+  teamId    String
+  position  PlayerPosition
+  imageUri  String
+}
+
+model Manager {
+  id        String @id @default(cuid()) @map("_id")
+  firstName String
+  lastName  String
+  team      Team   @relation(fields: [teamId], references: [id])
+  teamId    String
+}
+
+enum MatchEventType {
+  GOAL
+  GOAL_PENALTY
+  YELLOW_CARD
+  RED_CARD
+  SUBSTITUTION
+  FOUL
+  CORNER
+  PENALTY_AWARDED
+  ATTEMPT_AT_GOAL
+  OFFSIDE
+  VAR
+  KICK_OFF
+  MATCH_END
+}
+
+enum PlayerPosition {
+  GOALKEEPER
+  DEFENDER
+  MIDFIELDER
+  FORWARD
+}
+
+enum TicketStatus {
+  PENDING
+  PURCHASED
+  CANCELLED
+  PENDING_TIMEOUT
+}
+
+enum SeatPosition {
+  NORTH
+  SOUTH
+  EAST
+  WEST
+}

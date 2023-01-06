@@ -9,11 +9,12 @@ import User from '@components/nav/user'
 const pages = [
   { name: 'Matches', href: '/matches' },
   { name: 'Teams', href: '/teams' },
+  { name: 'Analytics', href: '/analytics' },
   { name: 'Help', href: '/help' },
 ]
 
 interface NavProps {
-  activePage?: 'Home' | 'Matches' | 'Teams' | 'Help';
+  activePage?: 'Home' | 'Matches' | 'Teams' | 'Analytics' | 'Help';
   forceLightText?: boolean;
 }
 
@@ -21,7 +22,7 @@ const Nav = ({ activePage, forceLightText = false }: NavProps) => {
   const transition = 'transition-all duration-200 ease-in-out'
   const [isOpen, setIsOpen] = useState(false)
 
-  const { data: user, isLoading: userLoading } = useUser()
+  const { data: user } = useUser()
 
   return (
     <header
