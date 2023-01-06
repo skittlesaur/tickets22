@@ -1,30 +1,10 @@
 import Joi from 'joi'
 
-interface reservation {
-  email: string,
-  card: {
-    number: string,
-    expirationMonth: number,
-    expirationYear: number,
-    cvc: string
-  },
-  message: {
-    body: {
-      matchNumber: number,
-      tickets: {
-        category: number,
-        quantity: number,
-        price: number
-      }
-    }
-  }
-}
-
 /**
  * Validate create new ticket reservation data transfer object (DTO)
  * @return null if validation passes otherwise a validation error
  */
-const validateTicketReservationDto = (reservation: reservation) => {
+const validateTicketReservationDto = (reservation: any) => {
   const schema = Joi.object()
     .keys({
       email: Joi.string().required(),

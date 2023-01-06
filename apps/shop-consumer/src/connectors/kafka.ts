@@ -5,39 +5,6 @@ import { kafkaMasterlistMessage, kafkaMessage } from '../validation/kafka';
 import { Kafka } from 'kafkajs'
 import { isEmpty } from 'lodash'
 
-interface ticketSaleMessage {
-  meta: {
-    action: string
-  },
-  body: {
-    matchNumber: number,
-    tickets: {
-      category: number,
-      quantity: number,
-      price: number,
-    }
-  }
-}
-interface tickets {
-  available: number,
-  pending: number,
-  price: number
-}
-interface masterlistMessage {
-  matchNumber: number,
-  roundNumber: number,
-  dateUtc: string,
-  location: string,
-  availability: {
-    category1: tickets,
-    category2: tickets,
-    category3: tickets,
-    homeTeam: string,
-    awayTeam: string,
-    group?: string
-  }
-}
-
 const kafka = new Kafka({
   clientId: `${process.env.CLIENT_ID}-${process.env.ENV}`,
   brokers: [`${process.env.KAFKA_BROKERS}`],
@@ -56,10 +23,10 @@ const masterlistTopic = `${process.env.TOPIC_FIFA_MASTER_LIST}-${process.env.ENV
 
 // Kafka Consumers
 const consumer = kafka.consumer({
-  groupId: `${process.env.TOPIC_FIFA_TICKET_SALES}-${process.env.ENV}`,
+  groupId: `${process.env.TICKETS_GROUP_ID}-${process.env.ENV}`,
 })
 const masterlistConsumer = kafka.consumer({
-  groupId: `${process.env.TOPIC_FIFA_MASTER_LIST}-${process.env.ENV}`,
+  groupId: `${process.env.MASTERLIST_GROUP_ID}-${process.env.ENV}`,
 })
 
 export const startKafkaConsumer = async () => {

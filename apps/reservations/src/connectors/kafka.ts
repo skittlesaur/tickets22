@@ -35,7 +35,7 @@ export const startKafkaProducer = async () => {
   await producer.connect()
 }
 
-export const sendKafkaMessage = async (messageType: any, message: any /* type: ticketSaleMessage */) => {
+export const sendKafkaMessage = async (messageType: any, message: any) => {
   try {
     // validate kafka message against schema prior to sending
     const validationError = kafkaMessage(message)
