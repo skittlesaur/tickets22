@@ -9,21 +9,21 @@ const Category = () => {
     if (!data || isLoading) return []
 
     const categoryOne = {
-      purchased: data.purchasedTicketsCategories[0],
-      pending: data.pendingTicketsCategories[0],
-      canceled: data.cancelledTicketsCategories[0],
+      purchased: data.purchasedTicketsCategories.categoryOne,
+      pending: data.pendingTicketsCategories.categoryOne,
+      canceled: data.cancelledTicketsCategories.categoryOne,
     }
 
     const categoryTwo = {
-      purchased: data.purchasedTicketsCategories[1],
-      pending: data.pendingTicketsCategories[1],
-      canceled: data.cancelledTicketsCategories[1],
+      purchased: data.purchasedTicketsCategories.categoryTwo,
+      pending: data.pendingTicketsCategories.categoryTwo,
+      canceled: data.cancelledTicketsCategories.categoryTwo,
     }
 
     const categoryThree = {
-      purchased: data.purchasedTicketsCategories[2],
-      pending: data.pendingTicketsCategories[2],
-      canceled: data.cancelledTicketsCategories[2],
+      purchased: data.purchasedTicketsCategories.categoryThree,
+      pending: data.pendingTicketsCategories.categoryThree,
+      canceled: data.cancelledTicketsCategories.categoryThree,
     }
 
     return [
@@ -36,7 +36,17 @@ const Category = () => {
   const yMax = useMemo(() => {
     if (!data || isLoading) return 0
 
-    const max = Math.max(...data.purchasedTicketsCategories, ...data.pendingTicketsCategories, ...data.cancelledTicketsCategories)
+    const max = Math.max(
+      data.purchasedTicketsCategories.categoryOne,
+      data.purchasedTicketsCategories.categoryTwo,
+      data.purchasedTicketsCategories.categoryThree,
+      data.pendingTicketsCategories.categoryOne,
+      data.pendingTicketsCategories.categoryTwo,
+      data.pendingTicketsCategories.categoryThree,
+      data.cancelledTicketsCategories.categoryOne,
+      data.cancelledTicketsCategories.categoryTwo,
+      data.cancelledTicketsCategories.categoryThree,
+    )
     return max + 2
   }, [data])
 
