@@ -18,7 +18,10 @@ declare global {
 }
 const server = express()
 
-server.use(cors())
+server.use(cors({
+  origin: CLIENT_URL,
+  credentials: true,
+}))
 server.use(cookieParser())
 server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({ extended: true }))

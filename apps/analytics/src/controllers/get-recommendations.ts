@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'
 import { IpregistryClient } from '@ipregistry/client'
-import getRecommendedForYou from '../lib/get-recommended-for-you';
-import getHotSellingMatch from '../lib/get-hot-selling';
-import getUpcomingMatch from '../lib/get-upcoming-match';
+import getRecommendedForYou from '../lib/get-recommended-for-you'
+import getHotSellingMatch from '../lib/get-hot-selling'
+import getUpcomingMatch from '../lib/get-upcoming-match'
 
 
 const getRecommendations = async (req: Request, res: Response) => {
@@ -10,7 +10,7 @@ const getRecommendations = async (req: Request, res: Response) => {
 
     const { prisma } = req.context
     const client = new IpregistryClient('rxa3qkj3xba0jt2f')
-    const ipAddress = (req.headers['x-forwarded-for'] || req.socket.remoteAddress) as string
+    const ipAddress = '197.47.190.20' // (req.headers['x-forwarded-for'] || req.socket.remoteAddress) as string
 
     const randomDay = Math.floor(Math.random() * 12)
     const currentDate = new Date(`2022-11-${20 + randomDay}`)

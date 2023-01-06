@@ -1,4 +1,3 @@
-import { isConstructorDeclaration } from "typescript"
 import TicketStatus from "../controllers/TicketStatus"
 
 const getHotSellingMatch = async (prisma: any, currentDate: Date) => {

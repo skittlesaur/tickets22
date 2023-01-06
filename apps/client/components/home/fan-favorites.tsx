@@ -3,71 +3,18 @@ import getType from '@lib/get-type'
 import getTeamIcon from '@lib/get-team-icon'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-
-const matches = [
-  {
-    'matchNumber': 1,
-    'roundNumber': 1,
-    'date': '2022-11-20T16:00:00.000Z',
-    'stadium': {
-      'id': 'clc7m3gpr0000v0z03zgttwaz',
-      'name': 'Al Bayt Stadium',
-    },
-    'homeTeam': {
-      'id': 'clc7m3hma0002v0z0bukvchki',
-      'name': 'Qatar',
-    },
-    'awayTeam': {
-      'id': 'clc7m3i0s0004v0z0f4tvapje',
-      'name': 'Ecuador',
-    },
-    'group': 'A',
-  },
-  {
-    'matchNumber': 2,
-    'roundNumber': 1,
-    'date': '2022-11-20T16:00:00.000Z',
-    'stadium': {
-      'id': 'clc7m3gpr0000v0z03zgttwaz',
-      'name': 'Al Bayt Stadium',
-    },
-    'homeTeam': {
-      'id': 'clc7m3hma0002v0z0bukvchki',
-      'name': 'Qatar',
-    },
-    'awayTeam': {
-      'id': 'clc7m3i0s0004v0z0f4tvapje',
-      'name': 'Ecuador',
-    },
-    'group': 'A',
-  },
-  {
-    'matchNumber': 3,
-    'roundNumber': 1,
-    'date': '2022-11-20T16:00:00.000Z',
-    'stadium': {
-      'id': 'clc7m3gpr0000v0z03zgttwaz',
-      'name': 'Al Bayt Stadium',
-    },
-    'homeTeam': {
-      'id': 'clc7m3hma0002v0z0bukvchki',
-      'name': 'Qatar',
-    },
-    'awayTeam': {
-      'id': 'clc7m3i0s0004v0z0f4tvapje',
-      'name': 'Ecuador',
-    },
-    'group': 'A',
-  },
-]
-
+import useRecommendations from '@services/analytics/recommendations'
 
 const FanFavorites = () => {
+  const { matches, isLoading } = useRecommendations()
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, {
     amount: 0.5,
     once: true,
   })
+
+  console.log(matches)
+  if (isLoading) return null
 
   return (
     <div
@@ -78,7 +25,7 @@ const FanFavorites = () => {
         Fan Favorites
       </h1>
       <div className="grid lg:grid-cols-3 gap-8 items-center mx-4 md:mx-16 lg:mx-24">
-        {matches.map((match, idx) => (
+        {matches.map((match: any, idx: number) => (
           <motion.div
             key={match.matchNumber}
             initial={{ opacity: 0, y: 20 }}
