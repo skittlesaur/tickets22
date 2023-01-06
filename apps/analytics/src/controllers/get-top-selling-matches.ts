@@ -1,14 +1,18 @@
 import { Request, Response } from 'express'
 import reserveTickets from '../../../reservations/src/controllers/tickets/reserve-tickets';
+import TicketStatus from './TicketStatus';
 
 const getTopSellingMatches = async (req: Request, res: Response) => {
   try {
 
-    // @todo: make it more efficient, take any number
+    // @todo: make it more efficient, take any number (use .find())
 
     const { prisma } = req.context
 
     const tickets = await prisma.reservedTicket.findMany({
+      where: {
+        status: TicketStatus.PURCHASED
+      },
       select: {
         matchNumber: true, // for most reserved match
         // userId: true, // to see how many purchases were from registered users
@@ -25,6 +29,7 @@ const getTopSellingMatches = async (req: Request, res: Response) => {
     // array to track the amount of tickets sold for each match (idk how to do it in prisma ngl)
     let ticketsSold: number[] = Array(64).fill(0)
 
+    // check if status is reserved
     tickets.map((ticket) => {
       ticketsSold[ticket.matchNumber]++
     })

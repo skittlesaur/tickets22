@@ -1,13 +1,20 @@
 import { Request, Response } from 'express'
 
-const getGeneralAnalytics = async (req: Request, res: Response) => {
+const getCategoryAnalytics = async (req: Request, res: Response) => {
   try {
 
+    // @todo: categories sold, and tickets sold and stuff
+
     const { prisma } = req.context
+    const category = parseInt(req.params.category)
+
+    if (!category) throw new Error('matchNumber is undefined')
 
     const tickets = await prisma.reservedTicket.findMany({
+      where: {
+        category: category
+      },
       select: {
-        matchNumber: true, // for most reserved match
         category: true, // for most reserved category
         status: true, // for counting what % of tickets that are reserved vs cancelled vs pending
       }
@@ -86,8 +93,7 @@ const getGeneralAnalytics = async (req: Request, res: Response) => {
 
   } catch (e: any) {
     res.status(500).json({ error_message: e.message })
-
   }
 }
 
-export default getGeneralAnalytics
+export default getCategoryAnalytics    
