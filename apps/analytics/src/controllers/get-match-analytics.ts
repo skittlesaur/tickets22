@@ -15,10 +15,8 @@ const getMatchAnalytics = async (req: Request, res: Response) => {
         matchNumber: matchNumber
       },
       select: {
-        // userId: true, // to see how many purchases were from registered users
         category: true, // for most reserved category
         status: true, // for counting what % of tickets that are reserved vs cancelled vs pending
-        // externalSeller: true, // to see how many ticket sales are from external sales if it is implemented (can be done using availableTickets) 
       }
     })
 
@@ -26,52 +24,70 @@ const getMatchAnalytics = async (req: Request, res: Response) => {
       throw new Error('There are no ticket entries to analyze')
     }
 
-    let reservedPER = 0
-    let cancelledPER = 0
-    let pendingPER = 0
-    const totalTickets = tickets.length
+    let purchasedTickets: number = 0
+    let pendingTickets: number = 0
+    let cancelledTickets: number = 0
 
-    let mostCategorySoldCount: number[] = []
-    let maxCategorySold: number = 0
+    let purchasedTicketsCategories: number[] = [0, 0, 0]
+    let pendingTicketsCategories: number[] = [0, 0, 0]
+    let cancelledTicketsCategories: number[] = [0, 0, 0]
 
     tickets.map((ticket) => {
 
-      mostCategorySoldCount[ticket.category] = !mostCategorySoldCount[ticket.category] ? 1 : mostCategorySoldCount[ticket.category] + 1
-
-      maxCategorySold = (mostCategorySoldCount[ticket.category] > maxCategorySold) ? mostCategorySoldCount[ticket.category] : maxCategorySold
-
       switch (ticket.status) {
         case ('PURCHASED'):
-          reservedPER++
+          purchasedTickets++
+          switch (ticket.category) {
+            case (1):
+              purchasedTicketsCategories[0]++
+              break
+            case (2):
+              purchasedTicketsCategories[1]++
+              break
+            case (3):
+              purchasedTicketsCategories[2]++
+              break
+          }
           break
-        case ('CANCELLED'):
-          cancelledPER++
-          break
-        case ('PENDING_TIMEOUT'):
-          cancelledPER
+        case ('CANCELLED' || 'PENDING_TIMEOUT'):
+          cancelledTickets++
+          switch (ticket.category) {
+            case (1):
+              cancelledTicketsCategories[0]++
+              break
+            case (2):
+              cancelledTicketsCategories[1]++
+              break
+            case (3):
+              cancelledTicketsCategories[2]++
+              break
+          }
           break
         case ('PENDING'):
-          pendingPER++
+          pendingTickets++
+          switch (ticket.category) {
+            case (1):
+              pendingTicketsCategories[0]++
+              break
+            case (2):
+              pendingTicketsCategories[1]++
+              break
+            case (3):
+              pendingTicketsCategories[2]++
+              break
+          }
           break
       }
     })
 
-    reservedPER = (reservedPER / totalTickets) * 100
-    cancelledPER = (cancelledPER / totalTickets) * 100
-    pendingPER = (pendingPER / totalTickets) * 100
-
-    let mostSoldCategory = []
-
-    for (let j = 1; j <= mostCategorySoldCount.length; j++) {
-      if (mostCategorySoldCount[j] === maxCategorySold) {
-        mostSoldCategory.push(j);
-      }
-    }
+    // Category breakdown
+    const categoryOne: number = purchasedTicketsCategories[0] + cancelledTicketsCategories[0] + pendingTicketsCategories[0]
+    const categoryTwo: number = purchasedTicketsCategories[1] + cancelledTicketsCategories[1] + pendingTicketsCategories[1]
+    const categoryThree: number = purchasedTicketsCategories[2] + cancelledTicketsCategories[2] + pendingTicketsCategories[2]
 
     res.status(200).json({
-      reservedPER, cancelledPER, pendingPER, totalTickets, mostSoldCategory: {
-        mostSoldCategory,
-        amountSold: maxCategorySold
+      purchasedTickets: purchasedTickets, purchasedTicketsCategories: purchasedTicketsCategories, pendingTickets: pendingTickets, pendingTicketsCategories: pendingTicketsCategories, cancelledTickets: cancelledTickets, cancelledTicketsCategories: cancelledTicketsCategories, categoryBreakdown: {
+        categoryOne: categoryOne, categoryTwo: categoryTwo, categoryThree: categoryThree
       }
     })
 
