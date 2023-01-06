@@ -57,6 +57,24 @@
     color: rgb(128, 203, 196);
 }
 
+.dark .graph tspan {
+    fill: #737373 !important;
+}
+
+.graph line {
+    stroke: #A3A3A3 !important;
+}
+
+.dark .graph line {
+    stroke: #404040 !important;
+}
+
+.dark .graph path[style="fill: rgb(131, 17, 58); stroke: rgb(131, 17, 58);"],
+.dark .graph path[style="fill: rgb(131, 17, 58); stroke: rgb(131, 17, 58); padding: 8px; stroke-width: 0;"] {
+    fill: #EEEEE4 !important;
+    stroke: #EEEEE4 !important;
+}
+
 @media screen and (max-width: 768px) {
     .linenumber {
         position: absolute;
