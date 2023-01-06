@@ -23,6 +23,7 @@ export const kafkaMessage = (reservation: any) => {
       body: Joi.object()
         .keys({
           matchNumber: Joi.number().required(),
+          id: Joi.number().strict(),
           tickets: Joi.object()
             .keys({
               category: Joi.number().strict().valid(1, 2, 3).required(),
