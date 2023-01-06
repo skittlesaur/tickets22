@@ -12,9 +12,9 @@ const getRecommendations = async (req: Request, res: Response) => {
     const client = new IpregistryClient('rxa3qkj3xba0jt2f')
     const ipAddress = '197.47.190.20' // (req.headers['x-forwarded-for'] || req.socket.remoteAddress) as string
 
-    const randomDay = Math.floor(Math.random() * 12)
-    const currentDate = new Date(`2022-11-${20 + randomDay}`)
-    //const currentDate = new Date(`2022-11-20`)
+    //const randomDay = Math.floor(Math.random() * 12)
+    //const currentDate = new Date(`2022-11-${20 + randomDay}`)
+    const currentDate = new Date(`2022-11-20`)
 
     let locationData = (await client.lookup(ipAddress /*'86.36.0.0' '103.68.134.0'*/)).data.location
     locationData.country.name = locationData.country.name === 'United States' ? 'USA' : locationData.country.name
