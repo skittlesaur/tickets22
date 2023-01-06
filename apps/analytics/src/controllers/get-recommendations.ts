@@ -1,6 +1,8 @@
 import { Request, Response } from 'express'
-import TicketStatus from './TicketStatus'
 import { IpregistryClient } from '@ipregistry/client'
+import getRecommendedForYou from '../lib/get-recommended-for-you';
+import getHotSellingMatch from '../lib/get-hot-selling';
+import getUpcomingMatch from '../lib/get-upcoming-match';
 
 
 const getRecommendations = async (req: Request, res: Response) => {
@@ -11,116 +13,20 @@ const getRecommendations = async (req: Request, res: Response) => {
     const ipAddress = (req.headers['x-forwarded-for'] || req.socket.remoteAddress) as string
 
     const randomDay = Math.floor(Math.random() * 12)
-    //const currentDate = new Date(`2022-11-${20 + randomDay}`)
-    const currentDate = new Date(`2022-11-20`)
+    const currentDate = new Date(`2022-11-${20 + randomDay}`)
+    //const currentDate = new Date(`2022-11-20`)
 
-    let locationData = (await client.lookup('73.2.2.2' /*'103.68.134.0' */ /*ipAddress*/)).data.location
-    // Get location, threat data and more
+    let locationData = (await client.lookup(ipAddress /*'86.36.0.0' '103.68.134.0'*/)).data.location
     locationData.country.name = locationData.country.name === 'United States' ? 'USA' : locationData.country.name
-    console.log(locationData.country.name);
-    console.log(locationData.continent.name);
 
+    const recommendedForYou = await getRecommendedForYou(prisma, currentDate, locationData)
 
-    //console.log(currentDate)
+    const hotSellingMatch = await getHotSellingMatch(prisma, currentDate)
 
+    const upcomingMatch = await getUpcomingMatch(prisma, currentDate)
 
-    const hotSellingMatchQuery = await prisma.reservedTicket.groupBy({
-      by: ['matchNumber'],
-      where: {
-        match: {
-          date: {
-            gt: currentDate
-          },
-          availableTickets: {
-            some: {
-              available: {
-                gt: 0
-              }
-            }
-          }
-        },
-        status: TicketStatus.PURCHASED
-      },
-      orderBy: {
-        _count: {
-          matchNumber: 'desc'
-        }
-      },
-      _count: {
-        matchNumber: true,
-      },
-      take: 1
-    })
+    res.status(200).json([recommendedForYou, hotSellingMatch, upcomingMatch])
 
-    const hotSellingMatch = await prisma.match.findUnique({
-      where: {
-        matchNumber: hotSellingMatchQuery[0].matchNumber
-      },
-      select: {
-        matchNumber: true,
-        roundNumber: true,
-        date: true,
-        stadium: {
-          select: {
-            name: true
-          }
-        },
-        homeTeam: {
-          select: {
-            name: true
-          }
-        },
-        homeScore: true,
-        awayTeam: {
-          select: {
-            name: true
-          }
-        },
-        awayScore: true,
-        group: true,
-
-      }
-    })
-
-    const upcomingMatch = await prisma.match.findFirst({
-      where: {
-        date: {
-          gt: currentDate
-        },
-        availableTickets: {
-          some: {
-            available: {
-              gt: 0
-            },
-          }
-        }
-      },
-      select: {
-        matchNumber: true,
-        roundNumber: true,
-        date: true,
-        stadium: {
-          select: {
-            name: true
-          }
-        },
-        homeTeam: {
-          select: {
-            name: true
-          }
-        },
-        homeScore: true,
-        awayTeam: {
-          select: {
-            name: true
-          }
-        },
-        awayScore: true,
-        group: true,
-      }
-    })
-
-    res.status(200).json([hotSellingMatch, hotSellingMatch, upcomingMatch])
   } catch (e: any) {
     res.status(500).json({ message: e.message })
   }

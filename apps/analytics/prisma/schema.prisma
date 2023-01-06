@@ -96,6 +96,7 @@ model MatchEvent {
 model Team {
   id             String       @id @default(cuid()) @map("_id")
   name           String       @unique
+  continent      String?
   primaryColor   String?
   secondaryColor String?
   homeMatches    Match[]      @relation(name: "homeTeam")
