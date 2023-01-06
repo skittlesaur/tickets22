@@ -1,26 +1,18 @@
 import { Request, Response, NextFunction } from 'express'
-import StatusCode from '../lib/status-code'
 import jwt from 'jsonwebtoken'
 import { JWT_SECRET } from '../constants'
 
 const optionalUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const token = req.headers.authorization?.split(' ')?.[1] ?? req.cookies?.['access']
+    const token = req.cookies?.['access'] ?? req.headers.authorization?.split(' ')?.[1]
+
     if (!token)
-      return res.status(400).send({
-        status: 400,
-        code: StatusCode[400],
-        message: 'Token was not supplied',
-      })
+      return next()
 
     const decoded: any = jwt.verify(token, JWT_SECRET)
 
     if (!decoded)
-      return res.status(401).send({
-        status: 401,
-        code: StatusCode[401],
-        message: 'Token verification failure, the token may have expired',
-      })
+      return next()
 
     const user = await req.context.prisma.user.findFirst({
       where: {
@@ -35,11 +27,7 @@ const optionalUser = async (req: Request, res: Response, next: NextFunction) => 
     })
 
     if (!user)
-      return res.status(401).send({
-        status: 401,
-        code: StatusCode[401],
-        message: 'Invalid user id in the token',
-      })
+      return next()
 
     req.context.user = user
     next()

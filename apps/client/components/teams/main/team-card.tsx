@@ -7,7 +7,7 @@ const TeamCard = ({ team }: any) => {
   const [hover, setHover] = useState(false)
 
   return (
-    <div className="relative w-52 aspect-square">
+    <div className="relative w-44 md:w-52 aspect-square mx-auto">
       <SquareIcon className={`absolute inset-0 stroke-primary dark:stroke-secondary/50 ${hover ? 'text-primary dark:text-gray-700' : 'text-secondary dark:text-gray-800'} transition-all duration-200 ease-in-out`} />
       <Link
         onMouseEnter={() => setHover(true)}

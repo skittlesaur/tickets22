@@ -9,7 +9,7 @@ const router = express.Router()
 
 router.get('/', getAllTeams)
 router.get('/:teamName', getTeam)
-router.get('/:teamId/games', getTeamGames)
+router.get('/:teamId/matches', getTeamGames)
 router.get('/:teamId/players', getTeamPlayers)
 router.get('/:teamId/players/random', getRandomPlayer)
 

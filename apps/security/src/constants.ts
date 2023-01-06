@@ -5,6 +5,10 @@ dotenv.config()
 export const PORT = process.env.PORT ?? 3050
 export const JWT_SECRET = process.env.JWT_SECRET ?? 'tickets22'
 
+export const SECURE_ENDPOINT_SECRET = process.env.SECURE_ENDPOINT_SECRET ?? 'secret-endpoint-123'
+export const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY ?? ''
+export const SENDGRID_FROM = process.env.SENDGRID_FROM ?? ''
+
 export const CLIENT_URL = process.env.CLIENT_URL ?? 'http://localhost:9000'
 export const SHOP_URL = process.env.SHOP_URL ?? 'http://localhost:3000'
 export const SHOP_CONSUMER_URL = process.env.SHOP_CONSUMER_URL ?? 'http://localhost:3010'

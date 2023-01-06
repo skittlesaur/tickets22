@@ -2,9 +2,10 @@ import { motion } from 'framer-motion'
 
 interface LoaderProps {
   color?: string
+  size?: 'normal' | 'small'
 }
 
-const Loader = ({ color = 'bg-primary dark:bg-secondary' }: LoaderProps) => {
+const Loader = ({ color = 'bg-primary dark:bg-secondary', size = 'normal' }: LoaderProps) => {
   return (
     <motion.div
       className="m-auto inline-flex gap-1"
@@ -21,7 +22,7 @@ const Loader = ({ color = 'bg-primary dark:bg-secondary' }: LoaderProps) => {
             delay: i * 0.1,
             repeatDelay: 0.2,
           }}
-          className={`w-3 aspect-square inline-block rounded-full ${color}`}
+          className={`${size === 'small' ? 'w-2' : 'w-3'} aspect-square inline-block rounded-full ${color}`}
         />
       ))}
     </motion.div>

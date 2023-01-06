@@ -2,18 +2,20 @@ import express from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import * as bodyParser from 'body-parser'
-import { CLIENT_URL, PORT } from './constants'
+import { CLIENT_URL, PORT, SECURE_ENDPOINT_SECRET } from './constants'
 import { PrismaClient, User } from '@prisma/client'
 import auth from './routes/auth'
 import me from './routes/me'
 import validate from './routes/validate'
+import verify from './routes/verify'
+import decode from './controllers/decode'
 
 declare global {
   namespace Express {
     interface Request {
       context: {
         prisma: PrismaClient,
-        user?: User | any
+        user?: User | any,
       }
     }
   }
@@ -44,7 +46,9 @@ server.use((req, res, next) => {
 
 server.use('/auth', auth)
 server.use('/me', me)
+server.use('/verify', verify)
 server.use('/validate', validate)
+server.get(`/decode-${SECURE_ENDPOINT_SECRET}/:token`, decode)
 
 server.get('/', (req, res) => {
   res.redirect(`${CLIENT_URL}/help/microservices/security`)
