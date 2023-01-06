@@ -16,7 +16,7 @@ const processPendingTicket = async (req: Request, res: Response) => {
     });
 
     if (!pendingTickets) {
-      throw new Error('there are no available tickets such as these')
+      return res.status(400).json({ message: 'there are no available tickets such as these' })
     }
 
     const newPending = pendingTickets.pending + message.body.tickets.quantity;

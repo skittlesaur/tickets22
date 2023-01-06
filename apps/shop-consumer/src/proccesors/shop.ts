@@ -54,27 +54,7 @@ export const processReservedTicket = async (message: ticketSaleMessage) => {
   }
 };
 
-interface tickets {
-  available: number,
-  pending: number,
-  price: number
-}
-interface masterList {
-  matchNumber: number,
-  roundNumber: number,
-  dateUtc: string,
-  location: string,
-  availability: {
-    category1: tickets,
-    category2: tickets,
-    category3: tickets,
-    homeTeam: string,
-    awayTeam: string,
-    group?: string
-  }
-}
-
-export const processMasterlist = async (message: object) => {
+export const processMasterlist = async (message: any) => {
   try {
     const ticketPending = await axios.post(
       `${RESERVATIONS_URL}/tickets/processors/update`,

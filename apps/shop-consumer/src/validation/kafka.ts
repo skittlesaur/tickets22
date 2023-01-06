@@ -6,25 +6,11 @@ import {
   TICKET_CANCELLED,
 } from "../constants";
 
-interface message {
-  meta: {
-    action: string
-  },
-  body: {
-    matchNumber: number,
-    tickets: {
-      category: number,
-      quantity: number,
-      price: number,
-    }
-  }
-}
-
 /**
  * Validate schema for pending/reserved/cancelled ticket
  * @return null if validation passes otherwise a validation error
  */
-export const kafkaMessage = (reservation: message) => {
+export const kafkaMessage = (reservation: any) => {
   const schema = Joi.object()
     .keys({
       meta: Joi.object()
@@ -56,26 +42,6 @@ export const kafkaMessage = (reservation: message) => {
  * Validate schema for masterlist object
  * @return null if validation passes otherwise a validation error
  */
-interface tickets {
-  available: number,
-  pending: number,
-  price: number
-}
-interface masterList {
-  matchNumber: number,
-  roundNumber: number,
-  dateUtc: string,
-  location: string,
-  availability: {
-    category1: tickets,
-    category2: tickets,
-    category3: tickets,
-    homeTeam: string,
-    awayTeam: string,
-    group?: string
-  }
-}
-
 
 export const kafkaMasterlistMessage = (matchInfo: object) => {
   const schema = Joi.object()

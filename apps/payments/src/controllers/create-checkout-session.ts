@@ -11,7 +11,6 @@ const createCheckoutSession = async (req: Request, res: Response) => {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: 'payment',
-      // expires_at: (Math.floor((Date.now() / 1000)) + 2000),
       line_items: ticketIds.map(() => {
         return {
           price_data: {

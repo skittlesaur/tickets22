@@ -17,13 +17,13 @@ const processCancelledTicket = async (req: Request, res: Response) => {
     });
 
     if (!cancelledTickets) {
-      throw new Error('there are no available tickets such as these')
+      return res.status(400).json({ message: 'there are no available tickets such as these' })
     }
 
     const newCancelled = cancelledTickets.pending - message.body.tickets.quantity;
 
     if (newCancelled < 0) {
-      throw new Error('Cannot cancel ticket sales as new value is lower than zero')
+      return res.status(400).json({ message: 'Cannot cancel ticket sales as new value is lower than zero' })
     }
 
     const tickets = await req.context.prisma.availableTickets.update({

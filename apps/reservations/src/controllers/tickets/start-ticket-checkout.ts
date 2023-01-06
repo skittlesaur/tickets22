@@ -7,27 +7,10 @@ import { TicketStatus } from '@prisma/client'
 import generateSeat from '../lib/generateSeat';
 import seatPosition from '../processors/seat-position';
 
-interface reservation {
-  email: string,
-  matchNumber: number,
-  SeatPosition: seatPosition,
-  tickets: {
-    category: number
-    quantity: number,
-    price?: number // probably will remove
-  }
-  ipAddress?: string
-}
-
 const startTicketCheckout = async (req: Request, res: Response) => {
   try {
 
     const { prisma } = req.context
-
-    // const validationError = validateTicketReservationDto(req.body);
-    // if (validationError) {
-    //   return res.status(403).send(validationError.message);
-    // }
 
     const user = req.context.user
     const userId = user?.id
@@ -45,7 +28,7 @@ const startTicketCheckout = async (req: Request, res: Response) => {
       }
     })
 
-    if (!check) throw new Error('These tickets dont exist')
+    if (!check) return res.status(400).json({ messsage: 'These tickets dont exist' })
 
     const data = {
       email: req.body.email,
@@ -59,11 +42,9 @@ const startTicketCheckout = async (req: Request, res: Response) => {
 
     }
 
-    if (data.tickets.quantity > check?.available) throw new Error(`The quantity you ordered isnt available, only ${check.available} tickets left`)
+    if (data.tickets.quantity > check?.available) return res.status(400).json({ message: `The quantity you ordered isnt available, only ${check.available} tickets left` })
 
-    if (check.pending + data.tickets.quantity > check.available) throw new Error(`There are ${check.pending} purchases pending out of ${check.available} tickets available, please try again later`)
-
-    //if (data.tickets.price !== check.price) throw new Error('The price of these tickets is invalid')
+    if (check.pending + data.tickets.quantity > check.available) return res.status(400).json({ message: `There are ${check.pending} purchases pending out of ${check.available} tickets available, please try again later` })
 
     let ticketIds: string[] = []
 

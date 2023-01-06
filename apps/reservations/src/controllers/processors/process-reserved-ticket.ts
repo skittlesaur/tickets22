@@ -18,7 +18,7 @@ const processReservedTicket = async (req: Request, res: Response) => {
     });
 
     if (!reservedTickets) {
-      throw new Error('there are no available tickets such as these')
+      return res.status(400).json({ message: 'there are no available tickets such as these' })
     }
 
     const newAvailable =
@@ -26,11 +26,11 @@ const processReservedTicket = async (req: Request, res: Response) => {
     const newPending = reservedTickets.pending - message.body.tickets.quantity;
 
     if (newPending < 0) {
-      throw new Error('cannot reserve as pending tickets value would be less than zero')
+      return res.status(400).json({ message: 'cannot reserve as pending tickets value would be less than zero' })
     }
 
     if (newAvailable < 0) {
-      throw new Error('cannot reserve as reserved tickets value would be less than zero')
+      return res.status(400).json({ message: 'cannot reserve as reserved tickets value would be less than zero' })
     }
 
     const tickets = await req.context.prisma.availableTickets.update({

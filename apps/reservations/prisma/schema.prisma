@@ -43,10 +43,10 @@ model Match {
 
 // all stadiums
 model Stadium {
-  id    String  @id @default(cuid()) @map("_id")
-  name  String  @unique
-  capacity Int? @default(40000)
-  Match Match[] //@todo: rename to matches
+  id       String  @id @default(cuid()) @map("_id")
+  name     String  @unique
+  capacity Int?    @default(40000)
+  Match    Match[] //@todo: rename to matches
 }
 
 model AvailableTickets {
@@ -96,6 +96,7 @@ model MatchEvent {
 model Team {
   id             String       @id @default(cuid()) @map("_id")
   name           String       @unique
+  continent      String?
   primaryColor   String?
   secondaryColor String?
   homeMatches    Match[]      @relation(name: "homeTeam")
