@@ -4,6 +4,8 @@ import reserveTickets from '../../../reservations/src/controllers/tickets/reserv
 const getTopSellingMatches = async (req: Request, res: Response) => {
   try {
 
+    // @todo: make it more efficient, take any number
+
     const { prisma } = req.context
 
     const tickets = await prisma.reservedTicket.findMany({
