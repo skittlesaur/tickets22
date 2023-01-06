@@ -2,7 +2,33 @@ import HelpLayout from '@layouts/help'
 
 # Microservices
 
-export default ({ children }) => (
+Microservices are a software architectural style that structures an application as a collection of loosely coupled
+services. Each service runs a specific task and communicates with other services through well-defined APIs.
+
+## Microservices in Tickets22
+
+Our application makes use of the following microservices:
+
+- [Shop](/help/microservices/shop): Keeps track of the matches and provides APIs to communicate with the frontend.
+- [Shop Consumer](/help/microservices/shop-consumer): Keeps track of match updates, and sold tickets with other consumers.
+- [Reservations](/help/microservices/reservations): Keeps track of the availability of tickets and manages orders.
+- [Analytics](/help/microservices/analytics): Provides analytics about the tickets sold, and user specific data.
+- [Payment](/help/microservices/payments): Processes payments and handles billing.
+- [Security](/help/microservices/security): Handles authentication and authorization.
+
+Each of these services communicates with the other services through APIs, ensuring that they can work together to
+provide a seamless user experience.
+
+## Deployment
+
+Microservices are typically deployed independently, with each service being responsible for its own deployment.
+This allows for more flexibility in the development process and enables faster release cycles.
+
+In our application, we use a mono-repo to manage the codebase. This allows us to make changes to multiple services
+at once, and deploy them together. We use [TurboRepo](https://turborepo.com) to build and deploy the services.
+
+
+export default ({children}) => (
   <HelpLayout
     title="Microservices"
   >

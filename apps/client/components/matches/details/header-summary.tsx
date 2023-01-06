@@ -5,14 +5,13 @@ import formatPlayerName from '@lib/format-player-name'
 import { Fragment } from 'react'
 
 interface HeaderSummaryProps {
-  ended: boolean
   homeTeamId: string
   homeScore: number
   awayTeamId: string
   awayScore: number
 }
 
-const HeaderSummary = ({ ended, homeTeamId, homeScore, awayTeamId, awayScore }: HeaderSummaryProps) => {
+const HeaderSummary = ({ homeTeamId, homeScore, awayTeamId, awayScore }: HeaderSummaryProps) => {
   const matchId = getDynamicQuery('id')
   const { data: events, isLoading } = useMatchSummaryQuery(matchId)
   const mainEvents = events?.filter((event: any) => ['GOAL', 'GOAL_PENALTY'].includes(event.eventType)) ?? []

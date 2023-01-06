@@ -70,12 +70,9 @@ const Timeline = ({ match }: TimelineProps) => {
   const sortedTimeline = useMemo(() => [...timeline ?? []].reverse(), [timeline])
   const [hiddenEvents, setHiddenEvents] = useState<any>([])
 
+
   if (isLoading || !timeline)
-    return (
-      <div className="flex flex-col gap-4">
-        loading
-      </div>
-    )
+    return null
 
   const getEventComponent = (event: any) => {
     if (hiddenEvents.includes(event.eventType)) return null

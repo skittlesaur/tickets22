@@ -17,10 +17,9 @@ const getMatch = async (req: Request, res: Response) => {
 
     if (isNaN(matchNumber))
       return res.status(400).json({
-        message: 'Invalid matches id',
-        details: 'The matches id is not a number',
-        code: 'invalid_parameters',
-        help: `${CLIENT_URL}/help/microservices/shop?status=400&code=invalid_parameters&endpoint=matches/:id`,
+        message: 'Invalid match number',
+        details: `The match number is not a number. Received: ${id} (type: ${typeof id})`,
+        help: `${CLIENT_URL}/help/microservices/shop#matches/{matchNumber}`,
       })
 
     const match = await req.context.prisma.match.findUnique({
@@ -57,18 +56,15 @@ const getMatch = async (req: Request, res: Response) => {
     if (!match)
       return res.status(404).json({
         message: 'Match not found',
-        details: 'The match with the given id does not exist',
-        code: 'not_found',
-        help: `${CLIENT_URL}/help/microservices/shop?status=404&code=not_found&endpoint=matches/:id`,
+        details: `The match with match number ${matchNumber} was not found`,
+        help: `${CLIENT_URL}/help/microservices/shop#matches/{matchNumber}`,
       })
 
     return res.status(200).json(match)
-  } catch (e) {
+  } catch (e: any) {
     return res.status(500).json({
       message: 'Internal server error',
-      details: 'An internal server error occurred',
-      code: 'internal_server_error',
-      help: `${CLIENT_URL}/help/microservices/shop?status=500&code=internal_server_error&endpoint=matches/:id`,
+      details: e.message,
     })
   }
 }

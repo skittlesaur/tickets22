@@ -1,7 +1,7 @@
 import HelpLayout from '@layouts/help'
 import Endpoint from '@components/help/endpoint'
 import ApiTOC from '@components/help/api-toc'
-import { SHOP_SERVICE_URL, CLIENT_URL } from '@services/constants'
+import {SHOP_SERVICE_URL, CLIENT_URL} from '@services/constants'
 
 # Shop Microservice
 
@@ -16,8 +16,26 @@ recommendations (with the help of [analytics microservice](/help/microservices/a
     {
       title: 'Matches',
       endpoints: [
-        { title: 'Get match by id', path: 'matches/:id' },
-        { title: 'Get match summary', path: 'matches/:id/summary' },
+        {title: 'Get all matches', path: 'matches'},
+        {title: 'Get match by match number', path: 'matches/{matchNumber}'},
+        {title: 'Get match summary', path: 'matches/{matchNumber}/summary'},
+        {title: 'Get upcoming matches', path: 'matches/upcoming'},
+      ]
+    },
+    {
+      title: 'Teams',
+      endpoints: [
+        {title: 'Get all teams', path: 'team'},
+        {title: 'Get team by team name', path: 'team/{teamName}'},
+        {title: 'Get team matches by id', path: 'team/{teamId}/matches'},
+        {title: 'Get team players by id', path: 'team/{teamId}/players'},
+        {title: 'Get a random team player by id', path: 'team/{teamId}/players/random'},
+      ]
+    },
+    {
+      title: 'Stadiums',
+      endpoints: [
+        {title: 'Get stadium by id', path: 'stadiums/{id}'},
       ]
     },
   ]}
@@ -25,54 +43,98 @@ recommendations (with the help of [analytics microservice](/help/microservices/a
 
 <Endpoint
   baseUrl={SHOP_SERVICE_URL}
-  title="Get match by id"
-  path="/matches/:id"
+  title="Get all matches"
+  path="/matches"
   method="GET"
   responses={{
     200: [
-    {
-      description: 'Successful response, returns the match details',
-      res: `{
-  "id": "clb4zmk8t0006v0ygcjpd77fa",
-  "matchNumber": 1,
-  "roundNumber": 1,
-  "date": "2022-11-20T16:00:00.000Z",
-  "stadium": {
-    "id": "clb4za6gi0000v0p88y1cvsvn",
-    "name": "Al Bayt Stadium",
-    "capacity": 5
+      {
+        description: 'Successful response, returns details of all matches',
+        res: `[
+  {
+    "matchNumber":1,
+    "roundNumber":1,
+    "date":"2022-11-20T16:00:00.000Z",
+    "stadium":{
+      "id":"clc7m3gpr0000v0z03zgttwaz",
+      "name":"Al Bayt Stadium"
+    },
+    "homeTeam":{
+      "id":"clc7m3hma0002v0z0bukvchki",
+      "name":"Qatar"
+    },
+    "homeScore":0,
+    "awayTeam":{
+      "id":"clc7m3i0s0004v0z0f4tvapje",
+      "name":"Ecuador"
+    },
+    "awayScore":0,
+    "group":"A",
+    "ended":false
+  }
+]`
+      }
+    ],
+  }}
+/>
+
+<Endpoint
+  baseUrl={SHOP_SERVICE_URL}
+  title="Get match by match number"
+  path="/matches/{matchNumber}"
+  method="GET"
+  responses={{
+    200: [
+      {
+        description: 'Successful response, returns the match details',
+        res: `{
+  "matchNumber":4,
+  "roundNumber":1,
+  "date":"2022-11-21T19:00:00.000Z",
+  "stadium":{
+    "id":"clc7m3mgj0010v0z0hwe8ri3l",
+    "name":"Ahmad Bin Ali Stadium"
   },
-  "homeTeam": {
-    "id": "clb4za9lz0002v0p8l1fl6rng",
-    "name": "Qatar"
+  "homeTeam":{
+    "id":"clc7m3mu50012v0z0sztx8k3l",
+    "name":"USA"
   },
-  "homeScore": 0,
-  "awayTeam": {
-    "id": "clb4zaa6u0004v0p8s3smkqfk",
-    "name": "Ecuador"
+  "homeScore":0,
+  "awayTeam":{
+    "id":"clc7m3n7t0014v0z08zizbiav",
+    "name":"Wales"
   },
-  "awayScore": 2,
-  "group": "A",
-  "ended": true
+  "awayScore":0,
+  "group":"B",
+  "ended":false
 }`
-    }
+      }
+    ],
+    400: [
+      {
+        description: 'Bad request, match number is not a number. You can get all matches from /matches endpoint and get the match number from there',
+        res: `{
+  "message":"Invalid match number",
+  "details":"The match number is not a number. Received: {matchNumber} (type {type of matchNumber})",
+  "help":"${CLIENT_URL}/help/microservices/shop#matches/{matchNumber}"
+}`
+      }
     ],
     404: [
       {
-        description: 'The given id parameter does not match any match in our records. Make sure you are using the correct id, and notice that the id is case sensitive.',
-        code:"not_found",
+        description: 'Not found, match with the given match number is not found. You can get all matches from /matches endpoint and get the match number from there',
         res: `{
-  "message": "Match not found",
-  "details": "The match with the given id does not exist",
-  "code": "not_found",
-  "help": "${CLIENT_URL}/help/microservices/shop?status=404&code=not_found&endpoint=matches/:id"
+  "message":"Match not found",
+  "details":"The match with match number {matchNumber} was not found",
+  "help":"${CLIENT_URL}/help/microservices/shop#matches/{matchNumber}"
 }`
       }
     ]
   }}
 />
 
-export default ({ children }) => (
+
+export default ({children}) => (
   <HelpLayout
     title="Shop Microservice"
   >

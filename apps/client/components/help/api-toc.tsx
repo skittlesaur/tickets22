@@ -16,7 +16,7 @@ interface apiTOCProps {
 
 const ApiTOC = ({ toc }: apiTOCProps) => {
   return (
-    <ul className="flex flex-col items-start">
+    <ul className="flex flex-col gap-4 items-start">
       {toc.map(({ title, endpoints }) => (
         <div>
           <li className="before:content-[''] before:w-5 before:h-[0.1em] before:bg-gray-300 before:inline-block before:rounded before:mr-4 flex items-center ">

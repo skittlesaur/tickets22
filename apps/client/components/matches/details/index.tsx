@@ -15,16 +15,19 @@ const Match = ({ match }: MatchPageProps) => {
     <div className="flex flex-col gap-20">
       <div className="flex flex-col gap-12 max-w-screen-xl mx-auto w-full">
         <Header {...match} isLoading={!match} />
-        <HeaderSummary
-          ended={match?.ended}
-          homeTeamId={match.homeTeam.id}
-          homeScore={match.homeScore}
-          awayTeamId={match.awayTeam.id}
-          awayScore={match.awayScore}
-        />
+        {match.ended && (
+          <HeaderSummary
+            homeTeamId={match.homeTeam.id}
+            homeScore={match.homeScore}
+            awayTeamId={match.awayTeam.id}
+            awayScore={match.awayScore}
+          />
+        )}
         <Stadium stadium={match.stadium} />
       </div>
-      <Details match={match} />
+      {match.ended && (
+        <Details match={match} />
+      )}
     </div>
   )
 }

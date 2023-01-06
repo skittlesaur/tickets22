@@ -45,9 +45,9 @@ const scrapeEvents = async () => {
       return
     }
 
-    const matchId = 'clc64k78i0006v0zs51ml5147'
-    const homeId = 'clc64k5ni0002v0zsl3ymiveh'
-    const awayId = 'clc64k6ro0004v0zsrcp4obzt'
+    const matchId = '1'
+    const homeId = 'clc7m3hma0002v0z0bukvchki'
+    const awayId = 'clc7m3i0s0004v0z0f4tvapje'
     const fifaHomeId = '43834'
 
     for (const event of events) {
@@ -66,7 +66,7 @@ const scrapeEvents = async () => {
 
       await prisma.matchEvent.create({
         data: {
-          matchId,
+          matchNumber: parseInt(matchId),
           eventType,
           minute: event.MatchMinute,
           homeScore: event.HomeGoals,

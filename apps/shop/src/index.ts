@@ -7,6 +7,7 @@ import { PrismaClient, User } from '@prisma/client'
 import matches from './routes/matches'
 import stadiums from './routes/stadiums'
 import team from './routes/team'
+import scrapeEvents from './lib/scrape-events'
 
 declare global {
   namespace Express {
@@ -49,4 +50,5 @@ server.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`)
 })
 
+// scrapeEvents()
 export default server

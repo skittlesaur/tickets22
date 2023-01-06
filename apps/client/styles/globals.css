@@ -53,6 +53,14 @@
     color: rgb(173, 219, 103);
 }
 
+.hljs-number {
+    color: rgb(195, 139, 255);
+}
+
+.hljs-literal {
+    color: rgb(248, 138, 78);
+}
+
 .hljs-attr {
     color: rgb(128, 203, 196);
 }

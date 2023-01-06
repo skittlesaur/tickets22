@@ -62,7 +62,7 @@ model AvailableTickets {
 // contains list of all sold matches
 model ReservedTicket {
   id             String       @id @default(cuid()) @map("_id")
-  userId         String
+  userId         String?
   user           User?        @relation(fields: [userId], references: [id]) // if user authenticated, then user is not null
   email          String? // if guest purchase, track their email
   match          Match        @relation(fields: [matchNumber], references: [matchNumber])
