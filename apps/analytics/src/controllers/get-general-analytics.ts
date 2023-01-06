@@ -79,7 +79,19 @@ const getGeneralAnalytics = async (req: Request, res: Response) => {
     const categoryThree: number = purchasedTicketsCategories[2] + cancelledTicketsCategories[2] + pendingTicketsCategories[2]
 
     res.status(200).json({
-      purchasedTickets: purchasedTickets, purchasedTicketsCategories: purchasedTicketsCategories, pendingTickets: pendingTickets, pendingTicketsCategories: pendingTicketsCategories, cancelledTickets: cancelledTickets, cancelledTicketsCategories: cancelledTicketsCategories, categoryBreakdown: {
+      purchasedTickets: purchasedTickets, purchasedTicketsCategories: {
+        categoryOne: purchasedTicketsCategories[0],
+        categoryTwo: purchasedTicketsCategories[1],
+        categoryThree: purchasedTicketsCategories[2],
+      }, pendingTickets: pendingTickets, pendingTicketsCategories: {
+        categoryOne: pendingTicketsCategories[0],
+        categoryTwo: pendingTicketsCategories[1],
+        categoryThree: pendingTicketsCategories[2]
+      }, cancelledTickets: cancelledTickets, cancelledTicketsCategories: {
+        categoryOne: cancelledTicketsCategories[0],
+        categoryTwo: cancelledTicketsCategories[1],
+        categoryThree: cancelledTicketsCategories[2]
+      }, categoryBreakdown: {
         categoryOne: categoryOne, categoryTwo: categoryTwo, categoryThree: categoryThree
       }
     })
