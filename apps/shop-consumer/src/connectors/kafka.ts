@@ -30,6 +30,7 @@ const masterlistConsumer = kafka.consumer({
 })
 
 export const startKafkaConsumer = async () => {
+  console.log('Starting Kafka Consumer')
   // Connect consumers
   await consumer.connect()
   await masterlistConsumer.connect()
@@ -75,7 +76,7 @@ export const startKafkaConsumer = async () => {
         }
 
       } catch (error: any) {
-        console.log(error)
+        console.log('error processing kafka message', error.message)
       }
     },
   })
