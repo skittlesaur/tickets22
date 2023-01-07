@@ -10,7 +10,7 @@ const getRecommendations = async (req: Request, res: Response) => {
 
     const { prisma } = req.context
     const client = new IpregistryClient('rxa3qkj3xba0jt2f')
-    const ipAddress = '197.47.190.20' // (req.headers['x-forwarded-for'] || req.socket.remoteAddress) as string
+    const ipAddress = (req.headers['x-forwarded-for'] || req.socket.remoteAddress) as string
 
     const currentDate = new Date(`2022-11-20`)
 

@@ -1,15 +1,12 @@
 import { Request, Response } from 'express'
 import axios from 'axios'
-import { PAYMENTS_URL, TICKET_CANCELLED, TICKET_PENDING, TICKET_RESERVED } from '../../constants'
-import validateTicketReservationDto from '../../validation/reservation'
+import { PAYMENTS_URL, TICKET_PENDING } from '../../constants'
 import { sendKafkaMessage } from '../../connectors/kafka'
 import { TicketStatus } from '@prisma/client'
 import generateSeat from '../lib/generateSeat'
-import seatPosition from '../processors/seat-position'
 
 const startTicketCheckout = async (req: Request, res: Response) => {
   try {
-
     const { prisma } = req.context
 
     const user = req.context.user
@@ -42,7 +39,7 @@ const startTicketCheckout = async (req: Request, res: Response) => {
       },
     })
 
-    if (!check) return res.status(400).json({ messsage: 'These tickets dont exist' })
+    if (!check) return res.status(400).json({ message: 'These tickets dont exist' })
 
     const data = {
       email: req.body.email,
@@ -56,7 +53,7 @@ const startTicketCheckout = async (req: Request, res: Response) => {
 
     }
 
-    if (data.tickets.quantity > check?.available) return res.status(400).json({ message: `The quantity you ordered isnt available, only ${check.available} tickets left` })
+    if (data.tickets.quantity > check?.available) return res.status(400).json({ message: `The quantity you ordered isn\'t available, only ${check.available} tickets left` })
 
     if (check.pending + data.tickets.quantity > check.available) return res.status(400).json({ message: `There are ${check.pending} purchases pending out of ${check.available} tickets available, please try again later` })
 
@@ -90,18 +87,32 @@ const startTicketCheckout = async (req: Request, res: Response) => {
       },
     })
 
-    const stripeSession = await axios.post(`${PAYMENTS_URL}/payments/`, {
-      data: {
-        ...data,
-        match: check.match,
-      },
-      ticketIds,
+    let tries = 5
+
+    do {
+      try {
+        const stripeSession = await axios.post(`${PAYMENTS_URL}/payments/`, {
+          data: {
+            ...data,
+            match: check.match,
+          },
+          ticketIds,
+        })
+
+        return res.status(200).json({ url: stripeSession.data.url })
+      } catch (e) {
+        console.log(`Error creating stripe session ${5 - tries}/5`)
+      }
+    } while (tries--)
+
+    return res.status(500).json({
+      message: 'Something went wrong',
+      details: 'Couldn\'t create stripe session',
     })
-
-    res.status(200).json({ url: stripeSession.data.url })
-
   } catch (e: any) {
-    return res.status(400).json({ message: e.message })
+    if (e.isAxiosError)
+      return res.status(e.response.statusCode).json(e.response.data)
+    return res.status(500).json({ message: e.message })
   }
 }
 
