@@ -30,7 +30,7 @@ const updateMasterlist = async (req: Request, res: Response) => {
 
     const awayTeam = await prisma.team.findUnique({
       where: {
-        name: match.homeTeam
+        name: match.awayTeam
       },
       select: {
         id: true
@@ -83,8 +83,6 @@ const updateMasterlist = async (req: Request, res: Response) => {
         }
       }
     })
-
-    const updateTickets = await req.context.prisma
 
     res.status(200).json({ message: `${matchEntry.matchNumber} is committed` })
   } catch (error: any) {

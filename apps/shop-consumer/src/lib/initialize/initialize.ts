@@ -3,12 +3,14 @@ import matchList from './master-list.json'
 
 const initilaize = async (req: Request, res: Response) => {
   try {
+
+    const { prisma } = req.context
+
     for (let i = 0; i < matchList.length; i++) {
 
       const match = matchList[i]
 
-      // Stadium
-      let stadium = await req.context.prisma.stadium.findUnique({
+      const stadium = await prisma.stadium.findUnique({
         where: {
           name: match.location
         },
@@ -17,16 +19,9 @@ const initilaize = async (req: Request, res: Response) => {
         }
       })
 
-      if (!stadium) {
-        stadium = await req.context.prisma.stadium.create({
-          data: {
-            name: match.location
-          }
-        })
-      }
+      if (!stadium) return res.status(400).json({ message: 'This stadium does not exist' })
 
-      // Home Team
-      let homeTeam = await req.context.prisma.team.findUnique({
+      const homeTeam = await prisma.team.findUnique({
         where: {
           name: match.homeTeam
         },
@@ -35,16 +30,9 @@ const initilaize = async (req: Request, res: Response) => {
         }
       })
 
-      if (!homeTeam) {
-        homeTeam = await req.context.prisma.team.create({
-          data: {
-            name: match.homeTeam
-          }
-        })
-      }
+      if (!homeTeam) return res.status(400).json({ message: 'This home team does not exist' })
 
-      // Away Team
-      let awayTeam = await req.context.prisma.team.findUnique({
+      const awayTeam = await prisma.team.findUnique({
         where: {
           name: match.awayTeam
         },
@@ -53,18 +41,25 @@ const initilaize = async (req: Request, res: Response) => {
         }
       })
 
-      if (!awayTeam) {
-        awayTeam = await req.context.prisma.team.create({
-          data: {
-            name: match.awayTeam
-          }
-        })
-
-      }
+      if (!awayTeam) return res.status(400).json({ message: 'This away team does not exist' })
 
       // Creating the match
-      const matchEntry = await req.context.prisma.match.create({
-        data: {
+
+      const matchEntry = await prisma.match.upsert({
+        where: {
+          matchNumber: match.matchNumber
+        },
+        update: {
+          roundNumber: match.roundNumber,
+          date: match.dateUtc,
+          stadiumId: stadium.id,
+          homeTeamId: homeTeam.id,
+          homeScore: 0,
+          awayTeamId: awayTeam.id,
+          awayScore: 0,
+          group: match.group,
+        },
+        create: {
           matchNumber: match.matchNumber,
           roundNumber: match.roundNumber,
           date: match.dateUtc,
