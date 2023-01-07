@@ -5,6 +5,7 @@ const useRecommendations = () => {
   const query = useQuery({
     queryKey: 'recommendations',
     queryFn: () => ANALYTICS_SERVICE.get('/analytics/recommendations').then((res) => res.data),
+    staleTime: 1000 * 60 * 60,
   })
 
   return {

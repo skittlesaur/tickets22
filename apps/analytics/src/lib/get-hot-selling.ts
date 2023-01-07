@@ -1,38 +1,42 @@
-import TicketStatus from "../controllers/TicketStatus"
+import TicketStatus from '../controllers/TicketStatus'
 
-const getHotSellingMatch = async (prisma: any, currentDate: Date) => {
+const getHotSellingMatch = async (prisma: any, currentDate: Date, recommended: any) => {
 
   const hotSellingMatchQuery = await prisma.reservedTicket.groupBy({
     by: ['matchNumber'],
     where: {
       match: {
         date: {
-          gt: currentDate
+          gt: currentDate,
         },
         availableTickets: {
           some: {
             available: {
-              gt: 0
-            }
-          }
-        }
+              gt: 0,
+            },
+          },
+        },
       },
-      status: TicketStatus.PURCHASED
+      status: TicketStatus.PURCHASED,
     },
     orderBy: {
       _count: {
-        matchNumber: 'desc'
-      }
+        matchNumber: 'desc',
+      },
     },
     _count: {
       matchNumber: true,
     },
-    take: 1
+    take: 5,
   })
+
+  const possibleMatchNumbers = hotSellingMatchQuery.map((match: any) => match.matchNumber).filter((matchNumber: number) => matchNumber !== recommended.matchNumber)
+
+  const randomHotSellingMatch = possibleMatchNumbers[Math.floor(Math.random() * possibleMatchNumbers.length)]
 
   const hotSellingMatch = await prisma.match.findUnique({
     where: {
-      matchNumber: hotSellingMatchQuery[0].matchNumber
+      matchNumber: randomHotSellingMatch,
     },
     select: {
       matchNumber: true,
@@ -40,24 +44,24 @@ const getHotSellingMatch = async (prisma: any, currentDate: Date) => {
       date: true,
       stadium: {
         select: {
-          name: true
-        }
+          name: true,
+        },
       },
       homeTeam: {
         select: {
-          name: true
-        }
+          name: true,
+        },
       },
       homeScore: true,
       awayTeam: {
         select: {
-          name: true
-        }
+          name: true,
+        },
       },
       awayScore: true,
       group: true,
 
-    }
+    },
   })
 
   return hotSellingMatch

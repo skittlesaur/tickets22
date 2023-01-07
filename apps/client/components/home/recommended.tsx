@@ -53,14 +53,14 @@ const Recommended = () => {
                     {getType(match.roundNumber, match.matchNumber, match.group)}
                   </p>
                   <div className="flex items-center gap-10 justify-center">
-                    <div className="relative z-[1] w-20 aspect-square">
-                      {getTeamIcon(match.homeTeam.name)}
+                    <div className="relative z-[1] w-20 aspect-square flex items-center justify-center text-2xl">
+                      {getTeamIcon(match.homeTeam.name) ?? match.homeTeam.name}
                     </div>
                     <p>
                       v
                     </p>
-                    <div className="relative z-[1] w-20 aspect-square">
-                      {getTeamIcon(match.awayTeam.name)}
+                    <div className="relative z-[1] w-20 aspect-square flex items-center justify-center text-2xl">
+                      {getTeamIcon(match.awayTeam.name) ?? match.awayTeam.name}
                     </div>
                   </div>
                 </div>

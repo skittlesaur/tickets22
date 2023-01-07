@@ -56,7 +56,8 @@ const getRecommendedForYou = async (prisma: any, currentDate: Date, locationData
 
   if (!recommendedForYou) {
     if (locationData.continent.name) {
-      recommendedForYou = await prisma.match.findFirst({
+      recommendedForYou = await prisma.match.findMany({
+        take: 5,
         where: {
           OR: [
             {
@@ -105,6 +106,8 @@ const getRecommendedForYou = async (prisma: any, currentDate: Date, locationData
           group: true,
         }
       })
+
+      recommendedForYou = recommendedForYou[Math.floor(Math.random() * recommendedForYou.length)]
     }
   }
 

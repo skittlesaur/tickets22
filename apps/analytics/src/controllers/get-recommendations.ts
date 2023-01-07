@@ -14,14 +14,14 @@ const getRecommendations = async (req: Request, res: Response) => {
 
     const currentDate = new Date(`2022-11-20`)
 
-    let locationData = (await client.lookup(ipAddress /*'86.36.0.0' '103.68.134.0'*/)).data.location
+    let locationData = (await client.lookup(ipAddress)).data.location
     locationData.country.name = locationData.country.name === 'United States' ? 'USA' : locationData.country.name
 
     const recommendedForYou = await getRecommendedForYou(prisma, currentDate, locationData)
 
-    const hotSellingMatch = await getHotSellingMatch(prisma, currentDate)
+    const hotSellingMatch = await getHotSellingMatch(prisma, currentDate, recommendedForYou)
 
-    const upcomingMatch = await getUpcomingMatch(prisma, currentDate)
+    const upcomingMatch = await getUpcomingMatch(prisma, currentDate, recommendedForYou, hotSellingMatch)
 
     res.status(200).json([recommendedForYou, hotSellingMatch, upcomingMatch])
 

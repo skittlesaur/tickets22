@@ -1,17 +1,18 @@
-const getUpcomingMatch = async (prisma: any, currentDate: Date) => {
+const getUpcomingMatch = async (prisma: any, currentDate: Date, recommended: any, hotSelling: any) => {
 
-  const upcomingMatch = await prisma.match.findFirst({
+  const upcomingMatch = await prisma.match.findMany({
+    take: 5,
     where: {
       date: {
-        gt: currentDate
+        gt: currentDate,
       },
       availableTickets: {
         some: {
           available: {
-            gt: 0
+            gt: 0,
           },
-        }
-      }
+        },
+      },
     },
     select: {
       matchNumber: true,
@@ -19,27 +20,32 @@ const getUpcomingMatch = async (prisma: any, currentDate: Date) => {
       date: true,
       stadium: {
         select: {
-          name: true
-        }
+          name: true,
+        },
       },
       homeTeam: {
         select: {
-          name: true
-        }
+          name: true,
+        },
       },
       homeScore: true,
       awayTeam: {
         select: {
-          name: true
-        }
+          name: true,
+        },
       },
       awayScore: true,
       group: true,
-    }
+    },
   })
 
-  return upcomingMatch
+  const possibleRandomMatches = upcomingMatch.filter((match: any) => {
+    return match.matchNumber !== recommended.matchNumber && match.matchNumber !== hotSelling.matchNumber
+  })
 
+  const randomUpcomingMatch = possibleRandomMatches[Math.floor(Math.random() * possibleRandomMatches.length)]
+
+  return randomUpcomingMatch
 }
 
 export default getUpcomingMatch
