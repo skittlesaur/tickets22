@@ -39,7 +39,7 @@ const startTicketCheckout = async (req: Request, res: Response) => {
       },
     })
 
-    if (!check) return res.status(400).json({ messsage: 'These tickets dont exist' })
+    if (!check) return res.status(400).json({ message: 'These tickets dont exist' })
 
     const data = {
       email: req.body.email,
@@ -53,7 +53,7 @@ const startTicketCheckout = async (req: Request, res: Response) => {
 
     }
 
-    if (data.tickets.quantity > check?.available) return res.status(400).json({ message: `The quantity you ordered isnt available, only ${check.available} tickets left` })
+    if (data.tickets.quantity > check?.available) return res.status(400).json({ message: `The quantity you ordered isn\'t available, only ${check.available} tickets left` })
 
     if (check.pending + data.tickets.quantity > check.available) return res.status(400).json({ message: `There are ${check.pending} purchases pending out of ${check.available} tickets available, please try again later` })
 
