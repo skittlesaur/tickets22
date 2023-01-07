@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import axios from 'axios'
-import { SHOP_URL } from '../../constants'
+import { CLIENT_URL, SHOP_URL } from '../../constants'
 import { TicketStatus } from '@prisma/client'
 
 const getAvailableTickets = async (req: Request, res: Response) => {
@@ -11,7 +11,9 @@ const getAvailableTickets = async (req: Request, res: Response) => {
 
     if (match.ended)
       return res.status(400).json({
-        message: 'This match has already ended',
+        message: 'Match has ended',
+        details: 'The match you are trying to get tickets for has already ended',
+        help: `${CLIENT_URL}/help/microservices/reservations#match/{id}/available`,
       })
 
     const availableTickets = await req.context.prisma.availableTickets.findMany({

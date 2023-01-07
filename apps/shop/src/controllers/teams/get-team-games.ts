@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import { CLIENT_URL } from '../../constants'
 
 const getTeamGames = async (req: Request, res: Response) => {
   try {
@@ -12,7 +13,9 @@ const getTeamGames = async (req: Request, res: Response) => {
 
     if (!teamExists) {
       return res.status(404).json({
-        message: 'Team not found'
+        message: 'Team not found',
+        details: `The team with id ${teamId} was not found`,
+        help: `${CLIENT_URL}/help/microservices/shop#teams/{teamId}/matches`,
       })
     }
 

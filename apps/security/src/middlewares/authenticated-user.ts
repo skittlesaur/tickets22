@@ -13,6 +13,23 @@ const authenticatedUser = async (req: Request, res: Response, next: NextFunction
         message: 'Token was not supplied',
       })
 
+    const userApi = await req.context.prisma.user.findFirst({
+      where: {
+        apiKey: token,
+      },
+      select: {
+        id: true,
+        email: true,
+        phone: true,
+        apiKey: true,
+      },
+    })
+
+    if (userApi) {
+      req.context.user = userApi
+      return next()
+    }
+
     const decoded: any = jwt.verify(token, JWT_SECRET)
 
     if (!decoded)

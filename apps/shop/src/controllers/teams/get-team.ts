@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import { CLIENT_URL } from '../../constants'
 
 
 const formatTeamName = (teamName: string) => {
@@ -24,7 +25,11 @@ const getTeam = async (req: Request, res: Response) => {
     })
 
     if (!team)
-      return res.status(404).json({ message: 'Team not found' })
+      return res.status(404).json({
+        message: 'Team not found',
+        details: `The team with name ${teamName} was not found`,
+        help: `${CLIENT_URL}/help/microservices/shop#teams/{teamName}`,
+      })
 
     res.status(200).json(team)
   } catch (e: any) {

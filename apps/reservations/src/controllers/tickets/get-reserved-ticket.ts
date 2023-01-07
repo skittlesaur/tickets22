@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import axios from 'axios'
-import { SECURE_ENDPOINT_SECRET, SECURITY_URL } from '../../constants'
+import { CLIENT_URL, SECURE_ENDPOINT_SECRET, SECURITY_URL } from '../../constants'
 
 const isTicketValid = async (ticket: any, user: any, ipAddress: String, cookies: any) => {
   if (user && (user.id === ticket.userId || user.email === ticket.email))
@@ -70,9 +70,10 @@ const getReservedTicket = async (req: Request, res: Response) => {
 
     if (!ticket) {
       return res.status(404).json({
-        status: 404,
         redirect: '/tickets?error=Ticket not found',
         message: 'Ticket not found',
+        details: `Ticket with id ${id} not found`,
+        help: `${CLIENT_URL}/help/microservices/reservations#tickets/{id}`
       })
     }
 
@@ -84,9 +85,10 @@ const getReservedTicket = async (req: Request, res: Response) => {
     const validate = await isTicketValid(ticket, user, ipAddress, ticketsCookie)
     if(!validate.isValid) {
       return res.status(403).json({
-        status: 403,
         redirect: '/tickets?error=Ticket validation failed',
         message: 'Ticket validation failed',
+        details: `You are not allowed to access this ticket`,
+        help: `${CLIENT_URL}/help/microservices/reservations#tickets/{id}`
       })
     }
 
