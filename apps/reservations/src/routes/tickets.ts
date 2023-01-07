@@ -12,6 +12,7 @@ import updateMasterlist from '../controllers/processors/update-masterlist'
 import getReservedTicket from '../controllers/tickets/get-reserved-ticket'
 import userTickets from '../controllers/tickets/user-tickets'
 import secureUserTickets from '../controllers/tickets/secure-user-tickets'
+import updateStripeUrl from '../controllers/tickets/update-stripe-url'
 import { SECURE_ENDPOINT_SECRET } from '../constants'
 
 const router = express.Router()
@@ -28,6 +29,7 @@ router.post('/cancel', cancelTickets)
 router.post('/expired', timeoutTickets)
 router.post('/finalize', reserveTickets)
 router.post('/reserve', optionalUser, startTicketCheckout)
+router.post(`/${SECURE_ENDPOINT_SECRET}/stripe-urls`, updateStripeUrl)
 
 
 export default router

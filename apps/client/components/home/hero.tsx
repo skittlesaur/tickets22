@@ -34,7 +34,6 @@ const Hero = ({ setForceLightText }: any) => {
   const isInView = useInView(ref)
 
   useEffect(() => {
-    console.log(isInView)
     setForceLightText(isInView)
   }, [isInView])
   return (

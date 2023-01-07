@@ -2,6 +2,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 export const PORT = process.env.PORT ?? 3040
+export const SECURE_ENDPOINT_SECRET = process.env.SECURE_ENDPOINT_SECRET ?? 'secret-endpoint-123'
 
 export const CLIENT_URL = process.env.CLIENT_URL ?? 'http://localhost:9000'
 export const SHOP_URL = process.env.SHOP_URL ?? 'http://localhost:3000'

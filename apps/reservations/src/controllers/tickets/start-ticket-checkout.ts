@@ -1,11 +1,11 @@
 import { Request, Response } from 'express'
-import axios from 'axios';
-import { PAYMENTS_URL, TICKET_CANCELLED, TICKET_PENDING, TICKET_RESERVED } from '../../constants';
-import validateTicketReservationDto from '../../validation/reservation';
-import { sendKafkaMessage } from '../../connectors/kafka';
+import axios from 'axios'
+import { PAYMENTS_URL, TICKET_CANCELLED, TICKET_PENDING, TICKET_RESERVED } from '../../constants'
+import validateTicketReservationDto from '../../validation/reservation'
+import { sendKafkaMessage } from '../../connectors/kafka'
 import { TicketStatus } from '@prisma/client'
-import generateSeat from '../lib/generateSeat';
-import seatPosition from '../processors/seat-position';
+import generateSeat from '../lib/generateSeat'
+import seatPosition from '../processors/seat-position'
 
 const startTicketCheckout = async (req: Request, res: Response) => {
   try {
@@ -19,13 +19,27 @@ const startTicketCheckout = async (req: Request, res: Response) => {
     const check = await prisma.availableTickets.findFirst({
       where: {
         matchNumber: req.body.matchNumber,
-        category: parseInt(req.body.ticketType)
+        category: parseInt(req.body.ticketType),
       },
       select: {
         available: true,
         pending: true,
-        price: true
-      }
+        price: true,
+        match: {
+          select: {
+            homeTeam: {
+              select: {
+                name: true,
+              },
+            },
+            awayTeam: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
+      },
     })
 
     if (!check) return res.status(400).json({ messsage: 'These tickets dont exist' })
@@ -37,8 +51,8 @@ const startTicketCheckout = async (req: Request, res: Response) => {
       tickets: {
         category: parseInt(req.body.ticketType),
         quantity: req.body.quantity,
-        price: check.price
-      }
+        price: check.price,
+      },
 
     }
 
@@ -62,7 +76,7 @@ const startTicketCheckout = async (req: Request, res: Response) => {
           seatPosition: data.seatPosition,
           seatRow: generateSeat(data.tickets.category).seatRow,
           seatNumber: Math.floor(Math.random() * (100 - 1) + 1),
-        }
+        },
       })
 
       ticketIds.push(ticket.id)
@@ -73,16 +87,22 @@ const startTicketCheckout = async (req: Request, res: Response) => {
       body: {
         matchNumber: data.matchNumber,
         tickets: data.tickets,
-      }
-    });
+      },
+    })
 
-    const stripeSession = await axios.post(`${PAYMENTS_URL}/payments/`, { data: data, ticketIds: ticketIds })
+    const stripeSession = await axios.post(`${PAYMENTS_URL}/payments/`, {
+      data: {
+        ...data,
+        match: check.match,
+      },
+      ticketIds,
+    })
 
     res.status(200).json({ url: stripeSession.data.url })
 
   } catch (e: any) {
-    return res.status(400).json({ message: e.message });
+    return res.status(400).json({ message: e.message })
   }
-};
+}
 
 export default startTicketCheckout

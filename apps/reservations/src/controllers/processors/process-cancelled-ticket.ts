@@ -13,14 +13,16 @@ const processCancelledTicket = async (req: Request, res: Response) => {
       select: {
         id: true,
         pending: true,
+        available: true,
       },
-    });
+    })
 
     if (!cancelledTickets) {
       return res.status(400).json({ message: 'there are no available tickets such as these' })
     }
 
-    const newCancelled = cancelledTickets.pending - message.body.tickets.quantity;
+    const newCancelled = cancelledTickets.pending - message.body.tickets.quantity
+    const newAvailable = cancelledTickets.available + message.body.tickets.quantity
 
     if (newCancelled < 0) {
       return res.status(400).json({ message: 'Cannot cancel ticket sales as new value is lower than zero' })
@@ -32,14 +34,15 @@ const processCancelledTicket = async (req: Request, res: Response) => {
       },
       data: {
         pending: newCancelled,
+        available: newAvailable,
       },
-    });
+    })
 
     res.status(200).json(tickets)
   } catch (error: any) {
     res.status(400).json({ message: error.message })
   }
 
-};
+}
 
 export default processCancelledTicket

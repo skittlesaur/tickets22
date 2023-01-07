@@ -1,54 +1,54 @@
-const axios = require("axios");
-import { RESERVATIONS_URL } from "../constants";
+const axios = require('axios')
+import { RESERVATIONS_URL } from '../constants'
 
 export const processPendingTicket = async (message: any) => {
   try {
     const ticketPending = await axios.post(
       `${RESERVATIONS_URL}/tickets/processors/pending`,
-      message
-    );
+      message,
+    )
 
-    console.log("tickets have been sent to pending processor")
+    console.log('processed pending ticket', message)
   } catch (error: any) {
-    console.log(error)
+    console.log('failed processing pending:', error?.response?.data)
   }
-};
+}
 
 export const processCancelledTicket = async (message: any) => {
   try {
     const ticketCancelled = await axios.post(
       `${RESERVATIONS_URL}/tickets/processors/cancelled`,
-      message
-    );
+      message,
+    )
 
-    console.log("tickets have been sent to cancellation processor");
+    console.log('processed cancelled ticket', message)
   } catch (error: any) {
-    console.log(error.response);
+    console.log('failed processing cancelled:', error?.response?.data)
   }
-};
+}
 
 export const processReservedTicket = async (message: any) => {
   try {
     const ticketPending = await axios.post(
       `${RESERVATIONS_URL}/tickets/processors/reserved`,
-      message
-    );
+      message,
+    )
 
-    console.log("tickets have been sent to reservation processor");
+    console.log('processed reserved ticket', message)
   } catch (error: any) {
-    console.log(error.response);
+    console.log('failed processing reserved:', error?.response?.data)
   }
-};
+}
 
 export const processMasterlist = async (message: any) => {
   try {
-    const ticketPending = await axios.post(
+    const masterList = await axios.post(
       `${RESERVATIONS_URL}/tickets/processors/update`,
-      message
-    );
+      message,
+    )
 
-    console.log("tickets have been sent to masterlist processor");
+    console.log('proceed masterlist', message.data)
   } catch (error: any) {
-    console.log(error.response);
+    console.log('failed processing masterlist:', error?.response?.data)
   }
-};
+}

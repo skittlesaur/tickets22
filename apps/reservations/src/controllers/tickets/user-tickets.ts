@@ -11,6 +11,7 @@ const select = {
   status: true,
   ipAddress: true,
   email: true,
+  stripeCheckoutUrl: true,
   match: {
     select: {
       matchNumber: true,
@@ -45,6 +46,9 @@ const getUserTickets = async (prisma: PrismaClient, user?: User) => {
       ],
     },
     select,
+    orderBy: {
+      createdAt: 'desc',
+    }
   })
 
   return tickets
@@ -66,6 +70,9 @@ const getImportedTickets = async (prisma: PrismaClient, req: Request, userTicket
       },
     },
     select,
+    orderBy: {
+      createdAt: 'desc',
+    }
   })
 
   return tickets.filter((ticket) => ticketIds.includes(ticket.id) && !userTickets.some((userTicket) => userTicket.id === ticket.id))
@@ -79,6 +86,9 @@ const getIpTickets = async (prisma: PrismaClient, req: Request, userTickets: any
       ipAddress,
     },
     select,
+    orderBy: {
+      createdAt: 'desc',
+    }
   })
 
   return tickets.filter((ticket) => !userTickets.some((userTicket) => userTicket.id === ticket.id) && !importedTickets.some((importedTicket) => importedTicket.id === ticket.id))

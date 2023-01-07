@@ -34,7 +34,6 @@ export const getServerSideProps = async () => {
       },
     }
   } catch (e) {
-    console.log(e)
     return { props: { matches: null, upcoming: null } }
   }
 }

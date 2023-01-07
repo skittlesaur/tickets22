@@ -4,36 +4,43 @@ const processPendingTicket = async (req: Request, res: Response) => {
   try {
     const message = req.body
 
-    const pendingTickets = await req.context.prisma.availableTickets.findFirst({
+    const tickets = await req.context.prisma.availableTickets.findFirst({
       where: {
         matchNumber: message.body.matchNumber,
         category: { equals: message.body.tickets.category },
       },
       select: {
         id: true,
+        available: true,
         pending: true,
       },
-    });
+    })
 
-    if (!pendingTickets) {
-      return res.status(400).json({ message: 'there are no available tickets such as these' })
+    if (!tickets) {
+      return res.status(400).json({
+        message: 'No tickets available',
+      })
     }
 
-    const newPending = pendingTickets.pending + message.body.tickets.quantity;
+    const newPending = tickets.pending + message.body.tickets.quantity
+    const newAvailable = tickets.available - message.body.tickets.quantity
 
-    const tickets = await req.context.prisma.availableTickets.update({
+    await req.context.prisma.availableTickets.update({
       where: {
-        id: pendingTickets.id,
+        id: tickets.id,
       },
       data: {
         pending: newPending,
+        available: newAvailable,
       },
-    });
+    })
 
-    res.status(200).json(tickets)
+    res.status(200).json({
+      message: 'Pending ticket processed',
+    })
   } catch (error: any) {
     res.status(400).json({ message: error.message })
   }
-};
+}
 
 export default processPendingTicket

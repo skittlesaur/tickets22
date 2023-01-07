@@ -35,7 +35,6 @@ export const getServerSideProps = async (context: GetStaticPropsContext) => {
       }
     }
   } catch (e) {
-    console.log(e)
     return { props: { match: null }, redirect: { destination: '/matches', permanent: false } }
   }
 }

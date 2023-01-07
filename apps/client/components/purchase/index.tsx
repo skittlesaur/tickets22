@@ -134,6 +134,8 @@ const Purchase = ({ match }: PurchaseProps) => {
 
     if (quantity < 1) return toast.error('Quantity must be greater than 0')
 
+    if(quantity > 2) return toast.error('Quantity cannot be greater than 2')
+
     if (quantity > categoryData[ticketType].available) return toast.error('Not enough tickets available')
 
     if (step === 1) return setStep(2)
@@ -153,9 +155,6 @@ const Purchase = ({ match }: PurchaseProps) => {
       ticketType,
       quantity,
     })
-
-    if (!emailRegex.test(email))
-      return toast.error('Please enter a valid email')
   }
 
   return (
