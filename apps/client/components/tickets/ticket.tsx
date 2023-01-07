@@ -17,9 +17,7 @@ const Ticket = ({ ticket }: any) => {
 
   return (
     <Link
-      href={ticket.status === 'PURCHASED' ? `/tickets/${ticket.id}` :
-        ticket.status === 'PENDING' ? ticket.stripeCheckoutUrl :
-          '/tickets'}
+      href={ticket.status === 'PURCHASED' ? `/tickets/${ticket.id}` : ticket.stripeCheckoutUrl}
       className="group flex flex-col gap-4 md:flex-row items-center justify-between bg-gray-100 dark:bg-gray-900 w-full px-8 py-4 rounded-lg border border-gray-200 dark:border-gray-800 dark:hover:border-gray-600 hover:shadow-md hover:border-gray-300 transition-all duration-300 ease-in-out"
     >
       <div className="flex items-center gap-4">
