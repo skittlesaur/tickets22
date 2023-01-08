@@ -16,12 +16,7 @@ yarn install
 Tickets22 uses [MongoDB](https://www.mongodb.com/) as the database. Make sure you have MongoDB installed and running on
 your machine or through a cloud service.
 
-Create a `.env` file in the root directory and add the following environment variables:
-
-```bash
-DATABASE_URL=mongodb://localhost:27017/tickets22
-JWT_SECRET=your_jwt_secret
-```
+Check out the `constats.ts` file of each project to configure the required environment variables.
 
 To start the application, run the following command:
 
@@ -45,10 +40,6 @@ The monorepo uses the following ports:
 - Analytics: 3030
 - Payments: 3040
 - Security: 3050
-
-## Contributing
-
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 ## Authors
 
