@@ -22,7 +22,6 @@ describe('tickets', () => {
         const res = await supertest(app).get(`/tickets/match/${match.matchNumber}/available`)
 
         expect(res.status).toBe(200)
-        console.log(res.body)
 
         expect(res.body).toHaveLength(3)
 
@@ -110,7 +109,6 @@ describe('tickets', () => {
 
         const res = await supertest(app).get(`/tickets`).set('Authorization', `Bearer ${user.apiKey}`)
         expect(res.status).toEqual(200)
-        console.log(tickets, res.body)
         expect(res.body.userTickets).toHaveLength(tickets.length)
 
         tickets.forEach((ticket) => {

@@ -22,6 +22,7 @@ export const kafkaMessage = (reservation: any) => {
         .unknown(false),
       body: Joi.object()
         .keys({
+          id: Joi.number().strict(),
           matchNumber: Joi.number().required(),
           tickets: Joi.object()
             .keys({
