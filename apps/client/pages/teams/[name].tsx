@@ -9,8 +9,8 @@ const TeamSpecificPage = ({ team }: any) => {
   return (
     <AppLayout activePage="Teams" isFullWidth noPaddingY>
       <Seo
-        title={`${team.name}`}
-        description={`Check out ${team.name} team page`}
+        title={`${team.name} Squad and Fixtures for FIFA World Cup 2022`}
+        description={`Discover the ${team.name} national team's full squad, key players, and the exciting fixtures they'll be playing in the highly anticipated FIFA World Cup 2022 tournament. Stay updated with all the action and results.`}
       />
       <Team team={team} />
     </AppLayout>

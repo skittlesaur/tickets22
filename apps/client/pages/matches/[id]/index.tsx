@@ -15,6 +15,7 @@ const MatchPage = ({ match }: MatchPageProps) => {
     <AppLayout isFullWidth activePage="Matches">
       <Seo
         title={`${match.homeTeam.name} vs ${match.awayTeam.name}`}
+        description={`Discover the ${match.homeTeam.name} vs ${match.awayTeam.name} match details, including the date, time, and venue. Stay updated with all the action and results.`}
       />
       <Match match={match} />
     </AppLayout>
